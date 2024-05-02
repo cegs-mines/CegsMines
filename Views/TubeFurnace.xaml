@@ -23,7 +23,7 @@
                    Background="Gray" BorderBrush="{DynamicResource EdgeBrush}" BorderThickness="1">
             <Border Width="51" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Background="OrangeRed" Padding="2" Margin="2">
-                <v:OvenTemperature Component="{Binding Component}" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+                <v:OvenTemperature Component="{Binding Component}" HorizontalAlignment="Center" />
             </Border>
         </Border>
     </Grid>

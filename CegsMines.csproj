@@ -58,11 +58,11 @@
 		</None>
 		<None Update="Installation\Credentials.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<TargetPath>%(Filename)%(Extension)</TargetPath>
+			<TargetPath>%(Filename).installation%(Extension)</TargetPath>
 		</None>
 		<None Update="Installation\Preferences.xaml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<TargetPath>%(Filename)%(Extension)</TargetPath>
+			<TargetPath>%(Filename).installation%(Extension)</TargetPath>
 		</None>
 		<None Update="Installation\CO2 eq.dat">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
