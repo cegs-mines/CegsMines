@@ -1,0 +1,97 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Title>Aeon Laboratories Application for Aeon's CegsMines</Title>
+		<Description>HACS-based Carbon Extraction and Graphitization System</Description>
+        <Company>Aeon Laboratories</Company>
+        <Authors>Jim Wilson, Tyler Wilson</Authors>
+        <Copyright>$(Company), 2022</Copyright>
+        <AssemblyName>CegsMines</AssemblyName>
+		<RepositoryUrl>https://github.com/AeonLaboratories/CegsMines</RepositoryUrl>
+		<Version>1.0.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+
+		<UseWPF>true</UseWPF>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<Deterministic>true</Deterministic>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(OutputPath)</DocumentationFile>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>AeonHacs.$(AssemblyName)</PackageId>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>		
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<ApplicationIcon>keg.ico</ApplicationIcon>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="keg.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\WpfControls\WpfControls.ColorPicker\WpfControls.ColorPicker.csproj" />
+	  <ProjectReference Include="..\..\WpfControls\WpfControls.Core\WpfControls.Core.csproj" />
+	  <ProjectReference Include="..\..\WpfControls\WpfControls.NumericUpdown\WpfControls.NumericUpDown.csproj" />
+	  <ProjectReference Include="..\..\WpfControls\WpfControls.Viewport\WpfControls.Viewport.csproj" />
+	  <ProjectReference Include="..\AeonHacs.Core\AeonHacs.Core.csproj" />
+	  <ProjectReference Include="..\AeonHacs.Wpf\AeonHacs.Wpf.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="LJUDDotNet">
+	    <HintPath>Installation\LJUDDotNet.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--<None Update="Installation/*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>-->
+		<None Update="Installation\settings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename).installation%(Extension)</TargetPath>
+		</None>
+		<None Update="Installation\Credentials.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+		<None Update="Installation\Preferences.xaml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+		<None Update="Installation\CO2 eq.dat">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+		<None Update="Installation\update code.cmd">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update=".git">
+			<Visible>False</Visible>
+		</None>
+		<None Update=".gitattributes">
+			<Visible>False</Visible>
+		</None>
+		<None Update=".gitignore">
+			<Visible>False</Visible>
+		</None>
+	</ItemGroup>
+</Project>
