@@ -48,10 +48,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<None Update="Installation/*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<TargetPath>%(Filename)%(Extension)</TargetPath>
-		</None>-->
 		<None Update="Installation\settings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<TargetPath>%(Filename).installation%(Extension)</TargetPath>
