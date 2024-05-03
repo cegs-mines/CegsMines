@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using static AeonHacs.Components.CegsPreferences;
 using static AeonHacs.Utilities.Utility;
 
@@ -81,6 +82,9 @@ namespace AeonHacs.Components
             Power = Find<Power>("Power");
             Ambient = Find<Chamber>("Ambient");
 
+            VacuumSystem1 = Find<VacuumSystem>("VacuumSystem1");
+            VacuumSystem2 = Find<VacuumSystem>("VacuumSystem2");
+
             IM = Find<Section>("IM");
             VTT = Find<Section>("VTT");
             MC = Find<Section>("MC");
@@ -112,11 +116,9 @@ namespace AeonHacs.Components
             VS1All = Find<Section>("VS1All");
             VS2All = Find<Section>("VS2All");
             CA1 = Find<SableCA10>("CA1");
-            TF1 = Find<SerialTubeFurnace>("TF1");
+            TF1 = Find<TcpTubeFurnace>("TF1");
 
             VTT.Clean = () => Clean(VTT);
-
-
         }
         #endregion HacsComponent
 
@@ -128,7 +130,10 @@ namespace AeonHacs.Components
         #endregion Component lists
 
         #region HacsComponents
+        public virtual IVacuumSystem VacuumSystem2 { get; set; }
+        public virtual DataLog VM2PressureLog { get; set; }
         public DataLog GRSTLog { get; set; }
+
         public GraphiteReactor GR1;
         public GraphiteReactor GR2;
         public GraphiteReactor GR3;
@@ -148,7 +153,7 @@ namespace AeonHacs.Components
         public virtual ISection VS2All { get; set; }
 
         public SableCA10 CA1 { get; set; }
-        public SerialTubeFurnace TF1 { get; set; }
+        public TcpTubeFurnace TF1 { get; set; }
 
         #endregion HacsComponents
         #endregion System configuration
@@ -268,25 +273,14 @@ namespace AeonHacs.Components
         protected virtual void CloseGasSupplies()
         {
             ProcessSubStep.Start("Close gas supplies");
-            bool isCegsGasSupply(GasSupply gs) =>
-                VacuumSystems.ContainsValue(gs.Destination.VacuumSystem);
 
-            foreach (GasSupply g in GasSupplies.Values)
-            {
-                // Look only in CEGS vacuum systems; ignore other process managers
-                if (isCegsGasSupply(g))
-                    g.ShutOff();
-            }
-
+            // Look only in CEGS vacuum systems; ignore other process managers
+            var cegsGasSupplies = GasSupplies.Values.Where(gs => VacuumSystems.ContainsValue(gs.Destination.VacuumSystem)).ToList();
+            cegsGasSupplies.ForEach(gs => gs.ShutOff());
             // close gas flow valves after all shutoff valves are closed
-            foreach (GasSupply g in GasSupplies.Values)
-            {
-                if (isCegsGasSupply(g))
-                    g.FlowValve?.CloseWait();
-            }
+            cegsGasSupplies.ForEach(gs => gs.FlowValve?.CloseWait());
 
             ProcessSubStep.End();
-
         }
 
         protected override void OpenLine() =>
