@@ -1,47 +1,37 @@
-﻿<v:View x:Class="CegsMines.Views.IM"
+﻿<wpf:View x:Class="CegsMines.Views.IM"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:CegsMines.Views"
-    xmlns:wpf="clr-namespace:AeonHacs.Wpf;assembly=AeonHacs.Wpf"
-    xmlns:v="clr-namespace:AeonHacs.Wpf.Views;assembly=AeonHacs.Wpf"
-    xmlns:c="clr-namespace:AeonHacs.Wpf.Converters;assembly=AeonHacs.Wpf"
+    xmlns:wpf="http://schemas.aeonhacs.com/wpf"
     mc:Ignorable="d"
     Background="{x:Null}"
     >
 
     <Canvas Width="250" Height="139">
-        <v:Chamber Canvas.Right="0" Canvas.Top="0"
+        <wpf:Chamber Canvas.Right="0" Canvas.Top="0"
             Data="M17.5,0.5 v86 M0.5,43.5 h17 M0.5,69.5 h17 M17.5,17.5 h69 M43.5,17.5 v121 M69.5,17.5 v-17" 
-            v:View.Component="Section.IM" AutomationProperties.HelpText="Inlet manifold" HorizontalAlignment="Left" Canvas.Left="163" VerticalAlignment="Center" />
+            wpf:View.Component="Section.IM" AutomationProperties.HelpText="Inlet manifold" HorizontalAlignment="Left" Canvas.Left="163" VerticalAlignment="Center" />
         <Rectangle Style="{DynamicResource FittingShapeStyle}" Width="5" Height="3" Canvas.Right="67" Canvas.Top="-2" IsHitTestVisible="False"/>
         <Rectangle Style="{DynamicResource FittingShapeStyle}" Width="5" Height="3" Canvas.Right="67" Canvas.Top="86" IsHitTestVisible="False"/>
 
 
         <Grid Canvas.Right="43.5" Canvas.Top="13" Background="Transparent" ClipToBounds="True" RenderTransform="{wpf:AnchorTransform BottomCenter}"
-            v:View.Component="pIM" AutomationProperties.HelpText="Inlet manifold pressure">
-            <v:PortPressureSensor IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5"/>
-            <v:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" IsHitTestVisible="False"
+            wpf:View.Component="pIM" AutomationProperties.HelpText="Inlet manifold pressure">
+            <wpf:PortPressureSensor IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5"/>
+            <wpf:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" IsHitTestVisible="False"
                 Component="pIM" ContentStringFormat="0"/>
         </Grid>
 
-        <Border Canvas.Right="81" Canvas.Top="36" Width="23" Height="67"
-            v:View.Component="IpFan1" AutomationProperties.HelpText="Trap fan for IP1, IP2" 
-            BorderBrush="{DynamicResource EdgeBrush}" BorderThickness="1"
-            wpf:HacsViewProperties.BackgroundResourceKey="{Binding (v:View.Component).Fan.IsOn, RelativeSource={RelativeSource Self}, Converter={x:Static c:BoolToResourceKeyConverter.Default}, FallbackValue=OffBrush}" HorizontalAlignment="Left" Canvas.Left="120" VerticalAlignment="Center" />
-        <Rectangle Style="{DynamicResource GlassShapeStyle}" Width="5" Height="7" Stretch="Fill" Canvas.Left="62" Canvas.Top="66" />
-        <local:IP Canvas.Right="86" Canvas.Top="59" Component="IP2" HelpText="Inlet port 2" />
-        <StackPanel Height="21" Canvas.Right="86" Canvas.Top="33"  FlowDirection="RightToLeft" Orientation="Horizontal">
-            <v:Valve Component="vIP1_IM" HelpText="Inlet port 1" VerticalAlignment="Center"/>
-            <Rectangle Style="{DynamicResource FittingShapeStyle}"
-                   Width="5" Height="5" Canvas.Left="141" Canvas.Top="67" Margin="-1"/>
-            <v:UTUnion LayoutTransform="{DynamicResource Left}" />
-            <Grid>
-                <Rectangle Style="{DynamicResource GlassShapeStyle}" Width="62" Height="7" Margin="-1" Stretch="Fill"/>
-                <v:Heater Component="hIP1CCQ" HelpText="IP1 Combustion Chamber Quartz Furnace"  Margin="6,0,0,0" FlowDirection="LeftToRight"/>
-            </Grid>
-            <TextBlock VerticalAlignment="Center" Margin="2,0,0,0"/>
-        </StackPanel>
+        <wpf:Switch Component="IpFan1" IsOn="{Binding Component.Fan.IsOn, RelativeSource={RelativeSource Self}}" HelpText="Trap fan for IP1, IP2"
+                    Canvas.Right="110" Canvas.Top="36" Width="23" Height="67" />
+
+        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP1" d:QuartzFurnace=""
+                       Canvas.Right="86" Canvas.Top="33" />
+
+        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP1" d:QuartzFurnace="" d:SampleFurnace=""
+                       Canvas.Right="86" Canvas.Top="59" />
+
     </Canvas>
-</v:View>
+</wpf:View>

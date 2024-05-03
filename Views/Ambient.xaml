@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CegsMines.Views"
-             xmlns:v="clr-namespace:AeonHacs.Wpf.Views;assembly=AeonHacs.Wpf"
+             xmlns:wpf="http://schemas.aeonhacs.com/wpf"
              mc:Ignorable="d">
     <!--Ambient-->
     <Grid Canvas.Left="107" Canvas.Top="102.5" Background="Transparent"
@@ -18,11 +18,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <v:Temperature Grid.Row="0" Grid.Column="0" Component="tAmbient" HelpText="Ambient temperature"
+        <wpf:Temperature Grid.Row="0" Grid.Column="0" Component="tAmbient" HelpText="Ambient temperature"
                         ContentStringFormat="0.0" />
-        <v:Pressure Grid.Row="1" Grid.Column="0" Component="pAmbient" HelpText="Ambient pressure"
+        <wpf:Pressure Grid.Row="1" Grid.Column="0" Component="pAmbient" HelpText="Ambient pressure"
                         ContentStringFormat="0" />
-        <Label Grid.Column="1" Padding="1,0.5" Margin="2,0,0,0" Content="°C" v:View.Component="tAmbient"
+        <Label Grid.Column="1" Padding="1,0.5" Margin="2,0,0,0" Content="°C" wpf:View.Component="tAmbient"
                         AutomationProperties.HelpText="Ambient temperature" />
         <TextBlock Text="Ambient" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center"
                    Grid.Row="2"/>

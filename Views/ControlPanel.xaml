@@ -1,29 +1,26 @@
-﻿<v:ControlPanel x:TypeArguments="cegs:CegsMines" x:Class="CegsMines.Views.ControlPanel"
+﻿<wpf:ControlPanel x:TypeArguments="cegs:CegsMines" x:Class="CegsMines.Views.ControlPanel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:cegs="clr-namespace:AeonHacs.Components"
         xmlns:local="clr-namespace:CegsMines.Views"
-        xmlns:wpf="clr-namespace:AeonHacs.Wpf;assembly=AeonHacs.Wpf"
-        xmlns:v="clr-namespace:AeonHacs.Wpf.Views;assembly=AeonHacs.Wpf"
-        xmlns:b="clr-namespace:AeonHacs.Wpf.Behaviors;assembly=AeonHacs.Wpf"
-        xmlns:c="clr-namespace:AeonHacs.Wpf.Converters;assembly=AeonHacs.Wpf"
+        xmlns:wpf="http://schemas.aeonhacs.com/wpf"
         mc:Ignorable="d">
 
-    <v:ControlPanel.Resources>
-        <c:TimeSpanToStringConverter x:Key="TimeSpanConverter" />
-        <c:ProcessStateToVisibilityConverter x:Key="ProcessStateConverter" />
-        <c:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <c:ToStringConverter x:Key="ToStringConverter" />
-    </v:ControlPanel.Resources>
+    <wpf:ControlPanel.Resources>
+        <wpf:TimeSpanToStringConverter x:Key="TimeSpanConverter" />
+        <wpf:ProcessStateToVisibilityConverter x:Key="ProcessStateConverter" />
+        <wpf:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <wpf:ToStringConverter x:Key="ToStringConverter" />
+    </wpf:ControlPanel.Resources>
 
     <!--==============================================-->
     <!-- The display space -->
     <!--==============================================-->
     <Grid>
         <!-- Simplify references to CEGS properties -->
-        <v:View x:Name="Cegs" Component="MinesCegs" Visibility="Collapsed" />
+        <wpf:View x:Name="Cegs" Component="MinesCegs" Visibility="Collapsed" />
 
         <!-- System Uptime -->
         <StackPanel Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -131,10 +128,10 @@
             <!-- Schematic Interface -->
             <!--==============================================-->
             <Canvas DockPanel.Dock="Bottom" Width="1111" Height="500" Margin="30,0,60,60" >
-                <!--<Canvas Background="{DynamicResource FittingGrid}" Width="863" Height="500" Canvas.Left="-24" Opacity="0.2"/>-->
+                <Canvas Background="{DynamicResource FittingGrid}" Width="863" Height="500" Canvas.Left="-24" Opacity="0.2"/>
                 <local:TF Canvas.Left="0" Canvas.Top="70" HorizontalAlignment="Center" />
                 <local:FTG Canvas.Left="150" Canvas.Top="174" HorizontalAlignment="Center" />
-                <local:VS Canvas.Left="413" Canvas.Top="281" />
+                <local:VS1 Canvas.Left="413" Canvas.Top="281" />
                 <local:Ambient Canvas.Left="627" Canvas.Top="427" HorizontalAlignment="Center" VerticalAlignment="Top" />
                 <local:VS2 Canvas.Left="670" Canvas.Top="281" />
                 <local:IM Canvas.Left="216" Canvas.Top="143" />
@@ -147,15 +144,15 @@
                 <local:AM Canvas.Left="925" Canvas.Top="-8" VerticalAlignment="Center" />
                 <local:GM Canvas.Left="899" Canvas.Top="174" VerticalAlignment="Center" />
 
-                <v:Valve HelpText="IM-CTF valve" Component="vIM_CTF" Canvas.Left="465" Canvas.Top="151" />
-                <v:Valve HelpText="CTO-VTT valve" Component="vCTO_VTT" Canvas.Left="699" Canvas.Top="151" VerticalAlignment="Center" />
-                <v:Valve HelpText="VTT-MC valve" Component="vVTT_MC" Canvas.Left="751" Canvas.Top="151" VerticalAlignment="Center" />
-                <v:Valve HelpText="MC-Split valve" Component="vMC_Split" Canvas.Left="803" Canvas.Top="151" VerticalAlignment="Center" />
-                <v:Valve HelpText="Split-d13C valve" Component="vSplit_d13C" Canvas.Left="855" Canvas.Top="151" VerticalAlignment="Center" />
-                <v:Valve HelpText="d13C-AM valve" Component="vd13C_AM" Canvas.Left="907" Canvas.Top="151" VerticalAlignment="Center" />
-                <v:Valve HelpText="Split-GM valve" Component="vSplit_GM" Canvas.Left="881" Canvas.Top="255" VerticalAlignment="Center" />
+                <wpf:Valve HelpText="IM-CTF valve" Component="vIM_CTF" Canvas.Left="465" Canvas.Top="151" d:ValveState="Opened" />
+                <wpf:Valve HelpText="CTO-VTT valve" Component="vCTO_VTT" Canvas.Left="699" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="VTT-MC valve" Component="vVTT_MC" Canvas.Left="751" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="MC-Split valve" Component="vMC_Split" Canvas.Left="803" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="Split-d13C valve" Component="vSplit_d13C" Canvas.Left="855" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="d13C-AM valve" Component="vd13C_AM" Canvas.Left="907" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="Split-GM valve" Component="vSplit_GM" Canvas.Left="881" Canvas.Top="255" VerticalAlignment="Center" d:ValveState="Opened" />
 
             </Canvas>
         </DockPanel>
     </Grid>
-</v:ControlPanel>
+</wpf:ControlPanel>
