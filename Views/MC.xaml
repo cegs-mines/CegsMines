@@ -60,7 +60,7 @@
             <Label Content="μgC" Padding="1,0.5" HorizontalAlignment="Center" IsHitTestVisible="False" />
             <wpf:CustomGauge Style="{StaticResource StableGaugeStyle}"
                              Component="ugCinMC" DisplayMemberPath="Value" HelpText="micrograms of carbon in the measurement chamber"
-                             d:Content="1200.0">
+                             ContentStringFormat="0.0" d:Content="1200.0">
             </wpf:CustomGauge>
         </StackPanel>
 

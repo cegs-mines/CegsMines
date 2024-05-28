@@ -1,5 +1,5 @@
 @echo off
-if [%1]==[] %0 ""C:\Data\Source\DevStudio\AeonHacs\CegsMines\bin\Release""
+if [%1]==[] %0 C:\Data\Source\DevStudio\AeonHacs\CegsMines\bin\Release
 C:
 CD "\Programs\Aeon Laboratories\CegsMines"
 copy "%*\*.exe" > nul

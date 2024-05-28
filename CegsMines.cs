@@ -1,9 +1,8 @@
 ﻿using AeonHacs.Utilities;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using static AeonHacs.Components.CegsPreferences;
 using static AeonHacs.Utilities.Utility;
 
@@ -108,52 +107,300 @@ namespace AeonHacs.Components
 
             #endregion Cegs options
 
-            CT = Find<Section>("CT");
-            IM_CT = Find<Section>("IM_CT");
-            CT_VTT = Find<Section>("CT_VTT");
+            // Sections
+            VM1 = Find<Section>("VM1");
+            VM2 = Find<Section>("VM2");
+            TF = Find<Section>("TF");
+            CA = Find<Section>("CA");
+            CTF = Find<Section>("CTF");
+            CT1 = Find<Section>("CT1");
+            CT2 = Find<Section>("CT2");
+            d13C = Find<Section>("d13C");
+            AM = Find<Section>("AM");
+            FTG = Find<Section>("FTG");
+            IP1 = Find<Section>("IP1");
+            IP2 = Find<Section>("IP2");
+
+            TF_IP1 = Find<Section>("TF_IP1");
+            FTG_TF = Find<Section>("FTG_TF");
+            FTG_IP1 = Find<Section>("FTG_IP1");
+            FTG_IP2 = Find<Section>("FTG_IP2");
+            IM_CTF = Find<Section>("IM_CTF");
+            IM_CA_CTF = Find<Section>("IM_CTF");
+            IM_CT1 = Find<Section>("IM_CT1");
+            IM_CT2 = Find<Section>("IM_CT2");
+            IM_CA_CT1 = Find<Section>("IM_CA_CT1");
+            IM_CA_CT2 = Find<Section>("IM_CA_CT2");
+            CTF_CT1 = Find<Section>("CTF_CT1");
+            CTF_CT2 = Find<Section>("CTF_CT2");
+            CT1_CTO = Find<Section>("CT1_CTO");
+            CT2_CTO = Find<Section>("CT2_CTO");
+            CT1_VTT = Find<Section>("CT1_VTT");
+            CT2_VTT = Find<Section>("CT2_VTT");
+
             MC_GM = Find<Section>("MC_GM");
 
             VS1All = Find<Section>("VS1All");
             VS2All = Find<Section>("VS2All");
+
             CA1 = Find<SableCA10>("CA1");
             TF1 = Find<TcpTubeFurnace>("TF1");
-
-            VTT.Clean = () => Clean(VTT);
+            LnScale1 = Find<LnScale>("LnScale1");
+            IpOvenRamper = Find<OvenRamper>("IpOvenRamper");
+            pAmbient = Find<AIManometer>("pAmbient");
+            FTG_TFFlowManager = Find<FlowManager>("FTG_TFFlowManager");
+            FTG_IMFlowManager = Find<FlowManager>("FTG_IMFlowManager");
+            TFFlowManager = Find<FlowManager>("TFFlowManager");
         }
         #endregion HacsComponent
 
         #region System configuration
         #region Component lists
-        [JsonProperty] public Dictionary<string, TubeFurnace> TubeFurnaces { get; set; }
-        [JsonProperty] public Dictionary<string, SableCA10> Analyzers { get; set; }
-        [JsonProperty] public Dictionary<string, LnScale> LnScales { get; set; }
         #endregion Component lists
 
         #region HacsComponents
+
+        [JsonProperty]
+
+        // TODO: Many of these can be omitted (along with the code that uses them)
+        // by changing logged properties from doubles to NamedValues. See
+        // SableCA10.cs for examples.
         public virtual IVacuumSystem VacuumSystem2 { get; set; }
         public virtual DataLog VM2PressureLog { get; set; }
         public DataLog GRSTLog { get; set; }
+        public GraphiteReactor GR1 { get; set; }
+        public GraphiteReactor GR2 { get; set; }
+        public GraphiteReactor GR3 { get; set; }
+        public GraphiteReactor GR4 { get; set; }
+        public GraphiteReactor GR5 { get; set; }
+        public GraphiteReactor GR6 { get; set; }
+        public HC6Controller HeaterController1 { get; set; }
+        public HC6Controller HeaterController2 { get; set; }
+        public HC6Controller HeaterController3 { get; set; }
+        public HC6Controller HeaterController4 { get; set; }
 
-        public GraphiteReactor GR1;
-        public GraphiteReactor GR2;
-        public GraphiteReactor GR3;
-        public GraphiteReactor GR4;
-        public GraphiteReactor GR5;
-        public GraphiteReactor GR6;
-
-        public HC6Controller HeaterController1;
-        public HC6Controller HeaterController2;
-        public HC6Controller HeaterController3;
-        public HC6Controller HeaterController4;
+        /// <summary>
+        /// The amount of carbon in the Measurement Chamber.
+        /// </summary>
         public virtual double umolCinMC => ugCinMC.Value / gramsCarbonPerMole;
-        public virtual ISection IM_CT { get; set; }
-        public virtual ISection CT_VTT { get; set; }
-        public virtual ISection MC_GM { get; set; }
-        public virtual ISection VS1All { get; set; }
-        public virtual ISection VS2All { get; set; }
 
+
+        #region Sections
+
+        /// <summary>
+        /// The CT section, either CT1 or CT2, from which the CEGS should transfer the sample to the VTT.
+        /// </summary>
+        public override ISection CT
+        {
+            get => ct ?? CurrentCT;
+            set => ct = value;
+        }
+        ISection ct;
+
+        /// <summary>
+        /// The sample gas collection path; one of IM_CT1, IM_CT2, IM_CA_CT1, IM_CA_CT2;
+        /// </summary>
+        public ISection IM_CT { get; set; }
+
+        /// <summary>
+        /// Vacuum Manifold 1 (Inlets)
+        /// </summary>
+        public ISection VM1{ get; set; }
+
+        /// <summary>
+        /// Vacuum Manifold 2 (CEGS)
+        /// </summary>
+        public ISection VM2 { get; set; }
+
+        /// <summary>
+        /// Tube furnace section
+        /// </summary>
+        public ISection TF { get; set; }
+
+        /// <summary>
+        /// CO2 Analyzer section
+        /// </summary>
+        public ISection CA { get; set; }
+
+        /// <summary>
+        /// Coil Trap Flow section
+        /// </summary>
+        public ISection CTF { get; set; }
+
+        /// <summary>
+        /// Coil Trap 1 section
+        /// </summary>
+
+        public ISection CT1 { get; set; }
+
+        /// <summary>
+        /// Coil Trap 2 section
+        /// </summary>
+        public ISection CT2 { get; set; }
+
+        /// <summary>
+        /// d13C section
+        /// </summary>
+        public ISection d13C { get; set; }
+
+        /// <summary>
+        /// Auxiliary Manifold section (vial port manifold)
+        /// </summary>
+        public ISection AM { get; set; }
+
+        /// <summary>
+        /// Flow-Through Gas section
+        /// </summary>
+        public ISection FTG { get; set; }
+
+        /// <summary>
+        /// Inlet Port 2 section
+        /// </summary>
+        public ISection IP2 { get; set; }
+
+        /// <summary>
+        /// Inlet Port 1 section
+        /// </summary>
+        public ISection IP1 { get; set; }
+
+
+        /// <summary>
+        /// Tube furnace..Inlet Port 1 section
+        /// </summary>
+        public ISection TF_IP1 { get; set; }
+
+        /// <summary>
+        /// Flow-Through Gas..Tube Furnace section
+        /// </summary>
+        public ISection FTG_TF { get; set; }
+
+        /// <summary>
+        /// Flow-Through Gas..Tube Furnace..Inlet Port 1 section
+        /// </summary>
+        public ISection FTG_IP1 { get; set; }
+
+        /// <summary>
+        /// Flow-Through Gas..Inlet Port 2 section
+        /// </summary>
+        public ISection FTG_IP2 { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..Coil Trap Flow section (bypasses CO2 analyzer)
+        /// </summary>
+        public ISection IM_CTF { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..CO2 Analyzer..Coil Trap Flow section
+        /// </summary>
+        public ISection IM_CA_CTF { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..Coil Trap 1 section (bypasses CO2 Analyzer)
+        /// </summary>
+        public ISection IM_CT1 { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..Coil Trap 2 section (bypasses CO2 Analyzer)
+        /// </summary>
+        public ISection IM_CT2 { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..CO2 analyzer..Coil Trap 1 section
+        /// </summary>
+        public ISection IM_CA_CT1 { get; set; }
+
+        /// <summary>
+        /// Inlet Manifold..CO2 analyzer..Coil Trap 2 section
+        /// </summary>
+        public ISection IM_CA_CT2 { get; set; }
+
+        /// <summary>
+        /// Coil Trap Flow..Coil Trap 1 section
+        /// </summary>
+        public ISection CTF_CT1 { get; set; }
+
+        /// <summary>
+        /// Coil Trap Flow..Coil Trap 2 section
+        /// </summary>
+        public ISection CTF_CT2 { get; set; }
+
+        /// <summary>
+        /// Coil Trap 1..Coil Trap Outlet section
+        /// </summary>
+        public ISection CT1_CTO { get; set; }
+
+        /// <summary>
+        /// Coil Trap 2..Coil Trap Outlet section
+        /// </summary>
+        public ISection CT2_CTO { get; set; }
+
+        /// <summary>
+        /// Coil Trap 1..Variable Temperature Trap section
+        /// </summary>
+        public ISection CT1_VTT { get; set; }
+
+        /// <summary>
+        /// Coil Trap 2..Variable Temperature Trap section
+        /// </summary>
+        public ISection CT2_VTT { get; set; }
+
+        /// <summary>
+        /// Measurement Chamber..Graphite Manifold section
+        /// </summary>
+        public ISection MC_GM { get; set; }
+
+        /// <summary>
+        /// All of the chambers evacuated by Vacuum System 1 (Inlets), except ports
+        /// </summary>
+        public ISection VS1All { get; set; }
+
+        /// <summary>
+        /// All of the chambers evacuated by Vacuum System 2 (CEGS), except ports
+        /// </summary>
+        public ISection VS2All { get; set; }
+
+        #endregion Sections
+
+        /// <summary>
+        /// CO2 analyzer
+        /// </summary>
         public SableCA10 CA1 { get; set; }
+
+        /// <summary>
+        /// Tube furnace
+        /// </summary>
         public TcpTubeFurnace TF1 { get; set; }
+
+        /// <summary>
+        /// Liquid nitrogen scale
+        /// </summary>
+        public LnScale LnScale1 { get; set; }
+
+        /// <summary>
+        /// Ramped temperature controller for Inlet Port
+        /// </summary>
+        public OvenRamper IpOvenRamper { get; set; }
+
+        /// <summary>
+        /// Ambient air pressure.
+        /// </summary>
+        public AIManometer pAmbient { get; set; }
+
+        /// <summary>
+        /// Flow manager for gas (H2 or O2) into the tube furnace.
+        /// </summary>        
+        public FlowManager FTG_TFFlowManager { get; set; }
+
+        /// <summary>
+        /// Flow manager for gas (H2 or O2) through Inlet Port 2 into the Inlet Manifold.
+        /// </summary>
+        public FlowManager FTG_IMFlowManager { get; set; }
+
+        /// <summary>
+        /// Flow manager for gas out of the tube furnace.
+        /// </summary>
+        public FlowManager TFFlowManager { get; set; }
+
 
         #endregion HacsComponents
         #endregion System configuration
@@ -219,6 +466,9 @@ namespace AeonHacs.Components
             ProcessDictionary["Dilute small sample"] = Dilute;
             ProcessDictionary["Graphitize aliquots"] = GraphitizeAliquots;
             ProcessDictionary["Open and evacuate line"] = OpenLine;
+            ProcessDictionary["Open and evacuate VS1"] = OpenVS1Line;
+            ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
+            ProcessDictionary["Open and evacuate VS2"] = OpenVS2Line;
             Separators.Add(ProcessDictionary.Count);
 
             ProcessDictionary["Collect, etc."] = CollectEtc;
@@ -231,13 +481,12 @@ namespace AeonHacs.Components
             ProcessDictionary["Flush Inlet Port"] = FlushIP;
             ProcessDictionary["Admit O2 into Inlet Port"] = AdmitIPO2;
             ProcessDictionary["Heat Quartz and Open Line"] = HeatQuartzOpenLine;
-            ProcessDictionary["Turn off IP furnace"] = TurnOffIPFurnace;
+            ProcessDictionary["Turn off IP furnaces"] = TurnOffIPFurnaces;
             ProcessDictionary["Discard IP gases"] = DiscardIPGases;
             ProcessDictionary["Close IP"] = CloseIP;
             ProcessDictionary["Bleed IP gas through frozen CT"] = FrozenBleed;
             ProcessDictionary["Bleed IP gas through CT (no temperature control)"] = Bleed;
             ProcessDictionary["Evacuate and Freeze VTT"] = FreezeVtt;
-            ProcessDictionary["Clean VTT"] = CleanVtt;
             ProcessDictionary["Admit Dead CO2 into MC"] = AdmitDeadCO2;
             ProcessDictionary["Purify CO2 in MC"] = CleanupCO2InMC;
             ProcessDictionary["Discard MC gases"] = DiscardMCGases;
@@ -246,13 +495,45 @@ namespace AeonHacs.Components
             Separators.Add(ProcessDictionary.Count);
 
             ProcessDictionary["Prepare loaded inlet ports for collection"] = PrepareIPsForCollection;
-            ProcessDictionary["Transfer CO2 from MC to VTT"] = TransferCO2FromMCToVTT;
-            // TODO implement this
-            //			ProcessDictionary["Transfer CO2 from MC to CT"] = TransferCO2FromMCToCT;
-            //            ProcessDictionary["Transfer CO2 from MC to IP"] = TransferCO2FromMCToIP;
             ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
+            ProcessDictionary["Transfer CO2 from MC to VTT"] = TransferCO2FromMCToVTT;
             ProcessDictionary["Transfer CO2 from MC to GR"] = TransferCO2FromMCToGR;
             ProcessDictionary["Transfer CO2 from prior GR to MC"] = TransferCO2FromGRToMC;
+            Separators.Add(ProcessDictionary.Count);
+
+            ProcessDictionary["Wait for timer"] = WaitForTimer;
+            ProcessDictionary["Backfill TF with He"] = BackfillTF1WithHe;
+            ProcessDictionary["Notify to load TF"] = LoadTF;
+            ProcessDictionary["Admit O2 to TF"] = AdmitO2toTF;
+            ProcessDictionary["Include CO2 analyzer"] = IncludeCO2Analyzer;
+            ProcessDictionary["Bypass CO2 analyzer"] = BypassCO2Analyzer;
+            ProcessDictionary["Use IP flow"] = UseIpFlow;
+            ProcessDictionary["No IP flow"] = NoIpFlow;
+            ProcessDictionary["Collect in CT1"] = CollectToCT1;
+            ProcessDictionary["Collect in CT2"] = CollectToCT2;
+            ProcessDictionary["Toggle CT collection"] = ToggleCT;
+            ProcessDictionary["Start collecting"] = StartCollecting;
+            ProcessDictionary["Clear collection conditions"] = ClearCollectionConditions;
+            ProcessDictionary["Collect until condition met"] = CollectUntilConditionMet;
+            ProcessDictionary["Stop collecting"] = StopCollecting;
+            ProcessDictionary["Turn on quartz furnace"] = TurnOnIpQuartzFurnace;
+            ProcessDictionary["Turn off quartz furnace"] = TurnOffIpQuartzFurnace;
+            ProcessDictionary["Adjust sample setpoint"] = AdjustIpSetpoint;
+            ProcessDictionary["Turn on sample furnace"] = TurnOnIpSampleFurnace;
+            ProcessDictionary["Turn off sample furnace"] = TurnOffIpSampleFurnace;
+            ProcessDictionary["Disable sample setpoint ramping"] = DisableIpRamp;
+            ProcessDictionary["Enable sample setpoint ramping"] = EnableIpRamp;
+            ProcessDictionary["Adjust sample ramp rate"] = AdjustIpRampRate;
+            ProcessDictionary["Wait for sample to rise to setpoint"] = WaitIpRiseToSetpoint;
+            ProcessDictionary["Wait for sample to fall to setpoint"] = WaitIpFallToSetpoint;
+            ProcessDictionary["Start flow through to trap"] = StartFlowThroughToTrap;
+            ProcessDictionary["Start flow through to waste"] = StartFlowThroughToWaste;
+            ProcessDictionary["Stop flow-through gas"] = StopFlowThroughGas;
+            ProcessDictionary["Open TF to IP1"] = OpenTF_IP1;            
+            ProcessDictionary["Wait for CEGS to be free"] = WaitForCegs;
+            ProcessDictionary["Start Extract, Etc"] = StartExtractEtc;
+
+            Separators.Add(ProcessDictionary.Count);
             ProcessDictionary["Exercise all Opened valves"] = ExerciseAllValves;
             ProcessDictionary["Close all Opened valves"] = CloseAllValves;
             ProcessDictionary["Exercise all LN Manifold valves"] = ExerciseLNValves;
@@ -263,13 +544,13 @@ namespace AeonHacs.Components
             ProcessDictionary["Check GR H2 density ratios"] = CalibrateGRH2;
             ProcessDictionary["Measure Extraction efficiency"] = MeasureExtractEfficiency;
             ProcessDictionary["Measure IP collection efficiency"] = MeasureIpCollectionEfficiency;
-            ProcessDictionary["Test"] = Test;
 
+            Separators.Add(ProcessDictionary.Count);
+            ProcessDictionary["Test"] = Test;
             base.BuildProcessDictionary();
         }
 
-        protected virtual void CleanVtt() => VTT.Clean();
-
+        #region OpenLine
         protected virtual void CloseGasSupplies()
         {
             ProcessSubStep.Start("Close gas supplies");
@@ -283,68 +564,63 @@ namespace AeonHacs.Components
             ProcessSubStep.End();
         }
 
+        /// <summary>
+        /// Open and evacuate the entire vacuum line. This establishes
+        /// the baseline system state: the condition it is normally left in
+        /// when idle, and the expected starting point for major
+        /// processes such as running samples.
+        /// </summary>
         protected override void OpenLine() =>
             FastOpenLine();
 
-        // TODO: this is too slow and lossy to be practical
-        // Instead, transfer the CO2 from the MC to a valved vessel
-        // on a GR port. Then move the vessel to the IP, Collect(),
-        // Extract(), and Measure().
-        protected override void TransferCO2FromMCToIP()
+        /// <summary>
+        /// Open and evacuate the vacuum line quickly, without special
+        /// attention to the sequence of chambers.
+        /// </summary>
+        protected virtual void FastOpenLine()
         {
-            if (!IpIm(out ISection im)) return;
-            var mc = MC.Coldfinger;
+            CloseGasSupplies();
+            OpenVS1Line();
+            OpenVS2Line();
+            WaitFor(() => VS1All.VacuumSystem.Pressure <= OkPressure && VS2All.VacuumSystem.Pressure <= OkPressure);
+            Section.Connections(VS1All, VS2All).Open();
+        }
 
-            ProcessStep.Start($"Thaw the {MC.Name}");
-            MC.Isolate();
-            if (!mc.Thawed)
-                MC.Thaw();
-            ProcessStep.End();
-
-            ProcessStep.Start($"Evacuate and join {InletPort.Name} and {Split.Name}");
-            im.ClosePortsExcept(InletPort);
-            InletPort.Open();
-
-            im.OpenAndEvacuate();
-            Split.OpenAndEvacuate();
-            im.PathToVacuum.Open();
-            WaitForStablePressure(im.VacuumSystem, CleanPressure);
-            InletPort.Close();
-            ProcessStep.End();
-
-            ProcessStep.Start($"Transfer CO2 from MC to {InletPort.Name}");
-            Alert("Operator Needed", "Put LN on inlet port.");
-            Notice.Send("Operator needed", "Almost ready for LN on inlet port.\r\n" +
-                "Press Ok to continue, then raise LN onto inlet port tube");
-
-            ProcessSubStep.Start($"Wait for {MC.Name} to warm up a bit.");
-            WaitFor(() => mc.Temperature > CO2TransferStartTemperature);
-            ProcessSubStep.End();
-
-            im.VacuumSystem.Isolate();
-            MC_Split.Open();
-            WaitSeconds(3);
-            InletPort.Open();
-
-            // Molecular flow is reached almost immediately, at around 5 Torr. Thereafter,
-            // the remainder of this transfer takes an extremely long time. Of a 900-ugC
-            // sample, probably ~8 ugC will remain in the MC after 45 minutes, and a much
-            // larger fraction will be left in the VM and IM.
-            WaitMinutes(45);
-
-            Alert("Operator Needed", "Raise inlet port LN.");
-            Notice.Send("Operator needed", $"Raise {InletPort.Name} LN one inch.\r\n" +
-                "Press Ok to continue.");
-
-            WaitSeconds(30);
-
-            InletPort.Close();
-            ProcessStep.End();
+        /// <summary>
+        /// Open and evacuate the chambers normally serviced by VacuumSystem1
+        /// </summary>
+        protected virtual void OpenVS1Line()
+        {
+            if (!VS1All.IsOpened || !VS1All.PathToVacuum.IsOpened())
+                VS1All.OpenAndEvacuate();
+        }
+        /// <summary>
+        /// Open and evacuate the chambers normally serviced by VacuumSystem1 including the TF
+        /// </summary>
+        protected virtual void OpenTF_VS1()
+        {
+            ProcessStep.Start("Open and evacuate TF and VS1");
+            TF.Evacuate(IpEvacuationPressure);
+            TF_IP1.Open();
+            Find<InletPort>("IP1").Open();
+            OpenVS1Line();
         }
 
 
         /// <summary>
-        /// Event handler for MC temperature and pressure changes
+        /// Open and evacuate the chambers normally serviced by VacuumSystem2
+        /// </summary>
+        protected virtual void OpenVS2Line()
+        {
+            if (!VS2All.IsOpened || !VS2All.PathToVacuum.IsOpened())
+                VS2All.OpenAndEvacuate();
+        }
+
+        #endregion OpenLine
+
+        /// <summary>
+        /// Whenever the MC sample measurement (in ugC) changes,
+        /// notify subscribers that umolCinMC has changed as well.
         /// </summary>
         protected override void UpdateSampleMeasurement(object sender = null, PropertyChangedEventArgs e = null)
         {
@@ -354,404 +630,666 @@ namespace AeonHacs.Components
                 NotifyPropertyChanged(nameof(umolCinMC));
         }
 
+        #region Process Control Parameters
+
+        /// <summary>
+        /// Inlet Port sample furnace working setpoint ramp rate (degrees per minute).
+        /// </summary>
+        public double IpRampRate => GetParameter("IpRampRate");
+
+        /// <summary>
+        /// The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).
+        /// </summary>
+        public double IpSetpoint => GetParameter("IpSetpoint");
+
+        /// <summary>
+        /// The desired Inlet Manifold pressure, used for filling or flow management.
+        /// </summary>
+        public double ImPressureTarget => GetParameter("ImPressureTarget");
+
+        /// <summary>
+        /// Tube furnace working setpoint ramp rate (degrees per minute).
+        /// </summary>
+        public double TfRampRate => GetParameter("TfRampRate");
+
+        /// <summary>
+        /// The Tube Furnace's target setpoint (the final setpoint when ramping).
+        /// </summary>
+        public double TfSetpoint => GetParameter("TfSetpoint");
+
+        /// <summary>
+        /// The desired Tube Furnace  pressure, used for filling or flow management.
+        /// </summary>
+        public double TfPressureTarget => GetParameter("TfPressureTarget");
+
+        /// <summary>
+        /// During sample collection, close the Inlet Port when the Inlet Manifold reaches this pressure. 
+        /// Ignore Inlet Manifold pressure if this value is double.NaN (not a number).
+        /// </summary>
+        public double CollectCloseIpPressure => GetParameter("CollectCloseIpPressure");
+
+        /// <summary>
+        /// Stop collecting into the coil trap when the Inlet Port rises to this temperature. 
+        /// Ignore this stop condition if the value is double.NaN (not a number).
+        /// </summary>
+        public double CollectUntilTemperatureRises => GetParameter("CollectUntilTemperatureRises");
+
+        /// <summary>
+        /// Stop collecting into the coil trap when the Inlet Port falls to this temperature. 
+        /// Ignore this stop condition if the value is double.NaN (not a number).
+        /// </summary>
+        public double CollectUntilTemperatureFalls => GetParameter("CollectUntilTemperatureFalls");
+
+        /// <summary>
+        /// Stop collecting when the Coil Trap falls to or below this pressure. 
+        /// Ignore Coil Trap pressure if this value is double.NaN (not a number).
+        /// </summary>
+        public double CollectUntilCtPressureFalls => GetParameter("CollectUntilCtPressureFalls");
+
+        /// <summary>
+        /// Stop collecting into the coil trap when amount of carbon in 
+        /// the Coil Trap reaches this value. 
+        /// Ignore the amount of carbon if this value is double.NaN (not a number).
+        /// </summary>
+        public double CollectUntilUgc => GetParameter("CollectUntilUgc");
+
+        /// <summary>
+        /// Stop collecting into the coil trap when this much time has elapsed. 
+        /// Ignore the collection time if this value is double.NaN (not a number).
+        /// </summary>
+        public double CollectUntilMinutes => GetParameter("CollectUntilMinutes");
+
+        /// <summary>
+        /// How many minutes to wait.
+        /// </summary>
+        public double WaitTimerMinutes => GetParameter("WaitTimerMinutes");
+        /// <summary>
+        /// What pressure to evacuate to.
+        /// </summary>
+        public double IpEvacuationPressure => GetParameter("IpEvacuationPressure");
+
+        #endregion Process Control Parameters
+
+
+        #region Process Control Properties
+
+        public virtual bool IpIsTubeFurnace => InletPort.SampleFurnace is TubeFurnace;
+
+        /// <summary>
+        /// Change the Inlet Port Sample furnace setpoint at a controlled
+        /// ramp rate, rather than immediately to the given value.
+        /// </summary>
+        public virtual bool EnableIpSetpointRamp { get; set; } = false;
+
+        /// <summary>
+        /// Change the Tube Furnace setpoint at a controlled
+        /// ramp rate, rather than immediately to the given value.
+        /// </summary>
+        public virtual bool EnableTfSetpointRamp { get; set; } = false;
+
+        /// <summary>
+        /// Provide a flow of oxygen through the Inlet Port to combust the sample,
+        /// instead of a fixed pressure.
+        /// </summary>
+        public virtual bool NeedIpFlow { get; set; } = true;
+
+        /// <summary>
+        /// Direct the sample gas through the CO2 analyzer during collection.
+        /// </summary>
+        public virtual bool NeedAnalyzer { get; set; } = true;
+
+        /// <summary>
+        /// Monitors the time elapsed since the current sample collection phase began.
+        /// </summary>
+        public Stopwatch CollectStopwatch { get; set; } = new Stopwatch();
+
+        /// <summary>
+        /// The coil trap currently being used to trap sample gas.
+        /// </summary>
+        public ISection CurrentCT => IM_CT.Chambers.Contains(Find<Chamber>("CT1")) ? CT1 : CT2;
+
+        /// <summary>
+        /// A CEGS task dispatched to run concurrently while the main 
+        /// sample process sequence continues. There can be only one.
+        /// The concurrent actions take place in the VTT or beyond.
+        /// </summary>
+        public Task CegsTask { get; set; }
+
+        /// <summary>
+        /// A Collection task dispatched to run concurrently while
+        /// the main process sequence continues. There can be only one.
+        /// </summary>
+
+        public Task CollectionTask { get; set; }
+
+        /// <summary>
+        /// Estimated of the amount of CO2 that has been collected in the CT so far...
+        /// </summary>
+        protected virtual double CollectedUgc { get; set; } = 0;
+
+        #endregion Process Control Properties
+
+
+        #region Process Steps
+        /// <summary>
+        /// Wait for timer minutes.
+        /// </summary>
+        protected virtual void WaitForTimer()
+        {
+            ProcessStep.Start($"Wait for {WaitTimerMinutes:0} minutes");
+            WaitFor(() => ProcessStep.Elapsed.TotalMinutes >= WaitTimerMinutes);
+            ProcessStep.End();
+        }
+
+
+        /// <summary>
+        /// Use a flow of oxygen through the Inlet Port to combust the sample.
+        /// </summary>
+        protected virtual void UseIpFlow() => NeedIpFlow = true;
+        /// <summary>
+        /// Provide a fixed amount (pressure) of oxygen into the Inlet Port
+        /// to combust the sample.
+        /// </summary>
+        protected virtual void NoIpFlow() => NeedIpFlow = false;
+
+        /// <summary>
+        /// Turn on the Inlet Port quartz furnace.
+        /// </summary>
+        protected virtual void TurnOnIpQuartzFurnace() => InletPort.QuartzFurnace.TurnOn();
+
+        /// <summary>
+        /// Turn off the Inlet Port quartz furnace.
+        /// </summary>
+        protected virtual void TurnOffIpQuartzFurnace() => InletPort.QuartzFurnace.TurnOff();
+
+        /// <summary>
+        /// Adjust the Inlet Port sample furnace setpoint. If its
+        /// setpoint ramp is enabled, the working setpoint will be managed
+        /// to reach the new setpoint at the programmed ramp rate.
+        /// </summary>
+        protected virtual void AdjustIpSetpoint()
+        {
+            if (IpSetpoint == double.NaN) return;
+            if (IpOvenRamper.Enabled)
+                IpOvenRamper.Setpoint = IpSetpoint;
+            else
+                InletPort.SampleFurnace.Setpoint = IpSetpoint;
+        }
+
+
+        /// <summary>
+        /// Wait for Inlet Port temperature to fall below IpSetpoint
+        /// </summary>
+        protected virtual void WaitIpFallToSetpoint()
+        {
+            AdjustIpSetpoint();
+            bool shouldStop()
+            {
+                if (Stopping)
+                    return true;
+                if (InletPort.Temperature <= IpSetpoint)
+                    return true;
+                return false;
+            }
+            ProcessStep.Start($"Waiting for {InletPort.Name} to reach {IpSetpoint:0} °C");
+            WaitFor(shouldStop, -1, 1000);
+            ProcessStep.End();
+        }
+        /// <summary>
+        /// Turn on the Inlet Port sample furnace.
+        /// </summary>
+        protected virtual void TurnOnIpSampleFurnace()
+        {
+            AdjustIpSetpoint();
+            InletPort.SampleFurnace.TurnOn();
+        }
+
+        /// <summary>
+        /// Wait for the InletPort sample furnace to reach the setpoint.
+        /// </summary>
+        protected virtual void WaitIpRiseToSetpoint()
+        {
+            bool shouldStop()
+            {
+                if (Stopping)
+                    return true;
+                if (InletPort.Temperature >= IpSetpoint)
+                    return true;
+                return false;
+            }
+            ProcessStep.Start($"Waiting for {InletPort.Name} to reach {IpSetpoint:0} °C");
+            WaitFor(shouldStop, -1, 1000);
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Turn off the Inlet Port sample furnace.
+        /// </summary>
+        protected virtual void TurnOffIpSampleFurnace() => InletPort.SampleFurnace.TurnOff();
+
+        /// <summary>
+        /// Adjust the Inlet Port sample furnace ramp rate.
+        /// </summary>
+        protected virtual void AdjustIpRampRate() => IpOvenRamper.RateDegreesPerMinute = IpRampRate;
+
+        /// <summary>
+        /// Enable the Inlet Port sample furnace setpoint ramp.
+        /// </summary>
+        protected virtual void EnableIpRamp()
+        {
+            IpOvenRamper.Oven = InletPort.SampleFurnace;
+            IpOvenRamper.Enable();
+        }
+
+        /// <summary>
+        /// Disable the Inlet Port sample furnace setpoint ramp.
+        /// </summary>
+        protected virtual void DisableIpRamp() => IpOvenRamper.Disable();
+
+
+        /// <summary>
+        /// Fill the Tube Furnace chamber with helium in preparation
+        /// for opening.
+        /// </summary>
+        protected virtual void BackfillTF1WithHe()
+        {
+            ProcessStep.Start($"Fill {InletPort.Name} to {pAmbient.Pressure:0} Torr He");
+            
+            // Need to manage FTG gas source valve manually,
+            // because we want the shutoff to be
+            // downstream of the flow valve.
+            var he = Find<IValve>("vHe_FTG");
+
+            FTG_IP1.Isolate();
+            var gs = InertGasSupply(TF);
+            he.OpenWait();
+            gs.FlowPressurize(pAmbient.Pressure);
+            gs.ShutOff();
+            he.CloseWait();
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Notify the operator to load the tube furnace and
+        /// wait for their 'Ok" to continue.
+        /// </summary>
+        protected virtual void LoadTF()
+        {
+            Pause("Ready for operator", "Load the Tube Furnace and seal it closed.");
+        }
+
+        /// <summary>
+        /// Evacuate the Inlet Port to 'OkPressure'.
+        /// </summary>
+        protected override void EvacuateIP()
+        {
+            ProcessStep.Start($"Evacuate {InletPort.Name}");
+            
+            if (IpIsTubeFurnace)
+                TF_IP1.Open();
+            base.EvacuateIP(IpEvacuationPressure);
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Admit O2 into the tube furnace to reach a pressure of 
+        /// TfPressureTarget. 
+        /// </summary>
+        protected virtual void AdmitO2toTF()
+        {
+            ProcessStep.Start($"Admit {TfPressureTarget:0} Torr O2 into {InletPort.Name}");
+
+            var gs = GasSupply("O2", TF);
+            // Need to manage FTG gas source valve manually,
+            // because we want the shutoff (vFTG_TF) to be
+            // downstream of the flow valve.
+            var o2 = Find<IValve>("vO2_FTG");
+            o2.OpenWait();
+            gs.FlowPressurize(TfPressureTarget);        // normalization not possible
+            o2.CloseWait();
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Start flowing O2 through the Inlet Port to vacuum.
+        /// </summary>
+        protected virtual void StartFlowThroughToWaste() => StartFlowThrough(false);
+
+        /// <summary>
+        /// Start flowing O2 through the Inlet Port to the coil trap.
+        /// </summary>
+        protected virtual void StartFlowThroughToTrap() => StartFlowThrough(true);
+
+        /// <summary>
+        /// Start flowing O2 through the Inlet Port.
+        /// </summary>
+        protected virtual void StartFlowThrough(bool trap)
+        {
+            ProcessStep.Start($"Start flowing O2 through {InletPort.Name}");
+
+            var gasfm = IpIsTubeFurnace ? FTG_TFFlowManager : FTG_IMFlowManager;
+            // Need to manage FTG gas source valve manually,
+            // because we want the shutoff to be
+            // downstream of the flow valve.
+            var o2 = Find<IValve>("vO2_FTG");
+            var destination = trap ? IM_CT : IM;
+
+            var section = IpIsTubeFurnace ? FTG_IP1 : FTG_IP2;
+
+            ProcessStep.Start($"Isolate and open {section.Name}");
+            section.Isolate();
+            section.Open();
+            ProcessStep.End();
+
+            // prepare upstream
+            gasfm.FlowValve.CloseWait();
+
+            // prepare downstream
+            var vacfm = IpIsTubeFurnace ? TFFlowManager : null;
+            vacfm?.FlowValve.CloseWait();
+            Find<IValve>("vTFBypass")?.CloseWait();
+
+            // join everything
+            if (trap)
+            {
+                StartCollecting();
+                o2.OpenWait();
+            }
+            else
+            {
+                destination.OpenAndEvacuate(OkPressure);
+                destination.Isolate();
+                o2.OpenWait();
+                InletPort.Open();
+                destination.Evacuate();
+            }
+
+            // regulate the gas flow to maintain pressure
+            var pressure = IpIsTubeFurnace ? TF.Pressure : IM.Pressure;
+            gasfm.Start(pressure);
+            if (IpIsTubeFurnace)
+            {
+                gasfm.Stop();
+                vacfm?.Start(pressure);
+            }
+
+            ProcessStep.End();   
+        }
+
+        /// <summary>
+        /// Stop flowing O2 into the Inlet Port.
+        /// </summary>
+        protected virtual void StopFlowThroughGas()
+        {
+            ProcessStep.Start($"Stopping O2 flow into {InletPort.Name}");
+
+            var gasfm = IpIsTubeFurnace ? FTG_TFFlowManager : FTG_IMFlowManager;
+            var vacfm = IpIsTubeFurnace ? TFFlowManager : null;
+            var o2 = Find<IValve>("vO2_FTG");
+            var gs = GasSupply("O2", IpIsTubeFurnace ? TF : IM);
+
+            gasfm.Stop();
+            gasfm.FlowValve.CloseWait();
+            vacfm?.Stop();
+            vacfm?.FlowValve.CloseWait();
+            gs.ShutOff();
+            o2.CloseWait();
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Open the TF outlet valves, joining TF to IP1
+        /// </summary>
+        protected virtual void OpenTF_IP1() => TF_IP1.Open();
+
+        /// <summary>
+        /// Include the CO2 Analyzer in the sample gas collection path.
+        /// </summary>
+        protected virtual void IncludeCO2Analyzer() => NeedAnalyzer = true;
+
+        /// <summary>
+        /// Bypass the CO2 Analyzer when collecting sample gas.
+        /// </summary>
+        protected virtual void BypassCO2Analyzer() => NeedAnalyzer = false;
+
+        /// <summary>
+        /// Use Coil Trap 1 for sample collection;
+        /// </summary>
+        protected virtual void CollectToCT1() =>  IM_CT = NeedAnalyzer ? IM_CA_CT1 : IM_CT1;
+
+        /// <summary>
+        /// Use Coil Trap 2 for sample collection.
+        /// </summary>
+        protected virtual void CollectToCT2() => IM_CT = NeedAnalyzer ? IM_CA_CT2 : IM_CT2;
+
+        /// <summary>
+        /// Switch coil traps.
+        /// </summary>
+        protected virtual void ToggleCT()
+        {
+            ProcessStep.Start($"Toggle CT");
+
+            if (CT == CT1)
+                CollectToCT2();
+            else
+                CollectToCT1();
+            StartCollecting();
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Start collecting sample into a coil trap.
+        /// </summary>
+        protected virtual void StartCollecting()
+        {
+            ProcessStep.Start($"Trapping sample in {CurrentCT.Name}");
+
+            ClearCollectionConditions();
+            var ct = CurrentCT;
+            IM_CT.OpenAndEvacuate(OkPressure);
+            ct.WaitForFrozen(false);
+            ct.FlowManager.FlowValve.Close();
+            InletPort.Open();
+            CollectStopwatch.Restart();
+            ct.FlowManager.Start(FirstTrapBleedPressure);
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Set all collection condition parameters to NaN
+        /// </summary>
+        protected void ClearCollectionConditions()
+        {
+            ClearParameter("CollectUntilTemperatureRises");
+            ClearParameter("CollectUntilTemperatureFalls");
+            ClearParameter("CollectCloseIpPressure");
+            ClearParameter("CollectUntilCtPressureFalls");
+            ClearParameter("CollectUntilUgc");
+            ClearParameter("CollectUntilMinutes");
+        }
+
+
+        /// <summary>
+        /// Wait for a collection stop condition to occur.
+        /// </summary>
+        protected virtual void CollectUntilConditionMet()
+        {
+            ProcessStep.Start($"Wait for a collection stop condition to occur");
+
+            bool shouldStop()
+            {
+                if (Stopping)
+                    return true;
+                if (CollectUntilTemperatureRises != double.NaN && InletPort.Temperature >= CollectUntilTemperatureRises)
+                    return true;
+                if (CollectUntilTemperatureFalls != double.NaN && InletPort.Temperature <= CollectUntilTemperatureFalls)
+                    return true;
+                if (CollectCloseIpPressure != double.NaN && InletPort.IsOpened && InletPort.Pressure <= CollectCloseIpPressure)
+                    InletPort.Close();
+                if (CollectUntilCtPressureFalls != double.NaN && CT.Pressure <= CollectUntilCtPressureFalls)
+                    return true;
+                if (CollectUntilUgc != double.NaN && CollectedUgc >= CollectUntilUgc)
+                    return true;
+                if (CollectUntilMinutes != double.NaN && CollectStopwatch.Elapsed.TotalMinutes >= CollectUntilMinutes)
+                    return true;
+                return false;
+            }
+            WaitFor(shouldStop, -1, 1000);
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Stop collecting
+        /// </summary>
+        protected virtual void StopCollecting()
+        {
+            ProcessStep.Start("Stop Collecting");
+
+            CT = CurrentCT;     // The VTT will take it from here
+            CT.Isolate();
+            CT.FlowManager.Stop();
+            CT.FlowManager.FlowValve.Close();
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Wait for the CEGS to be ready to process a sample.
+        /// </summary>
+        protected virtual void WaitForCegs()
+        {
+            ProcessStep.Start("Wait for CEGS to be ready to process sample");
+
+            bool cegsAvailable()
+            {
+                if (Stopping)
+                    return true;
+                return CegsTask?.IsCompleted ?? true;
+            }
+            WaitFor(cegsAvailable, -1, 1000);
+
+            ProcessStep.End();
+        }
+
+        /// <summary>
+        /// Initiate the ExtractEtc process step, followed by evacuating VS2,
+        /// to run concurrently while the Collection process continues.
+        /// </summary>
+        protected virtual void StartExtractEtc()
+        {
+            CegsTask = Task.Run(ExtractEtcThenEvacuateVS2);
+        }
+
+        /// <summary>
+        /// Run the ExtractEtc process step, then evacuate VS2
+        /// </summary>
+        protected virtual void ExtractEtcThenEvacuateVS2()
+        {
+            ProcessStep.Start($"Extract from {CT.Name}");
+
+            TransferCO2FromCTToVTT();
+            ExtractEtc();
+            OpenVS2Line();
+            VacuumSystem2.WaitForPressure(OkPressure);
+
+            ProcessStep.End();
+        }
+
+        #endregion Process Steps
+
+
         #endregion Process Management
 
         #region Test functions
-        void ValvePositionDriftTest()
+
+        /// <summary>
+        /// In situ quartz sample process, Day 1 (preparation)
+        /// </summary>
+        protected virtual void Day1()
         {
-            var v = FirstOrDefault<RS232Valve>();
-            var pos = v.ClosedValue / 2;
-            var op = new ActuatorOperation()
-            {
-                Name = "test",
-                Value = pos,
-                Incremental = false
-            };
-            v.ActuatorOperations.Add(op);
-
-            v.DoWait(op);
-
-            //op.Incremental = true;
-            var rand = new Random();
-            for (int i = 0; i < 100; i++)
-            {
-                op.Value = pos + rand.Next(-15, 16);
-                v.DoWait(op);
-            }
-            op.Value = pos;
-            op.Incremental = false;
-            v.DoWait(op);
-
-            v.ActuatorOperations.Remove(op);
+            TurnOnIpQuartzFurnace();
+            BackfillTF1WithHe();
+            LoadTF();
+            SetParameter("IpEvacuationPressure", 1E-2);
+            EvacuateIP();
+            SetParameter("TfPressureTarget", 50);
+            AdmitO2toTF();
+            SetParameter("IpSetpoint", 100);
+            TurnOnIpSampleFurnace();
+            WaitIpRiseToSetpoint();
+            StartFlowThroughToWaste();
+            SetParameter("WaitTimerMinutes", 2);
+            WaitForTimer();
+            StopFlowThroughGas();
+            EvacuateIP();
+            AdmitO2toTF();
+            StartFlowThroughToWaste();
+            SetParameter("IpSetpoint", 95);
+            TurnOffIpSampleFurnace();
+            WaitIpFallToSetpoint();
+            StopFlowThroughGas();
+            TurnOffIpQuartzFurnace();
+            OpenTF_VS1();
         }
 
-        void TestPort(IPort p)
+        /// <summary>
+        /// In situ quartz sample process, Day 2 (extraction)
+        /// </summary>
+        protected virtual void Day2()
         {
-            for (int i = 0; i < 5; ++i)
-            {
-                p.Open();
-                p.Close();
-            }
-            p.Open();
-            WaitMinutes(5);
-            p.Close();
-        }
-
-        // two minutes of moving the valve at a moderate pace
-        void TestValve(IValve v)
-        {
-            SampleLog.Record($"Operating {v.Name} for 2 minutes");
-            for (int i = 0; i < 24; ++i)
-            {
-                v.CloseWait();
-                WaitSeconds(2);
-                v.OpenWait();
-                WaitSeconds(2);
-            }
-        }
-
-        void TestUpstream(IValve v)
-        {
-            SampleLog.Record($"Checking {v.Name}'s 10-minute bump");
-            v.OpenWait();
-            WaitMinutes(5);     // empty the upstream side (assumes the downstream side is under vacuum)
-            v.CloseWait();
-            WaitMinutes(10);    // let the upstream pressure rise for 10 minutes
-            v.OpenWait();       // how big is the pressure bump?
-        }
-
-
-        protected virtual void ExercisePorts(ISection s)
-        {
-            s.Isolate();
-            s.Open();
-            s.OpenPorts();
-            WaitSeconds(5);
-            s.ClosePorts();
-            s.Evacuate(OkPressure);
-        }
-
-        protected virtual void FastOpenLine()
-        {
-            CloseGasSupplies();
-            if (!VS1All.IsOpened || !VS1All.PathToVacuum.IsOpened())
-                VS1All.OpenAndEvacuate();
-            if (!VS2All.IsOpened || !VS2All.PathToVacuum.IsOpened())
-                VS2All.OpenAndEvacuate();
-            WaitFor(() => VS1All.VacuumSystem.Pressure <= OkPressure && VS2All.VacuumSystem.Pressure <= OkPressure);
-            Section.Connections(VS1All, VS2All).Open();
-        }
-
-        protected void CalibrateManualHeaters()
-        {
-            var tc = Find<IThermocouple>("tCal");
-            CalibrateManualHeater(Find<IHeater>("hIP1CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP2CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP3CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP4CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP5CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP6CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP7CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP8CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP9CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP10CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP11CCQ"), tc);
-            CalibrateManualHeater(Find<IHeater>("hIP12CCQ"), tc);
-        }
-
-        protected virtual void TestAdmit(string gasSupply, double pressure)
-        {
-            var gs = Find<GasSupply>(gasSupply);
-            gs?.Destination?.OpenAndEvacuate();
-            gs?.Destination?.ClosePorts();
-            gs?.Admit(pressure);
-            WaitSeconds(10);
-            SampleLog.Record($"Admit test: {gasSupply}, target: {pressure:0.###}, stabilized: {gs.Meter.Value:0.###} in {ProcessStep.Elapsed:m':'ss}");
-            gs?.Destination?.OpenAndEvacuate();
-        }
-
-        protected virtual void TestPressurize(string gasSupply, double pressure)
-        {
-            var gs = Find<GasSupply>(gasSupply);
-            gs?.Destination?.OpenAndEvacuate(OkPressure);
-            gs?.Destination?.ClosePorts();
-            gs?.Pressurize(pressure);
-            WaitSeconds(60);
-            SampleLog.Record($"Pressurize test: {gasSupply}, target: {pressure:0.###}, stabilized: {gs.Meter.Value:0.###} in {ProcessStep.Elapsed:m':'ss}");
-            gs?.Destination?.OpenAndEvacuate();
-        }
-
-        protected virtual void TestGasSupplies()
-
-        {
-            TestAdmit("O2.IM", IMO2Pressure);
-            TestPressurize("CO2.MC", 75);
-            TestPressurize("CO2.MC", 0.95 * MicrogramsCarbon(MC.Manometer.MaxValue, MC.MilliLiters, MC.Temperature));
-            TestAdmit("He.IM", 800);
-            TestPressurize("He.MC", 80);
-            TestPressurize("He.AM", PressureOverAtm);
-            TestAdmit("He.GM", 760);
-            TestPressurize("H2.GM", 100);
-            TestPressurize("H2.GM", 900);
-        }
-
-        public void VttWarmStepTest()
-        {
-            if (Find<VTColdfinger>("VTC") is not VTColdfinger vtc)
-                return;
-            if (vtc.Heater is not IHeater h)
-                return;
-
-            // Replace VTC heater with dummy so we can manually control the real heater.
-            vtc.Heater = new HC6Heater();
-
-            double initialCO = 0.1;
-            double stepCO = 0.3;
-
-            h.Setpoint = 50;
-            h.Manual(initialCO);
-            h.TurnOn();
-
-            WaitMinutes(60); // Wait for temperature to stabalize.
-
-            var log = new DataLog($"VttWarm Step Test.txt")
-            {
-                Columns = new()
-                {
-                    new DataLog.Column()
-                    {
-                        Name = "tVTC",
-                        Resolution = -1.0,
-                        Format = "0.00"
-                    },
-                    new DataLog.Column()
-                    {
-                        Name = vtc.TopThermometer.Name,
-                        Resolution = -1.0,
-                        Format = "0.00"
-                    },
-                    new DataLog.Column()
-                    {
-                        Name = vtc.WireThermometer.Name,
-                        Resolution = -1.0,
-                        Format = "0.00"
-                    }
-                },
-                ChangeTimeoutMilliseconds = 3 * 1000,
-                OnlyLogWhenChanged = false,
-                InsertLatestSkippedEntry = false
-            };
-
-            HacsLog.List.Add(log);
-
-            h.PowerLevel = stepCO;
-
-            WaitMinutes(40);
-
-            HacsLog.List.Remove(log);
-            log.Close();
-            log = null;
-
-            h.TurnOff();
-            h.Auto();
-            vtc.Heater = h;
+            //TurnOnIpQuartzFurnace();
+            //BackfillTF1WithHe();
+            //LoadTF();
+            //EvacuateIP();
+            //SetParameter("TfPressureTarget", 50);
+            //AdmitO2toTF();
+            //SetParameter("IpSetpoint", 75);
+            //TurnOnIpSampleFurnace();
+            //WaitIpRiseToSetpoint();
+            //StartFlowThroughToWaste();
+            //SetParameter("WaitTimerMinutes", 1);
+            //WaitForTimer();
+            //StopFlowThroughGas();
+            //EvacuateIP();
+            //AdmitO2toTF();
+            //SetParameter("IpSetpoint", 150);
+            //AdjustIpSetpoint();
+            //WaitIpRiseToSetpoint();
+            //SetParameter("WaitTimerMinutes", 1);
+            //WaitForTimer();
+            //TurnOffIpSampleFurnace();
+            //BypassCO2Analyzer();
+            CollectToCT1();
+            //SetParameter("FirstTrapBleedPressure", 10);
+            //StartFlowThroughToTrap();
+            //SetParameter("CollectUntilTemperatureFalls", 80);
+            //CollectUntilConditionMet();
+            //StopFlowThroughGas();
+            //OpenTF_IP1();
+            //ClearCollectionConditions();
+            //SetParameter("CollectUntilCtPressureFalls", 4.0);
+            //CollectUntilConditionMet();
+            //StopCollecting();
+            ExtractEtcThenEvacuateVS2();
+            OpenLine();
         }
 
 
+        /// <summary>
+        /// General-purpose code tester. Put whatever you want here.
+        /// </summary>
         protected override void Test()
         {
-            //Find<IVolumeCalibration>("CT1, CT2, CTF, IM").Calibrate();
-            ////Find<IVolumeCalibration>("VM1").Calibrate();
-            //return;
-
-            var tc = Find<IThermocouple>("tCal");
-            //CalibrateManualHeater(Find<IHeater>("hIP1CCQ"), tc);
-            //CalibrateManualHeater(Find<IHeater>("hIP2CCQ"), tc);
-
-            //CalibrateManualHeaters();
-            //return;
-
-            //var ips = new List<IInletPort>()
-            //{
-            //    Find<IInletPort>("IP2")
-            //};
-            //ips.ForEach(ip => ip.QuartzFurnace.TurnOn());
-            //WaitMinutes(10);
-            //PidStepTest(ips.Select(ip => ip.SampleFurnace).Cast<IHeater>().ToArray());
-            //ips.ForEach(ip => ip.QuartzFurnace.TurnOff());
-            //return;
-
-            //var grs = new List<IHeater>()
-            //{
-            //    Find<IHeater>("hGR2"),
-            //    Find<IHeater>("hGR4"),
-            //    Find<IHeater>("hGR6"),
-            //    //Find<IHeater>("hGR7"),
-            //    //Find<IHeater>("hGR9"),
-            //    //Find<IHeater>("hGR11")
-            //}.ToArray();
-            //PidStepTest(grs);
-            //return;
-
-            //VttWarmStepTest();
-            //return;
-
-
-            //TestPressurize("CO2.MC", 0.99 * MicrogramsCarbon(MC.Manometer.MaxValue, MC.MilliLiters, MC.Temperature));
-            //TestGasSupplies();
-            //return;
-
-
-            //FastOpenLine();
-            //for (int i = 0; i < 100; ++i)
-            //{
-            //    //ExercisePorts(IM);
-            //    //ExercisePorts(GM);
-
-            //    //MC.PathToVacuum?.Open();     // Opens GM, too
-            //    //VTT.PathToVacuum?.Open();
-            //    //IM.PathToVacuum?.Open();
-            //    //IM_CT.Open();
-            //    //VTT_MC.Open();
-
-            //    var list = FindAll<CpwValve>(v => v.IsOpened && !(v is RS232Valve));
-            //    list.ForEach(v => 
-            //    {
-            //        v.CloseWait();
-            //        v.OpenWait();
-            //    });
-            //    WaitMinutes(30);
-            //}
-
-            //for (int i = 0; i < 5; ++i)
-            //{
-            //    TestValve(Find<IValve>("vIML_IMC"));
-            //    TestValve(Find<IValve>("vIMR_IMC"));
-
-            //    TestValve(Find<IValve>("vIMC_CT"));
-            //    TestValve(Find<IValve>("vCT_VTT"));
-            //    TestValve(Find<IValve>("vVTT_MC"));
-            //    TestValve(Find<IValve>("vMC_MCP1"));
-            //    TestValve(Find<IValve>("vMC_MCP2"));
-            //    TestValve(Find<IValve>("vMC_Split"));
-
-            //    TestValve(Find<IValve>("vGML_GMC"));
-            //    TestValve(Find<IValve>("vGMR_GMC"));
-
-            //    TestValve(Find<IValve>("vIMC_VM"));
-            //    TestValve(Find<IValve>("vCT_VM"));
-            //    TestValve(Find<IValve>("vGMC_VM"));
-
-            //}
-            //return;
-
-            //TestPort(Find<IPort>("IP2"));
-            //TestPort(Find<IPort>("IP3"));
-            //TestPort(Find<IPort>("IP4"));
-            //TestPort(Find<IPort>("IP5"));
-            //TestPort(Find<IPort>("IP6"));
-
-            //TestPort(Find<IPort>("GR7"));
-            //TestPort(Find<IPort>("GR8"));
-            //TestPort(Find<IPort>("GR9"));
-            //TestPort(Find<IPort>("GR10"));
-            //TestPort(Find<IPort>("GR11"));
-            //TestPort(Find<IPort>("GR12"));
-
-            //MC.Evacuate(OkPressure);
-            //TestValve(Find<IValve>("v_MCP0"));
-            //return;
-
-            //ProcessStep.Start("Simulating Sample Run");
-            //Wait(10000);
-            //ProcessStep.End();
-
-            //Admit("O2", IM, null, IMO2Pressure);
-
-            //var gs = Find<GasSupply>("H2.GM");
-            //gs.Pressurize(100);
-            //gs.Pressurize(900);
-
-            //var gs = Find<GasSupply>("He.GM");
-            //gs.Admit(800);
-            //WaitSeconds(10);
-
-            //var gs = Find<GasSupply>("He.IM");
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs.Admit(800);
-            //WaitSeconds(10);
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs = Find<GasSupply>("He.MC");
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs.Pressurize(95);
-            //WaitSeconds(10);
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs = Find<GasSupply>("CO2.MC");
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs.Pressurize(75);
-            //WaitSeconds(10);
-            //gs.Destination.Evacuate(OkPressure);
-
-            //gs.Pressurize(1000);
-            //WaitSeconds(10);
-            //gs.Destination.Evacuate(OkPressure);
-
-            //InletPort = Find<InletPort>("IP1");
-            //AdmitIPO2();
-            //Collect();
-
-            //var grs = new List<IGraphiteReactor>();
-            //grs.AddRange(GraphiteReactors.Where(gr => gr.Prepared));
-            //CalibrateGRH2(grs);
-
-            //var gr1 = Find<GraphiteReactor>("GR1");
-            //var gr2 = Find<GraphiteReactor>("GR2");
-            //GrGmH2(gr1, out ISection gm, out IGasSupply gs);
-            //gr1.Open();
-            //gr2.Open();
-            //gm.Evacuate(OkPressure);
-            //gr1.Close();
-            //gr2.Close();
-
-            //gs.Pressurize(IronPreconditionH2Pressure);
-
-            //var p1 = gm.Manometer.WaitForAverage(60);
-            //gr1.Open();
-            //WaitSeconds(10);
-            //gr1.Close();
-            //WaitSeconds(10);
-            //var p2 = gm.Manometer.WaitForAverage(60);
-            //SampleLog.Record($"dpGM for GR1: {p1:0.00} => {p2:0.00}");
-
-            //p1 = gm.Manometer.WaitForAverage(60);
-            //gr2.Open();
-            //WaitSeconds(10);
-            //gr2.Close();
-            //WaitSeconds(10);
-            //p2 = gm.Manometer.WaitForAverage(60);
-            //SampleLog.Record($"dpGM for GR2: {p1:0.00} => {p2:0.00}");
-
-            // Test CTFlowManager
-            // Control flow valve to maintain constant downstream pressure until flow valve is fully opened.
-            //SampleLog.Record($"Bleed pressure: {FirstTrapBleedPressure} Torr");
-            //Bleed(FirstTrap, FirstTrapBleedPressure);
-
-            // Open flow bypass when conditions allow it without producing an excessive
-            // downstream pressure spike. Then wait for the spike to be evacuated.
-            //ProcessSubStep.Start("Wait for remaining pressure to bleed down");
-            //WaitFor(() => IM.Pressure - FirstTrap.Pressure < FirstTrapFlowBypassPressure);
-            //FirstTrap.Open();   // open bypass if available
-            //WaitFor(() => FirstTrap.Pressure < FirstTrapEndPressure);
-            //ProcessSubStep.End();
-
-
-            //VolumeCalibrations["GR1, GR2"]?.Calibrate();
-            //return;
+          
+            //Day1();
+            Day2();
         }
 
         #endregion Test functions

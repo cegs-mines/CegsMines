@@ -30,7 +30,7 @@
         <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP1" d:QuartzFurnace=""
                        Canvas.Right="86" Canvas.Top="33" />
 
-        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP1" d:QuartzFurnace="" d:SampleFurnace=""
+        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP2" d:QuartzFurnace="" d:SampleFurnace=""
                        Canvas.Right="86" Canvas.Top="59" />
 
     </Canvas>

@@ -128,7 +128,7 @@
             <!-- Schematic Interface -->
             <!--==============================================-->
             <Canvas DockPanel.Dock="Bottom" Width="1111" Height="500" Margin="30,0,60,60" >
-                <Canvas Background="{DynamicResource FittingGrid}" Width="863" Height="500" Canvas.Left="-24" Opacity="0.2"/>
+                <!--<Canvas Background="{DynamicResource FittingGrid}" Width="863" Height="500" Canvas.Left="-24" Opacity="0.2"/>-->
                 <local:TF Canvas.Left="0" Canvas.Top="70" HorizontalAlignment="Center" />
                 <local:FTG Canvas.Left="150" Canvas.Top="174" HorizontalAlignment="Center" />
                 <local:VS1 Canvas.Left="413" Canvas.Top="281" />
