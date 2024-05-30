@@ -1,5 +1,4 @@
 ﻿using AeonHacs.Utilities;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -159,8 +158,6 @@ namespace AeonHacs.Components
         #endregion Component lists
 
         #region HacsComponents
-
-        [JsonProperty]
 
         // TODO: Many of these can be omitted (along with the code that uses them)
         // by changing logged properties from doubles to NamedValues. See
