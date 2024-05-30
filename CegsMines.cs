@@ -1,5 +1,4 @@
 ﻿using AeonHacs.Utilities;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -159,8 +158,6 @@ namespace AeonHacs.Components
         #endregion Component lists
 
         #region HacsComponents
-
-        [JsonProperty]
 
         // TODO: Many of these can be omitted (along with the code that uses them)
         // by changing logged properties from doubles to NamedValues. See
@@ -387,12 +384,12 @@ namespace AeonHacs.Components
         public AIManometer pAmbient { get; set; }
 
         /// <summary>
-        /// Flow manager for gas (H2 or O2) into the tube furnace.
+        /// Flow manager for gas (He or O2) into the tube furnace.
         /// </summary>        
         public FlowManager FTG_TFFlowManager { get; set; }
 
         /// <summary>
-        /// Flow manager for gas (H2 or O2) through Inlet Port 2 into the Inlet Manifold.
+        /// Flow manager for gas (He or O2) through Inlet Port 2 into the Inlet Manifold.
         /// </summary>
         public FlowManager FTG_IMFlowManager { get; set; }
 
@@ -422,8 +419,8 @@ namespace AeonHacs.Components
             if (OkToZeroManometer(MC))
                 ZeroIfNeeded(MC?.Manometer, 15);
 
-            if (OkToZeroManometer(CT))
-                ZeroIfNeeded(CT?.Manometer, 5);
+            if (OkToZeroManometer(CTF))
+                ZeroIfNeeded(CTF?.Manometer, 5);
 
             if (OkToZeroManometer(IM))
                 ZeroIfNeeded(IM?.Manometer, 10);
