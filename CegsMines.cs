@@ -1209,38 +1209,38 @@ namespace AeonHacs.Components
         /// <summary>
         /// In situ quartz sample process, Day 1 (preparation)
         /// </summary>
-        protected virtual void Day1()
-        {
-            TurnOnIpQuartzFurnace();
-            BackfillTF1WithHe();
-            LoadTF();
-            SetParameter("IpEvacuationPressure", 1E-2);
-            EvacuateIP();
-            SetParameter("TfPressureTarget", 50);
-            AdmitO2toTF();
-            SetParameter("IpSetpoint", 100);
-            TurnOnIpSampleFurnace();
-            WaitIpRiseToSetpoint();
-            StartFlowThroughToWaste();
-            SetParameter("WaitTimerMinutes", 2);
-            WaitForTimer();
-            StopFlowThroughGas();
-            EvacuateIP();
-            AdmitO2toTF();
-            StartFlowThroughToWaste();
-            SetParameter("IpSetpoint", 95);
-            TurnOffIpSampleFurnace();
-            WaitIpFallToSetpoint();
-            StopFlowThroughGas();
-            TurnOffIpQuartzFurnace();
-            OpenTF_VS1();
-        }
+        //protected virtual void Day1()
+        //{
+            //TurnOnIpQuartzFurnace();
+            //BackfillTF1WithHe();
+            //LoadTF();
+            //SetParameter("IpEvacuationPressure", 1E-2);
+            //EvacuateIP();
+            //SetParameter("TfPressureTarget", 50);
+            //AdmitO2toTF();
+            //SetParameter("IpSetpoint", 100);
+            //TurnOnIpSampleFurnace();
+            //WaitIpRiseToSetpoint();
+            //StartFlowThroughToWaste();
+            //SetParameter("WaitTimerMinutes", 2);
+            //WaitForTimer();
+            //StopFlowThroughGas();
+            //EvacuateIP();
+            //AdmitO2toTF();
+            //StartFlowThroughToWaste();
+            //SetParameter("IpSetpoint", 95);
+            //TurnOffIpSampleFurnace();
+           // WaitIpFallToSetpoint();
+            //StopFlowThroughGas();
+            //TurnOffIpQuartzFurnace();
+            //OpenTF_VS1();
+        //}
 
         /// <summary>
         /// In situ quartz sample process, Day 2 (extraction)
         /// </summary>
-        protected virtual void Day2()
-        {
+        //protected virtual void Day2()
+        //{
             //TurnOnIpQuartzFurnace();
             //BackfillTF1WithHe();
             //LoadTF();
@@ -1263,7 +1263,7 @@ namespace AeonHacs.Components
             //WaitForTimer();
             //TurnOffIpSampleFurnace();
             //BypassCO2Analyzer();
-            CollectToCT1();
+            //CollectToCT1();
             //SetParameter("FirstTrapBleedPressure", 10);
             //StartFlowThroughToTrap();
             //SetParameter("CollectUntilTemperatureFalls", 80);
@@ -1274,21 +1274,42 @@ namespace AeonHacs.Components
             //SetParameter("CollectUntilCtPressureFalls", 4.0);
             //CollectUntilConditionMet();
             //StopCollecting();
-            ExtractEtcThenEvacuateVS2();
-            OpenLine();
-        }
+            //ExtractEtcThenEvacuateVS2();
+            //OpenLine();
+        //}
 
 
         /// <summary>
         /// General-purpose code tester. Put whatever you want here.
         /// </summary>
-        protected override void Test()
-        {
-          
-            //Day1();
-            Day2();
+        protected void TestBakeout()
+            {
+                EvacuateIP();
+            SetParameter("TfPressureTarget", 50);
+            AdmitO2toTF();
+            SetParameter("IpSetpoint", 500);
+            TurnOnIpSampleFurnace();
+            WaitIpRiseToSetpoint();
+            StartFlowThroughToWaste();
+            SetParameter("WaitTimerMinutes",10);
+            WaitForTimer();
+            StopFlowThroughGas();
+            EvacuateIP();
+            AdmitO2toTF();
+            SetParameter("IpSetpoint", 1000);
+            AdjustIpSetpoint();
+            WaitIpRiseToSetpoint();
+            SetParameter("WaitTimerMinutes", 2);
+            WaitForTimer();
+            TurnOffIpSampleFurnace();
+            OpenLine();
         }
 
+        protected override void Test()
+        {
+            TestBakeout();
+
+        }
         #endregion Test functions
 
     }
