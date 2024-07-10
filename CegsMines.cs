@@ -4,7 +4,7 @@ using static AeonHacs.Components.CegsPreferences;
 
 namespace AeonHacs.Components
 {
-    public partial class CegsLL6 : Cegs
+    public partial class CegsMines : Cegs
     {
         #region HacsComponent
 
