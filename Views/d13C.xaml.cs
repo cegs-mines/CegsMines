@@ -3,11 +3,11 @@
 namespace CegsMines.Views
 {
     /// <summary>
-    /// Interaction logic for CT.xaml
+    /// Interaction logic for Split.xaml
     /// </summary>
-    public partial class CT : View
+    public partial class d13C : View
     {
-        public CT()
+        public d13C()
         {
             InitializeComponent();
         }

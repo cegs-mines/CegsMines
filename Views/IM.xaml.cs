@@ -1,10 +1,10 @@
 ﻿using AeonHacs.Wpf.Views;
 using System.Windows;
 
-namespace CegsLL6.Views
+namespace CegsMines.Views
 {
     /// <summary>
-    /// Interaction logic for IM.xaml
+    /// Interaction logic for GM.xaml
     /// </summary>
     public partial class IM : View
     {

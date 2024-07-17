@@ -1,24 +1,22 @@
-﻿<wpf:View x:Class="CegsLL6.Views.GM"
+﻿<wpf:View x:Class="CegsMines.Views.GM"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CegsMines.Views"
         xmlns:wpf="http://schemas.aeonhacs.com/wpf"
         mc:Ignorable="d"
         Background="{x:Null}">
 
-    <Canvas Width="225" Height="177">
-        <!-- BEGIN MKS pressure sensor version -->
-        <wpf:Chamber Component="Section.GM" HelpText="Graphite manifold" Canvas.Top="6"
-            Data="M43.5,0.5 v164
-                M43.5,4.5 h17 M43.5,30.5 h17 M43.5,56.5 h17 M43.5,108.5 h17 M43.5,134.5 h17 M43.5,160.5 h17
-                M43.5,82.5 h-43
-                M17.5,69.5 v30" />
+    <Canvas Width="225" Height="181">
+        <wpf:Chamber Component="Section.GM" HelpText="GraphiteManifold"
+                   Data="M60.5,12.5 h-17 v156 h17 M43.5,38.5 h17 M43.5,64.5 h17 M43.5,116.5 h17 M43.5,142.5 h17 M0.5,90.5 h43 M17.5,90.5 v17"
+                   Canvas.Left="0" Canvas.Top="0" />
 
-        <Grid Canvas.Left="17.5" Canvas.Bottom="102" Background="Transparent" ClipToBounds="True"  RenderTransform="{wpf:AnchorTransform BottomCenter}"
+        <Grid Canvas.Left="17.5" Canvas.Bottom="95" Background="Transparent" ClipToBounds="True" RenderTransform="{wpf:AnchorTransform BottomCenter}"
             wpf:View.Component="pGM" AutomationProperties.HelpText="Graphite manifold pressure">
-            <wpf:Mks722BHighPressure VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-            <wpf:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,29" IsHitTestVisible="False"
+            <wpf:PortPressureSensor IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5"/>
+            <wpf:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" IsHitTestVisible="False"
                 Component="pGM" ContentStringFormat="0" />
         </Grid>
         <!-- END MKS pressure sensor version -->
@@ -38,12 +36,13 @@
         </Grid>-->
         <!-- END Port pressure sensor version -->
 
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="0" Component="GR6" HelpText="Graphite reactor 6" />
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="26" Component="GR5" HelpText="Graphite reactor 5" />
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="52" Component="GR4" HelpText="Graphite reactor 4" />
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="104" Component="GR3" HelpText="Graphite reactor 3" />
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="130" Component="GR2" HelpText="Graphite reactor 2" />
-        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="156" Component="GR1" HelpText="Graphite reactor 1" />
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="2" Component="GR6" HelpText="Graphite reactor 6" />
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="28" Component="GR5" HelpText="Graphite reactor 5" />
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="54" Component="GR4" HelpText="Graphite reactor 4" />
+
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="106" Component="GR3" HelpText="Graphite reactor 3" />
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="132" Component="GR2" HelpText="Graphite reactor 2" />
+        <wpf:GraphiteReactor Orientation="Left" Canvas.Left="60" Canvas.Top="158" Component="GR1" HelpText="Graphite reactor 1" />
 
     </Canvas>
 </wpf:View>

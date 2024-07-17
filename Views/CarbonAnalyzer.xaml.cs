@@ -3,11 +3,11 @@
 namespace CegsMines.Views
 {
     /// <summary>
-    /// Interaction logic for CT.xaml
+    /// Interaction logic for GM.xaml
     /// </summary>
-    public partial class CT : View
+    public partial class CarbonAnalyzer : View
     {
-        public CT()
+        public CarbonAnalyzer()
         {
             InitializeComponent();
         }
