@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="clr-namespace:Cegs12X.Views;assembly=CegsMines"
+					xmlns:local="clr-namespace:CegsMines.Views;assembly=CegsMines"
 					xmlns:v="clr-namespace:AeonHacs.Wpf.Views;assembly=AeonHacs.Wpf"
 					xmlns:c="clr-namespace:AeonHacs.Wpf.Converters;assembly=AeonHacs.Wpf">
 
