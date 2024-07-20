@@ -4,7 +4,7 @@ using System.Windows;
 namespace CegsMines.Views
 {
     /// <summary>
-    /// Interaction logic for GM.xaml
+    /// Interaction logic for IM.xaml
     /// </summary>
     public partial class IM : View
     {

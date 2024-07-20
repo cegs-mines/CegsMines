@@ -1,37 +1,31 @@
 ﻿<wpf:View x:Class="CegsMines.Views.IM"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:CegsMines.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:wpf="http://schemas.aeonhacs.com/wpf"
     mc:Ignorable="d"
     Background="{x:Null}"
     >
 
-    <Canvas Width="250" Height="139">
-        <wpf:Chamber Canvas.Right="0" Canvas.Top="0"
-            Data="M17.5,0.5 v86 M0.5,43.5 h17 M0.5,69.5 h17 M17.5,17.5 h69 M43.5,17.5 v121 M69.5,17.5 v-17" 
-            wpf:View.Component="Section.IM" AutomationProperties.HelpText="Inlet manifold" HorizontalAlignment="Left" Canvas.Left="163" VerticalAlignment="Center" />
-        <Rectangle Style="{DynamicResource FittingShapeStyle}" Width="5" Height="3" Canvas.Right="67" Canvas.Top="-2" IsHitTestVisible="False"/>
-        <Rectangle Style="{DynamicResource FittingShapeStyle}" Width="5" Height="3" Canvas.Right="67" Canvas.Top="86" IsHitTestVisible="False"/>
+    <Canvas Width="250" Height="109">
+        <wpf:Chamber Component="Section.IM" HelpText="Inlet manifold" Canvas.Top="6" Canvas.Right="0"
+            Data="M17.5,0.5 v86 M0.5,43.5 h17 M0.5,69.5 h17 M17.5,17.5 h69 M43.5,17.5 v17 M69.5,17.5 v-17" />
+        <wpf:Stub Orientation="Down" Canvas.Right="66" Canvas.Top="2" />
+        <wpf:Stub Canvas.Right="66" Canvas.Top="93" />
 
-
-        <Grid Canvas.Right="43.5" Canvas.Top="13" Background="Transparent" ClipToBounds="True" RenderTransform="{wpf:AnchorTransform BottomCenter}"
+        <Grid Canvas.Right="43.5" Canvas.Bottom="89" Background="Transparent" ClipToBounds="True" RenderTransform="{wpf:AnchorTransform BottomCenter}"
             wpf:View.Component="pIM" AutomationProperties.HelpText="Inlet manifold pressure">
-            <wpf:PortPressureSensor IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5"/>
-            <wpf:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" IsHitTestVisible="False"
+            <wpf:PortPressureSensor HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-4" IsHitTestVisible="False" />
+            <wpf:Pressure HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,27" IsHitTestVisible="False"
                 Component="pIM" ContentStringFormat="0"/>
         </Grid>
 
-        <wpf:Switch Component="IpFan1" IsOn="{Binding Component.Fan.IsOn, RelativeSource={RelativeSource Self}}" HelpText="Trap fan for IP1, IP2"
-                    Canvas.Right="110" Canvas.Top="36" Width="23" Height="67" />
+        <wpf:Switch Component="IpFan1-3" HelpText="Trap fan for IP1..IP3" IsOn="{Binding Component.Fan.IsOn, RelativeSource={RelativeSource Self}}" 
+            Canvas.Right="109" Canvas.Top="42" Width="23" Height="67" />
+        <wpf:InletPort Orientation="Right" Canvas.Right="86" Canvas.Top="39" Component="IP1" HelpText="Inlet port 1" d:PortType="FlowThrough" d:QuartzFurnace="" />
+        <wpf:InletPort Orientation="Right" Canvas.Right="86" Canvas.Top="65" Component="IP2" HelpText="Inlet port 2" d:PortType="FlowThrough" d:QuartzFurnace="" d:SampleFurnace=""  />
 
-        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP1" d:QuartzFurnace=""
-                       Canvas.Right="86" Canvas.Top="33" />
-
-        <wpf:InletPort Orientation="Right" PortType="FlowThrough" Component="IP2" d:QuartzFurnace="" d:SampleFurnace=""
-                       Canvas.Right="86" Canvas.Top="59" />
-
+        <wpf:Valve Canvas.Right="34" Canvas.Top="40" Component="vIM_VM1" HelpText="IM-VM1 valve" d:ValveState="Opened" />
     </Canvas>
 </wpf:View>

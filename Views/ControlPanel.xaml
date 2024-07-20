@@ -19,8 +19,8 @@
     <!-- The display space -->
     <!--==============================================-->
     <Grid>
-        <!-- Simplify references to CEGS properties -->
-        <wpf:View x:Name="Cegs" Component="MinesCegs" Visibility="Collapsed" />
+        <!-- Simplify references to Cegs properties -->
+        <wpf:View x:Name="Cegs" Component="CegsMines" Visibility="Collapsed" />
 
         <!-- System Uptime -->
         <StackPanel Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -120,37 +120,30 @@
         <DockPanel LastChildFill="True">
 
             <!-- LN and air section -->
-            <Grid DockPanel.Dock="Right" >
-                <local:LNAndAir VerticalAlignment="Top" Margin="0,10,10,0" />
-            </Grid>
+            <local:LNAndAir DockPanel.Dock="Right" VerticalAlignment="Top" />
 
             <!--==============================================-->
             <!-- Schematic Interface -->
             <!--==============================================-->
-            <Canvas DockPanel.Dock="Bottom" Width="1111" Height="500" Margin="30,0,60,60" >
-                <!--<Canvas Background="{DynamicResource FittingGrid}" Width="863" Height="500" Canvas.Left="-24" Opacity="0.2"/>-->
-                <local:TF Canvas.Left="0" Canvas.Top="70" HorizontalAlignment="Center" />
-                <local:FTG Canvas.Left="150" Canvas.Top="174" HorizontalAlignment="Center" />
-                <local:VS1 Canvas.Left="413" Canvas.Top="281" />
-                <local:Ambient Canvas.Left="627" Canvas.Top="427" HorizontalAlignment="Center" VerticalAlignment="Top" />
-                <local:VS2 Canvas.Left="670" Canvas.Top="281" />
-                <local:IM Canvas.Left="216" Canvas.Top="143" />
-                <local:CarbonAnalyzer Canvas.Left="439" Canvas.Top="49" />
-                <local:CT Canvas.Left="483" Canvas.Top="78" />
-                <local:VTT Canvas.Left="717" Canvas.Top="156" VerticalAlignment="Center" />
-                <local:MC Canvas.Left="769" Canvas.Top="121" VerticalAlignment="Center" />
-                <local:Split Canvas.Left="821" Canvas.Top="148" VerticalAlignment="Center" />
-                <local:d13C Canvas.Left="873" Canvas.Top="148" VerticalAlignment="Center" />
-                <local:AM Canvas.Left="925" Canvas.Top="-8" VerticalAlignment="Center" />
-                <local:GM Canvas.Left="899" Canvas.Top="174" VerticalAlignment="Center" />
+            <Canvas DockPanel.Dock="Left" Width="1150" Height="500" Margin="0,10,0,80">
+                <local:VS Canvas.Left="423" Canvas.Top="299" />
+                <local:FTG Canvas.Left="160" Canvas.Top="192" />
+                <local:TF Canvas.Left="10" Canvas.Top="88" />
+                <local:IM Canvas.Left="226" Canvas.Top="155" />
+                <local:CarbonAnalyzer Canvas.Left="449" Canvas.Top="67" />
+                <local:CT Canvas.Left="493" Canvas.Top="96" />
+                <local:VTT Canvas.Left="727" Canvas.Top="174" />
+                <local:MC Canvas.Left="779" Canvas.Top="139" />
+                <local:Split Canvas.Left="831" Canvas.Top="166" />
+                <local:d13C Canvas.Left="883" Canvas.Top="10" />
+                <local:GM Canvas.Left="909" Canvas.Top="194" />
 
-                <wpf:Valve HelpText="IM-CTF valve" Component="vIM_CTF" Canvas.Left="465" Canvas.Top="151" d:ValveState="Opened" />
-                <wpf:Valve HelpText="CTO-VTT valve" Component="vCTO_VTT" Canvas.Left="699" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
-                <wpf:Valve HelpText="VTT-MC valve" Component="vVTT_MC" Canvas.Left="751" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
-                <wpf:Valve HelpText="MC-Split valve" Component="vMC_Split" Canvas.Left="803" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
-                <wpf:Valve HelpText="Split-d13C valve" Component="vSplit_d13C" Canvas.Left="855" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
-                <wpf:Valve HelpText="d13C-AM valve" Component="vd13C_AM" Canvas.Left="907" Canvas.Top="151" VerticalAlignment="Center" d:ValveState="Opened" />
-                <wpf:Valve HelpText="Split-GM valve" Component="vSplit_GM" Canvas.Left="881" Canvas.Top="255" VerticalAlignment="Center" d:ValveState="Opened" />
+                <wpf:Valve HelpText="IM-CT valve" Component="vIM_CT" Canvas.Left="475" Canvas.Top="169" d:ValveState="Opened" />
+                <wpf:Valve HelpText="CT-VTT valve" Component="vCT_VTT" Canvas.Left="709" Canvas.Top="169" d:ValveState="Opened" />
+                <wpf:Valve HelpText="VTT-MC valve" Component="vVTT_MC" Canvas.Left="761" Canvas.Top="169" d:ValveState="Opened" />
+                <wpf:Valve HelpText="MC-Split valve" Component="vMC_Split" Canvas.Left="813" Canvas.Top="169" d:ValveState="Opened" />
+                <wpf:Valve HelpText="Split-d13C valve" Component="vSplit_d13C" Canvas.Left="865" Canvas.Top="169" d:ValveState="Opened" />
+                <wpf:Valve HelpText="Split-GM valve" Component="vSplit_GM" Canvas.Left="891" Canvas.Top="273" d:ValveState="Opened" />
 
             </Canvas>
         </DockPanel>
