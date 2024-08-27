@@ -72,4 +72,5 @@
             <wpf:Ambient Canvas.Left="627" Canvas.Top="427" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </DockPanel>
     </Canvas>
+    
 </wpf:View>
