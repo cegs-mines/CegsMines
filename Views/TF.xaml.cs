@@ -3,11 +3,11 @@
 namespace CegsMines.Views;
 
 /// <summary>
-/// Interaction logic for VS.xaml
+/// Interaction logic for TF.xaml
 /// </summary>
-public partial class VS : View
+public partial class TF : View
 {
-    public VS()
+    public TF()
     {
         InitializeComponent();
     }

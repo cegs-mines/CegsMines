@@ -1,37 +1,75 @@
-﻿<wpf:View x:Class="CegsLL6.Views.VS" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:wpf="http://schemas.aeonhacs.com/wpf" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+﻿<wpf:View x:Class="CegsMines.Views.VS"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" Background="{x:Null}">
-    <Grid>
-        <Canvas Width="336" Height="245" Visibility="Visible">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CegsMines.Views"
+        xmlns:wpf="http://schemas.aeonhacs.com/wpf"
+        mc:Ignorable="d">
+
+    <Canvas Width="513" Height="191">
+        <Canvas Width="253" Height="191">
             <!--Vacuum manifold-->
-            <wpf:Chamber Canvas.Left="5" Canvas.Top="18" Component="Section.VM1" HelpText="Vacuum manifold"
-                Data="M0,0 v69 h317 v-69
-                      M26,69 v-13 M52,69 v-13 M124,69 v-69
-                      M98,69 v17 M150,69 v17 M226,69 v17 M252,69 v17 M278,69 v17 M304,69 v17" />
+            <wpf:Chamber Canvas.Left="5" Canvas.Top="-164"
+                    Data="M0,0 h234 M0,0 v-121 M0,0 v17 M208,0 v-199 M234,0 v-69 M234,0 v17
+                          M26,0 v-13 M52,0 v-13 M78,0 v17 M130,0 v17"
+                    Component="Section.VM1" HelpText="Vacuum manifold 1" />
 
             <!--Vacuum manifold pressure-->
-            <wpf:VMPressure Canvas.Left="22.5" Canvas.Bottom="162" />
+            <wpf:VMPressure Canvas.Left="22.5" Canvas.Bottom="160" />
 
             <!--Gas supplies-->
-            <Canvas Canvas.Left="225" Canvas.Top="104" Width="99" Height="95">
-                <wpf:GasSupply Canvas.Left="0" GasName="O2" HelpText="Oxygen gas supply" Valve="vO2_VM" />
-                <wpf:GasSupply Canvas.Left="26" GasName="He" HelpText="Helium gas supply" Valve="vHe_VM"
-                        FlowValve="vHeFlow" d:FlowValve="" />
-                <wpf:GasSupply Canvas.Left="52" GasName="H2" HelpText="Hydrogen gas supply" Valve="vH2_VM"
-                        FlowValve="vH2Flow" d:FlowValve="" />
-                <wpf:GasSupply Canvas.Left="78" GasName="CO2" HelpText="Carbon dioxide gas supply" Valve="vCO2_VM"
-                        FlowValve="vCO2Flow" d:FlowValve="" />
+            <wpf:GasSupply GasName="O2" Valve="vO2_VM1" HelpText="Oxygen gas supply"
+                    Canvas.Top="52" Canvas.Left="-1" />
+
+            <wpf:GasSupply GasName="He" Valve="vHe_VM1" HelpText="Helium gas supply"
+                    Canvas.Top="52" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="233" />
+
+            <!--Vacuum system-->
+            <wpf:VacuumSystem Canvas.Left="75" Canvas.Top="52"/>
+
+            <wpf:Valve Canvas.Left="0" Canvas.Top="-104" d:ValveState="Opened"
+                    Component="vIM_VM1" HelpText="IMC-VM1 valve" />
+            <wpf:Valve Canvas.Left="208" Canvas.Top="-182" d:ValveState="Opened"
+                    Component="vCT1_VM1" HelpText="CT1-VM1 valve" />
+            <wpf:Valve Canvas.Left="234" Canvas.Top="-52" d:ValveState="Opened"
+                    Component="vCT2_VM1" HelpText="CT2-VM1 valve" />
+
+        </Canvas>
+
+        <Canvas Width="256" Height="191" Canvas.Left="257">
+            <!--Vacuum manifold-->
+            <wpf:Chamber Canvas.Left="8" Canvas.Top="-86"
+                    Data="M0,0 h234 M0,0 v-121 M0,0 v17 M234,0 v-17 M234,0 v17
+                          M52,0 v17 M91,0 v-13 M117,0 v-13 M182,0 v17 M208,0 v17"
+                    Component="Section.VM2" HelpText="Vacuum manifold 2" />
+
+            <!--Vacuum manifold pressure-->
+            <wpf:VMPressure Canvas.Left="90.5" Canvas.Bottom="160" />
+
+            <!--Gas supplies-->
+
+            <Canvas Canvas.Left="184" Canvas.Top="52" Width="73" Height="95">
+                <wpf:GasSupply GasName="H2" Valve="vH2_VM2" FlowValve="vH2Flow" HelpText="Hydrogen gas supply" d:FlowValve="" />
+                <wpf:GasSupply GasName="CO2" Valve="vCO2_VM2" FlowValve="vCO2Flow" HelpText="Carbon dioxide gas supply" d:FlowValve=""
+                       Canvas.Left="26" />
+                <wpf:GasSupply GasName="He" Valve="vHe_VM2" FlowValve="vHeFlow" HelpText="Helium gas supply" d:FlowValve=""
+                       Canvas.Left="52" />
             </Canvas>
 
             <!--Vacuum system-->
-            <wpf:VacuumSystem Canvas.Left="95" Canvas.Bottom="2" />
-            <wpf:Arrow Orientation="Right" Canvas.Left="184" Canvas.Bottom="18" />
-            <wpf:Ambient Canvas.Left="206" Canvas.Bottom="4" />
-
-            <wpf:Valve Canvas.Left="0" Canvas.Top="0" Component="vIM_VM" HelpText="IM-VM valve" d:ValveState="Opened" />
-            <wpf:Valve Canvas.Left="124" Canvas.Top="0" Component="vCT_VM" HelpText="CT-VM valve" d:ValveState="Opened" />
-            <wpf:Valve Canvas.Left="317" Canvas.Top="0" Component="vGM_VM" HelpText="GM-VM valve" d:ValveState="Opened" />
+            <wpf:VacuumSystem Component="VacuumSystem2" Canvas.Left="0" Canvas.Top="52" />
+            <wpf:Valve Canvas.Left="3" Canvas.Top="-104" d:ValveState="Opened"
+                    Component="vCTO_VM2" HelpText="CTO-VM2 valve" />
+            <wpf:Valve Canvas.Left="237" Canvas.Top="0" d:ValveState="Opened"
+                    Component="vGM_VM2" HelpText="GM-VM2 valve" />
         </Canvas>
-    </Grid>
+
+        <DockPanel Canvas.Left="162" Canvas.Top="142" Width="137" Height="59" Background="Transparent"
+                wpf:View.Component="Ambient" AutomationProperties.HelpText="Ambient">
+            <wpf:Arrow Orientation="Right" DockPanel.Dock="Left" VerticalAlignment="Center" />
+            <wpf:Arrow Orientation="Left" DockPanel.Dock="Right" VerticalAlignment="Center" />
+            <wpf:Ambient Canvas.Left="627" Canvas.Top="427" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </DockPanel>
+    </Canvas>
 </wpf:View>

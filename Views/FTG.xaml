@@ -1,0 +1,55 @@
+﻿<wpf:View x:Class="CegsMines.Views.FTG"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:CegsMines.Views"
+    xmlns:wpf="http://schemas.aeonhacs.com/wpf"
+    xmlns:core="clr-namespace:AeonHacs;assembly=AeonHacs.Core"
+    mc:Ignorable="d"
+    Background="{x:Null}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <wpf:View.Resources>
+        <wpf:MatchConverter x:Key="MismatchVisibleHidden" MatchValue="{x:Static Visibility.Hidden}" MismatchValue="{x:Static Visibility.Visible}" />
+    </wpf:View.Resources>
+    <Canvas Width="79" Height="118">
+        <wpf:Chamber Component="Section.FTG" HelpText="Flow-through gas" Canvas.Left="9"
+            Data="M12.5,29.5 v-17 h52 v17 M38.5,12.5 v17 M38.5,47.5 v69 M21.5,116.5 h34" />
+
+        <wpf:Stub Orientation="Left" Canvas.Left="0" Canvas.Top="105" />
+        <wpf:Stub Orientation="Right" Canvas.Left="75" Canvas.Top="105" />
+        <Canvas Canvas.Left="79" Canvas.Top="26" Width="44" Height="86"
+            Visibility="{Binding InletPort.PortType, Converter={x:Static wpf:MatchConverter.VisibleHidden}, ConverterParameter={x:Static core:InletPortType.FlowThrough}}">
+            <wpf:Fitting Data="M12,0 h-12 v5" FittingSize="3/8" Canvas.Left="27" Canvas.Top="0" />
+            <wpf:Fitting Data="M0,0 v7" Canvas.Left="28" Canvas.Top="9" />
+            <wpf:ConvolutedTubing Data="M0,0 h3 m0,0 h10 c 13,0 18.5,0 18.5,-30 v-32.5 m0,0 v-3" Canvas.Left="0" Canvas.Top="17" />
+        </Canvas>
+        <Canvas Canvas.Left="79" Canvas.Bottom="6" Width="82" Height="73" d:Visibility="Hidden"
+            Visibility="{Binding InletPort.PortType, Converter={StaticResource MismatchVisibleHidden}, ConverterParameter={x:Static core:InletPortType.FlowThrough}}" HorizontalAlignment="Center" Canvas.Top="39" VerticalAlignment="Top">
+            <Canvas Canvas.Left="58" Canvas.Bottom="56" Width="17" Height="17">
+                <Canvas.RenderTransform>
+                    <RotateTransform Angle="30" CenterX="4" CenterY="17.7" />
+                </Canvas.RenderTransform>
+                <wpf:Fitting Data="M12,0 h-12 v5" FittingSize="3/8" Canvas.Left="0" Canvas.Top="0" />
+                <wpf:Fitting Data="M0,0 v7" Canvas.Left="1" Canvas.Bottom="0" />
+            </Canvas>
+            <wpf:ConvolutedTubing Data="M0,0 h3 m0,0 h10 c 21.376,0 21.376,-3 32,-21.425 l16.25,-28.146 m0,0 l1.5,-2.598" Canvas.Left="0" Canvas.Bottom="0"/>
+        </Canvas>
+
+        <wpf:GasSupply GasName="He" Valve="vHe_FTG" HelpText="Helium gas supply"
+                       Background="Transparent" Canvas.Left="3" Canvas.Top="21" />
+        <wpf:GasSupply GasName="O2" Valve="vO2_FTG" HelpText="Oxygen gas supply"
+                       Background="Transparent" Canvas.Left="55" Canvas.Top="21" />
+
+
+        <wpf:Valve Component="vFTG_IP2" HelpText="FTG-IP2 valve"
+                   Canvas.Left="56" Canvas.Top="99" d:ValveState="Closed"/>
+
+        <wpf:Valve Component="vFtgFlow" HelpText="FTG flow valve"
+                   Canvas.Left="30" Canvas.Top="21" d:ValveState="Closed" >
+            <wpf:Restriction />
+        </wpf:Valve>
+        <wpf:Valve Component="vFTG_TF" HelpText="FTG-TF valve"
+                   Canvas.Left="4" Canvas.Top="99" d:ValveState="Closed" />
+    </Canvas>
+</wpf:View>

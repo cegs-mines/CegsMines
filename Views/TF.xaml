@@ -1,0 +1,33 @@
+﻿<wpf:View x:Class="CegsMines.Views.TF"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:CegsMines.Views"
+    xmlns:wpf="http://schemas.aeonhacs.com/wpf"
+    mc:Ignorable="d"
+    Background="{x:Null}">
+    <Canvas Width="197" Height="149">
+        <wpf:ConvolutedTubing Data="M0,0 h3 m0,0 h1 c 26,0 27.5,6 27.5,35.5 v1 m0,0 v3" Canvas.Right="-39" Canvas.Top="62" />
+        <wpf:ConvolutedTubing Data="M0,0 h-3 m0,0 h-1 c -32,0 -9,40 -9,65.5 v1 m0,0 v3" Canvas.Right="75" Canvas.Top="10" />
+
+        <wpf:ConvolutedTubing Data="M0,0 v3 m0,0 v95.5 c 0,14 10,24 25,24 h88.5 m0,0 h3" Canvas.Right="75" Canvas.Top="99" />
+
+        <wpf:TubeFurnace Component="TF1" Canvas.Right="82" Canvas.Bottom="0" />
+
+        <wpf:Chamber Component="Section.TF" Canvas.Right="18"
+            Data="M0,13 h39 v17 M13,0 v30 M13,48 v17 h43 M39,48 v17" />
+        <wpf:Stub Orientation="Right" Canvas.Right="-4" Canvas.Top="62" />
+        <wpf:Fitting Data="M0,0 v7" Canvas.Right="-39" Canvas.Top="105" />
+        <wpf:Fitting Data="M0,0 v5 h12" FittingSize="3/8" Canvas.Right="-48" Canvas.Top="112" />
+        <wpf:StackingPanel Direction="Up" Spacing="5" Width="59" Canvas.Right="32" Canvas.Bottom="148">
+            <wpf:PressureSensor Type="MKS_722_HP" Component="pTF" HelpText="TF pressure sensor" />
+            <wpf:PressureGauge Component="pTF" HelpText="TF pressure" ContentStringFormat="0.0"/>
+        </wpf:StackingPanel>
+        <wpf:Valve Component="vTFFlow" HelpText="TF flow valve" Canvas.Right="52" Canvas.Top="30" d:ValveState="Closed">
+            <wpf:Restriction />
+        </wpf:Valve>
+        <wpf:Valve Component="vTFBypass" HelpText="TF bypass valve" Canvas.Right="26" Canvas.Top="30" d:ValveState="Closed" />
+        <wpf:Valve Component="vTF_IP1" HelpText="TF-IP1 valve" Canvas.Right="0" Canvas.Top="56" d:ValveState="Closed" />
+    </Canvas>
+</wpf:View>

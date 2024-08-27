@@ -1,6 +1,6 @@
 ﻿using AeonHacs.Wpf.Views;
 
-namespace CegsLL6.Views;
+namespace CegsMines.Views;
 
 /// <summary>
 /// Interaction logic for LNAndAir.xaml

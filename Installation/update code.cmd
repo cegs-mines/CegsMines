@@ -1,7 +1,7 @@
 @echo off
-if [%*]==[] %0 "C:\Data\Source\DevStudio\CegsLL6\bin\Release"
+if [%*]==[] %0 "C:\Data\Source\DevStudio\CegsMines\bin\Release"
 C:
-CD "\Programs\Aeon Laboratories\CegsLL6"
+CD "\Programs\Aeon Laboratories\CegsMines"
 copy "%*\*.exe" > nul
 copy "%*\*.dll" > nul
 copy "%*\*.config" > nul
