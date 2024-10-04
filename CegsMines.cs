@@ -348,11 +348,11 @@ public partial class CegsMines : Cegs
         OpenVS2Line();
 
         ProcessStep.Start($"Wait for both VacuumSystems to reach {OkPressure} Torr");
-        WaitFor(() => VacuumSystem1.Pressure <= OkPressure && VacuumSystem2.Pressure <= OkPressure);
+        WaitFor(() => VacuumSystem.Pressure <= OkPressure && VacuumSystem2.Pressure <= OkPressure);
         ProcessStep.End();
 
         ProcessStep.Start("Join VacuumSystem1 and VacuumSystem2 lines");
-        Section.Connections(VacuumSystem1.MySection, VacuumSystem2.MySection).Open();
+        Section.Connections(VacuumSystem.MySection, VacuumSystem2.MySection).Open();
         ProcessStep.End();
 
         ProcessStep.Start($"Isolate {CA.Name} (temp. due to leak)");
@@ -367,7 +367,7 @@ public partial class CegsMines : Cegs
     protected virtual void OpenVS1Line()
     {
         ProcessStep.Start("Open VacuumSystem1 line");
-        OpenLine(VacuumSystem1);
+        OpenLine(VacuumSystem);
         ProcessStep.End();
     }
     /// <summary>
@@ -511,7 +511,10 @@ public partial class CegsMines : Cegs
     /// </summary>
     protected virtual void LoadTF()
     {
-        Pause("Ready for operator", "Load the Tube Furnace and seal it closed.");
+        var subject = "Ready For Operator";
+        var message = "Load the Tube Furnace and seal it closed.";
+
+        Notify.Warn(message, subject, NoticeType.Information);
     }
 
     /// <summary>
@@ -786,7 +789,7 @@ public partial class CegsMines : Cegs
 
     protected override void Collect()
     {
-        VacuumSystem1.MySection.Isolate();
+        VacuumSystem.MySection.Isolate();
         IM_FirstTrap.Isolate();
         IM_FirstTrap.FlowValve.OpenWait();
         IM_FirstTrap.OpenAndEvacuate(OkPressure);
@@ -849,7 +852,15 @@ public partial class CegsMines : Cegs
 
         IM.ClosePortsExcept(InletPort);
         while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
-            Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
+        {
+            var subject = "Sample Alert";
+            var message = $"{InletPort.Name} is leaking.\r\n" +
+                          $"Process Paused.\r\n" +
+                          $"Ok to try again or\r\n" +
+                          $"Restart the application to abort the process.";
+
+            Notify.Warn(message, subject);
+        }
 
         ProcessStep.Start($"Heat Quartz");
         TurnOnIpQuartzFurnace();

@@ -1,4 +1,4 @@
-﻿<wpf:ControlPanel x:TypeArguments="cegs:CegsMines" x:Class="CegsMines.Views.ControlPanel"
+﻿<wpf:ControlPanel x:Class="CegsMines.Views.ControlPanel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -112,9 +112,10 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <TextBlock VerticalAlignment="Center" Text="Sample: " />
-            <TextBlock VerticalAlignment="Center"
-                    Text="{Binding Component.Sample, ElementName=Cegs, Converter={StaticResource ToStringConverter}}" />
+            <TextBlock VerticalAlignment="Center" >
+                <Run Text="Sample:" />
+                <Run Text="{Binding Component.Sample, ElementName=Cegs, Converter={StaticResource ToStringConverter}}" />
+            </TextBlock>
         </StackPanel>
 
         <DockPanel LastChildFill="True">

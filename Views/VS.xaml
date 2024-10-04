@@ -16,7 +16,7 @@
                     Component="Section.VM1" HelpText="Vacuum manifold 1" />
 
             <!--Vacuum manifold pressure-->
-            <wpf:VMPressure Canvas.Left="22.5" Canvas.Bottom="160" />
+            <wpf:VMPressure Component="pVM1" Canvas.Left="22.5" Canvas.Bottom="160" />
 
             <!--Gas supplies-->
             <wpf:GasSupply GasName="O2" Valve="vO2_VM1" HelpText="Oxygen gas supply"
@@ -45,7 +45,7 @@
                     Component="Section.VM2" HelpText="Vacuum manifold 2" />
 
             <!--Vacuum manifold pressure-->
-            <wpf:VMPressure Canvas.Left="90.5" Canvas.Bottom="160" />
+            <wpf:VMPressure Component="pVM2" Canvas.Left="90.5" Canvas.Bottom="160" />
 
             <!--Gas supplies-->
 
