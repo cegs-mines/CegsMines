@@ -19,11 +19,11 @@
             <wpf:VMPressure Component="pVM1" Canvas.Left="22.5" Canvas.Bottom="160" />
 
             <!--Gas supplies-->
-            <wpf:GasSupply GasName="O2" Valve="vO2_VM1" HelpText="Oxygen gas supply"
-                    Canvas.Top="52" Canvas.Left="-1" />
+            <wpf:GasSupply Canvas.Top="52" Canvas.Left="-1" 
+                GasName="O2" Valve="vO2_VM1" HelpText="Oxygen gas supply" />
 
-            <wpf:GasSupply GasName="He" Valve="vHe_VM1" HelpText="Helium gas supply"
-                    Canvas.Top="52" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="233" />
+            <wpf:GasSupply Canvas.Top="52" Canvas.Left="233" HorizontalAlignment="Left" VerticalAlignment="Center"
+                GasName="He" Valve="vHe_VM1" HelpText="Helium gas supply" />
 
             <!--Vacuum system-->
             <wpf:VacuumSystem Canvas.Left="75" Canvas.Top="52"/>
@@ -50,11 +50,12 @@
             <!--Gas supplies-->
 
             <Canvas Canvas.Left="184" Canvas.Top="52" Width="73" Height="95">
-                <wpf:GasSupply GasName="H2" Valve="vH2_VM2" FlowValve="vH2Flow" HelpText="Hydrogen gas supply" d:FlowValve="" />
-                <wpf:GasSupply GasName="CO2" Valve="vCO2_VM2" FlowValve="vCO2Flow" HelpText="Carbon dioxide gas supply" d:FlowValve=""
-                       Canvas.Left="26" />
-                <wpf:GasSupply GasName="He" Valve="vHe_VM2" FlowValve="vHeFlow" HelpText="Helium gas supply" d:FlowValve=""
-                       Canvas.Left="52" />
+                <wpf:GasSupply 
+                    GasName="H2" Valve="vH2_VM2" FlowValve="vH2Flow" HelpText="Hydrogen gas supply" d:FlowValve="" />
+                <wpf:GasSupply Canvas.Left="26"
+                    GasName="CO2" Valve="vCO2_VM2" FlowValve="vCO2Flow" HelpText="Carbon dioxide gas supply" d:FlowValve="" />
+                <wpf:GasSupply Canvas.Left="52"
+                    GasName="He" Valve="vHe_VM2" FlowValve="vHeFlow" HelpText="Helium gas supply" d:FlowValve="" />
             </Canvas>
 
             <!--Vacuum system-->

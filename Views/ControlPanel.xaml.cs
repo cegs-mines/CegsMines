@@ -29,7 +29,6 @@ public partial class ControlPanel : AeonHacs.Wpf.Views.ControlPanel
     public ControlPanel(HacsBase hacs) : base(hacs)
     {
         InitializeComponent();
-
         PopulateProcessSelector();
 
         if (Hacs is Cegs cegs)

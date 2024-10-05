@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using static AeonHacs.Utilities.Utility;
 
@@ -38,7 +39,7 @@ public partial class CegsMines : Cegs
         FTG_TFFlowManager = Find<FlowManager>("FTG_TFFlowManager");
         FTG_IMFlowManager = Find<FlowManager>("FTG_IMFlowManager");
         TFFlowManager = Find<FlowManager>("TFFlowManager");
-        // Select Default Coil Trap
+        // Select the default Coil Trap
         SelectCT1();
     }
 
@@ -47,8 +48,6 @@ public partial class CegsMines : Cegs
     #region System configuration
 
     #region HacsComponents
-
-    public virtual IVacuumSystem VacuumSystem2 { get; set; }
 
     IChamber ChamberCT1 { get; set; }
 
@@ -202,8 +201,8 @@ public partial class CegsMines : Cegs
 
         // Open line
         ProcessDictionary["Open and evacuate line"] = OpenLine;
-        ProcessDictionary["Open and evacuate VS1"] = OpenVS1Line;
-        ProcessDictionary["Open and evacuate VS2"] = OpenVS2Line;
+        ProcessDictionary["Open and evacuate VS1"] = () => OpenLine(Find<VacuumSystem>("VacuumSystem1"));
+        ProcessDictionary["Open and evacuate VS2"] = () => OpenLine(Find<VacuumSystem>("VacuumSystem2"));
         Separators.Add(ProcessDictionary.Count);
 
         // Main process continuations
@@ -344,15 +343,16 @@ public partial class CegsMines : Cegs
         CloseGasSupplies();
         ProcessStep.End();
 
-        OpenVS1Line();
-        OpenVS2Line();
+        var vacuumSystems = VacuumSystems.Values.ToList();
+        vacuumSystems.ForEach(OpenLine);
 
-        ProcessStep.Start($"Wait for both VacuumSystems to reach {OkPressure} Torr");
-        WaitFor(() => VacuumSystem.Pressure <= OkPressure && VacuumSystem2.Pressure <= OkPressure);
+        ProcessStep.Start($"Wait for all vacuum systems to reach {OkPressure} Torr");
+        WaitFor(() => vacuumSystems.All(vs => vs.Pressure <= OkPressure));
         ProcessStep.End();
 
-        ProcessStep.Start("Join VacuumSystem1 and VacuumSystem2 lines");
-        Section.Connections(VacuumSystem.MySection, VacuumSystem2.MySection).Open();
+        ProcessStep.Start("Join vacuum system lines");
+        // compute all pairs?
+        Section.Connections(vacuumSystems.First().MySection, vacuumSystems.Last().MySection).Open();
         ProcessStep.End();
 
         ProcessStep.Start($"Isolate {CA.Name} (temp. due to leak)");
@@ -371,27 +371,20 @@ public partial class CegsMines : Cegs
         ProcessStep.End();
     }
     /// <summary>
-    /// Open and evacuate the chambers normally serviced by VacuumSystem1 including the TF
+    /// Open and evacuate the chambers normally serviced by TF's VacuumSystem
     /// </summary>
     protected virtual void OpenTF_VS1()
     {
-        ProcessStep.Start("Open and evacuate TF and VS1");
+        var vacuumSystem = TF.VacuumSystem;
+        ProcessStep.Start($"Open and evacuate TF and {vacuumSystem.Name}.");
         TF.Evacuate(IpEvacuationPressure);
         TF_IP1.Open();
         Find<InletPort>("IP1").Open();
-        OpenVS1Line();
+        OpenLine(vacuumSystem);
         ProcessStep.End();
     }
 
-    /// <summary>
-    /// Open and evacuate the chambers normally serviced by VacuumSystem2
-    /// </summary>
-    protected virtual void OpenVS2Line()
-    {
-        ProcessStep.Start("Open VacuumSystem2 line");
-        OpenLine(VacuumSystem2);
-        ProcessStep.End();
-    }
+
 
     #endregion OpenLine
 
@@ -597,9 +590,12 @@ public partial class CegsMines : Cegs
         }
         else
         {
+            IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
             StartSampleFlow(trap);          // Manage CT flow to maintain bleed pressure
             o2.OpenWait();
-            gasfm.Start(IM.Pressure);   // Manage supply flow to maintain IM pressure
+            // TODO magic number
+            gasfm.Start(20);                // Manage supply flow to maintain IM pressure
+
         }
 
 
@@ -789,10 +785,11 @@ public partial class CegsMines : Cegs
 
     protected override void Collect()
     {
-        VacuumSystem.MySection.Isolate();
+        IM_FirstTrap.VacuumSystem.MySection.Isolate();
         IM_FirstTrap.Isolate();
         IM_FirstTrap.FlowValve.OpenWait();
         IM_FirstTrap.OpenAndEvacuate(OkPressure);
+        IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
 
         StartCollecting();
         CollectUntilConditionMet();
@@ -827,20 +824,21 @@ public partial class CegsMines : Cegs
     /// </summary>
     protected virtual void StartExtractEtc()
     {
-        CegsTask = Task.Run(ExtractEtcThenEvacuateVS2);
+        CegsTask = Task.Run(ExtractEtcThenEvacuate);
     }
 
     /// <summary>
-    /// Run the ExtractEtc process step, then evacuate VS2.
+    /// Run the ExtractEtc process step, then evacuate the line.
     /// </summary>
-    protected virtual void ExtractEtcThenEvacuateVS2()
+    protected virtual void ExtractEtcThenEvacuate()
     {
         ProcessStep.Start($"Extract from {CT.Name}");
 
         TransferCO2FromCTToVTT();
         ExtractEtc();
-        OpenVS2Line();
-        VacuumSystem2.WaitForPressure(OkPressure);
+        var vacuumSystem = GM.VacuumSystem;
+        OpenLine(vacuumSystem);
+        vacuumSystem.WaitForPressure(OkPressure);
 
         ProcessStep.End();
     }
@@ -985,7 +983,7 @@ public partial class CegsMines : Cegs
         SetParameter("CollectUntilCtPressureFalls", 4.0);
         CollectUntilConditionMet();
         StopCollecting();
-        ExtractEtcThenEvacuateVS2();
+        ExtractEtcThenEvacuate();
         OpenLine();
     }
 
@@ -1022,48 +1020,53 @@ public partial class CegsMines : Cegs
 
     #region Test functions
 
+        protected virtual void TestProcess()
+        {
+            //FlushIP();
+            //EvacuateIP(CleanPressure);
+
+            //IM.ClosePortsExcept(InletPort);
+            //while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
+            //    Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
+            OpenVS1Line();
+            EvacuateIP();
+
+            ProcessStep.Start($"Heat Quartz");
+            TurnOnIpQuartzFurnace();
+            //WaitMinutes((int)QuartzFurnaceWarmupMinutes);
+            ProcessStep.End();
+
+            SelectCT1();
+            //IncludeCO2Analyzer();
+            BypassCO2Analyzer();
+            UseIpFlow();
+            StartFlowThroughToTrap();
+
+            SetParameter("IpSetpoint", 1000);
+            SetParameter("IpRampRate", 5);
+            EnableIpRamp();
+            TurnOnIpSampleFurnace();
+
+            for (int i = 1; i <= Sample.Parameter($"NumberOfSplits"); i++)
+            {
+                if (i > 1)
+                    ToggleCT();
+                ClearCollectionConditions();
+                SetParameter("CollectUntilUgc", Sample.Parameter($"Split{i}TargetUgc"));
+                //SetParameter("", ) // neeed {AND};  // if 1000 degC AND ten minutes elapsed, also stop
+                CollectUntilConditionMet();
+                WaitForCegs();
+                StartExtractEtc();      // TODO almost, but not quite (more like TakeSplit())
+            }
+            OpenLine();
+        }
+
     /// <summary>
     /// General-purpose code tester. Put whatever you want here.
     /// </summary>
     protected override void Test()
     {
-        //FlushIP();
-        //EvacuateIP(CleanPressure);
-
-        //IM.ClosePortsExcept(InletPort);
-        //while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
-        //    Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
-        EvacuateIP();
-
-        ProcessStep.Start($"Heat Quartz");
-        TurnOnIpQuartzFurnace();
-        //WaitMinutes((int)QuartzFurnaceWarmupMinutes);
-        ProcessStep.End();
-
-        SelectCT1();
-        SetParameter("IpRampRate", 5);
-        SetParameter("IpSetpoint", 1000);
-        IncludeCO2Analyzer();
-        UseIpFlow();
-        EnableIpRamp();
-
-        StartFlowThroughToTrap();
-        TurnOnIpSampleFurnace();
-        ClearCollectionConditions();
-        SetParameter("CollectUntilTemperatureRises", 75);
-        CollectUntilConditionMet();
-        WaitForCegs();
-        StartExtractEtc();
-
-        ToggleCT();
-        SetParameter("CollectUntilTemperatureRises", 150); // 15 min
-        CollectUntilConditionMet();
-        StopCollecting();
-        WaitForCegs();
-        StartExtractEtc();
-        WaitForCegs();
-
-        OpenLine();
+        TestProcess();
     }
 
     #endregion Test functions
