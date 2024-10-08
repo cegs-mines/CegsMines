@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static AeonHacs.Notify;
 using static AeonHacs.Utilities.Utility;
 
 namespace AeonHacs.Components;
@@ -507,7 +510,7 @@ public partial class CegsMines : Cegs
         var subject = "Ready For Operator";
         var message = "Load the Tube Furnace and seal it closed.";
 
-        Notify.Warn(message, subject, NoticeType.Information);
+        Warn(message, subject, NoticeType.Information);
     }
 
     /// <summary>
@@ -682,6 +685,10 @@ public partial class CegsMines : Cegs
     {
         ProcessStep.Start($"Wait for a collection stop condition");
 
+        var maximumSampleTemperatureStopwatch = new Stopwatch();
+        var maximumSampleTemperature = GetParameter("MaximumSampleTemperature");
+        var minutesAtMaximumTemperature = GetParameter("MinutesAtMaximumTemperature");
+
         bool shouldStop()
         {
             if (CollectStopwatch.IsRunning && CollectStopwatch.ElapsedMilliseconds < 1000)
@@ -715,6 +722,21 @@ public partial class CegsMines : Cegs
                 stoppedBecause = "CEGS is shutting down";
                 return true;
             }
+
+            if (maximumSampleTemperature.IsANumber() && minutesAtMaximumTemperature.IsANumber())
+            {
+                if (maximumSampleTemperatureStopwatch.IsRunning)
+                {
+                    if (maximumSampleTemperatureStopwatch.Elapsed.TotalMinutes > minutesAtMaximumTemperature)
+                    {
+                        stoppedBecause = $"Reached {minutesAtMaximumTemperature} minutes at maximum temperature ({maximumSampleTemperature} °C)";
+                        return true;
+                    }
+                }
+                else if (InletPort.Temperature >= maximumSampleTemperature)
+                    maximumSampleTemperatureStopwatch.Restart();
+            }
+
             if (CollectUntilTemperatureRises.IsANumber() && InletPort.Temperature >= CollectUntilTemperatureRises)
             {
                 stoppedBecause = $"InletPort.Temperature rose to {CollectUntilTemperatureRises:0} °C";
@@ -857,7 +879,7 @@ public partial class CegsMines : Cegs
                           $"Ok to try again or\r\n" +
                           $"Restart the application to abort the process.";
 
-            Notify.Warn(message, subject);
+            Warn(message, subject);
         }
 
         ProcessStep.Start($"Heat Quartz");
@@ -1020,46 +1042,101 @@ public partial class CegsMines : Cegs
 
     #region Test functions
 
-        protected virtual void TestProcess()
+    protected virtual void TestProcess()
+    {
+        SetParameter("HoldSampleAtPorts", 1);
+        //FlushIP();
+        //EvacuateIP(CleanPressure);
+
+        //IM.ClosePortsExcept(InletPort);
+        //while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
+        //    Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
+        OpenVS1Line();
+        EvacuateIP();
+
+        ProcessStep.Start($"Heat Quartz");
+        TurnOnIpQuartzFurnace();
+        //WaitMinutes((int)QuartzFurnaceWarmupMinutes);
+        ProcessStep.End();
+
+        SelectCT1();
+        //IncludeCO2Analyzer();
+        BypassCO2Analyzer();
+        UseIpFlow();
+        StartFlowThroughToTrap();
+
+        SetParameter("IpSetpoint", 1000);
+        SetParameter("IpRampRate", 5);
+        EnableIpRamp();
+        TurnOnIpSampleFurnace();
+
+        List<Sample> Splits = new() { Sample as Sample };
+        var numberOfSplits = GetParameter("NumberOfSplits");
+        if (!numberOfSplits.IsANumber())
+            numberOfSplits = 1;
+
+        for (int i = 1; i <= numberOfSplits; i++)
         {
-            //FlushIP();
-            //EvacuateIP(CleanPressure);
-
-            //IM.ClosePortsExcept(InletPort);
-            //while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
-            //    Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
-            OpenVS1Line();
-            EvacuateIP();
-
-            ProcessStep.Start($"Heat Quartz");
-            TurnOnIpQuartzFurnace();
-            //WaitMinutes((int)QuartzFurnaceWarmupMinutes);
-            ProcessStep.End();
-
-            SelectCT1();
-            //IncludeCO2Analyzer();
-            BypassCO2Analyzer();
-            UseIpFlow();
-            StartFlowThroughToTrap();
-
-            SetParameter("IpSetpoint", 1000);
-            SetParameter("IpRampRate", 5);
-            EnableIpRamp();
-            TurnOnIpSampleFurnace();
-
-            for (int i = 1; i <= Sample.Parameter($"NumberOfSplits"); i++)
+            if (i > 1)
             {
-                if (i > 1)
-                    ToggleCT();
-                ClearCollectionConditions();
-                SetParameter("CollectUntilUgc", Sample.Parameter($"Split{i}TargetUgc"));
-                //SetParameter("", ) // neeed {AND};  // if 1000 degC AND ten minutes elapsed, also stop
-                CollectUntilConditionMet();
-                WaitForCegs();
-                StartExtractEtc();      // TODO almost, but not quite (more like TakeSplit())
+                Sample = Sample.Clone();
+                Sample.DateTime = DateTime.Now;
+                Sample.MicrogramsDilutionCarbon = 0;
+                Sample.TotalMicrogramsCarbon = 0;
+                Sample.Discards = 0;
+                Sample.SelectedMicrogramsCarbon = 0;
+                Sample.Micrograms_d13C = 0;
+                Sample.d13CPartsPerMillion = 0;
+                // Use autogeneratedgraphite number for Aliquot IDs?
+                // If not, we need a scheme to make them unique.
+                // Prefix with Sample.Name?
+
+                Splits.Add(Sample as Sample);
+                ToggleCT();
             }
-            OpenLine();
+            ClearCollectionConditions();
+            var targetParameterName = $"Split{i}TargetUgc";
+            var targetUgc = GetParameter(targetParameterName);
+            if (!targetUgc.IsANumber())
+            {
+                var subject = "Process Error";
+                var message = $"Sample Parameter '{targetParameterName}' is not defined!\r\n" +
+                    $"Process cannot continue.";
+                Warn(message, subject);
+                return;
+            }
+            SetParameter("CollectUntilUgc", targetUgc);
+            SetParameter("MaximumSampleTemperature", 1000);
+            SetParameter("MinutesAtMaximumTemperature", 10);
+            CollectUntilConditionMet();
+            WaitForCegs();
+            StartExtractEtc();
         }
+
+        Splits.ForEach(s => 
+        {
+            Sample = s;
+
+            // make sure reactors and d13C ports are all frozen
+            Sample.Aliquots.ForEach(a =>
+                Find<GraphiteReactor>(a.GraphiteReactor).Coldfinger.Raise());
+            Sample.d13CPort.Coldfinger.Raise();
+            Sample.d13CPort.Coldfinger.FreezeWait();
+
+            GraphitizeAliquots();
+            AddCarrierTo_d13C();
+        });
+
+        OpenLine();
+    }
+
+    protected override void AddCarrierTo_d13C()
+    {
+
+    }
+
+
+
 
     /// <summary>
     /// General-purpose code tester. Put whatever you want here.
