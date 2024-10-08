@@ -1388,7 +1388,7 @@
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
             "Name": "ZeroOffset",
-            "Argument": "x-0.00025311296383568693"
+            "Argument": "x-0.001132093913009336"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1676,7 +1676,7 @@
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
             "Name": "ZeroOffset",
-            "Argument": "x-0.4741606760595192"
+            "Argument": "x-0.4730959362816788"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -5662,7 +5662,7 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vd13C6_d13CM",
       "Description": "d13C6-d13CM valve",
-      "Position": 192, 
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
@@ -7658,7 +7658,7 @@
       "LowVacuumRequiredPressure": 8.0,
       "StateStopwatch": {
         "IsRunning": true,
-        "Accumulated": 14774
+        "Accumulated": 40787
       },
       "IdleTimeout": 50
     },
@@ -7685,7 +7685,7 @@
       "LowVacuumRequiredPressure": 8.0,
       "StateStopwatch": {
         "IsRunning": true,
-        "Accumulated": 14774
+        "Accumulated": 40796
       },
       "IdleTimeout": 50
     }
@@ -7952,7 +7952,7 @@
       "SampleFurnace": "hIP2CCS",
       "State": "Loaded",
       "MilliLiters": 6.1574427299500645,
-      "Sample": "Sample19",
+      "Sample": null,
       "Aliquot": 0,
       "Valve": "vIP2_IM",
       "Manometer": null,
@@ -7974,7 +7974,7 @@
       "SampleFurnace": null,
       "State": "Loaded",
       "MilliLiters": 10000000000.0,
-      "Sample": "Sample20",
+      "Sample": null,
       "Aliquot": 0,
       "Valve": "vCO2_VM2",
       "Manometer": null,
@@ -11111,8 +11111,8 @@
   "HacsComponents": {
     "IpFan1": {
       "$type": "AeonHacs.Components.IpFan, AeonHacs.Core",
-      "Name": "Trap fans for Inlet ports",
-      "Description": "",
+      "Name": "IpFan1",
+      "Description": "Trap fans for Inlet ports",
       "Fan": "fan1",
       "InletPorts": [
         "IP1",
@@ -11319,6 +11319,51 @@
     "CO2ExtractionTemperature": -140,
     "H2_CO2StoichiometricRatio": 2.0,
     "DefaultParameters": [
+      {
+        "ParameterName": "HoldSampleAtPorts",
+        "Value": "NaN",
+        "Description": "Set GR and d13C FTCs to Standby and hold to start reactions later."
+      },
+      {
+        "ParameterName": "NumberOfSplits",
+        "Value": 5.0,
+        "Description": "Number of splits to take for an RPO sample"
+      },
+      {
+        "ParameterName": "Split1TargetUgc",
+        "Value": 120.0,
+        "Description": "Target sample size (UgC) for the first split (lowest T)"
+      },
+      {
+        "ParameterName": "Split2TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the second split (second T range)"
+      },
+      {
+        "ParameterName": "Split3TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the third split (third T range)"
+      },
+      {
+        "ParameterName": "Split4TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the fourth split (fourth T range)"
+      },
+      {
+        "ParameterName": "Split5TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the fifth split (highest T range)"
+      },
+      {
+        "ParameterName": "MaximumSampleTemperature",
+        "Value": "NaN",
+        "Description": "End of reaction temperature."
+      },
+      {
+        "ParameterName": "MinutesAtMaximumTemperature",
+        "Value": 10.0,
+        "Description": "Stop collecting after this many minutes at the maximum temperature."
+      },
       {
         "ParameterName": "PressureOverAtm",
         "Value": 770.0,
