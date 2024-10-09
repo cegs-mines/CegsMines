@@ -8,10 +8,10 @@
     mc:Ignorable="d"
     Background="{x:Null}">
     <Canvas Width="197" Height="149">
-        <wpf:ConvolutedTubing Data="M0,0 h3 m0,0 h1 c 26,0 27.5,6 27.5,35.5 v1 m0,0 v3" Canvas.Right="-39" Canvas.Top="62" />
-        <wpf:ConvolutedTubing Data="M0,0 h-3 m0,0 h-1 c -32,0 -9,40 -9,65.5 v1 m0,0 v3" Canvas.Right="75" Canvas.Top="10" />
+        <wpf:ConvolutedTubing AutomationProperties.HelpText="Flex tube from Tube furnace outlet into Inlet port" Data="M0,0 h3 m0,0 h1 c 26,0 27.5,6 27.5,35.5 v1 m0,0 v3" Canvas.Right="-39" Canvas.Top="62" />
+        <wpf:ConvolutedTubing AutomationProperties.HelpText="Tube furnace outlet flex tube" Data="M0,0 h-3 m0,0 h-1 c -32,0 -9,40 -9,65.5 v1 m0,0 v3" Canvas.Right="75" Canvas.Top="10" />
 
-        <wpf:ConvolutedTubing Data="M0,0 v3 m0,0 v95.5 c 0,14 10,24 25,24 h88.5 m0,0 h3" Canvas.Right="75" Canvas.Top="99" />
+        <wpf:ConvolutedTubing AutomationProperties.HelpText="Tube furnace inlet flex tube" Data="M0,0 v3 m0,0 v95.5 c 0,14 10,24 25,24 h88.5 m0,0 h3" Canvas.Right="75" Canvas.Top="99" />
 
         <wpf:TubeFurnace Component="TF1" Canvas.Right="82" Canvas.Bottom="0" />
 
@@ -21,13 +21,13 @@
         <wpf:Fitting Data="M0,0 v7" Canvas.Right="-39" Canvas.Top="105" />
         <wpf:Fitting Data="M0,0 v5 h12" FittingSize="3/8" Canvas.Right="-48" Canvas.Top="112" />
         <wpf:StackingPanel Direction="Up" Spacing="5" Width="59" Canvas.Right="32" Canvas.Bottom="148">
-            <wpf:PressureSensor Type="MKS_722_HP" Component="pTF" HelpText="TF pressure sensor" />
-            <wpf:PressureGauge Component="pTF" HelpText="TF pressure" ContentStringFormat="0.0"/>
+            <wpf:PressureSensor Type="MKS_722_HP" Component="pTF" />
+            <wpf:PressureGauge Component="pTF" ContentStringFormat="0.0"/>
         </wpf:StackingPanel>
-        <wpf:Valve Component="vTFFlow" HelpText="TF flow valve" Canvas.Right="52" Canvas.Top="30" d:ValveState="Closed">
+        <wpf:Valve Component="vTFFlow" Canvas.Right="52" Canvas.Top="30" d:ValveState="Closed">
             <wpf:Restriction />
         </wpf:Valve>
-        <wpf:Valve Component="vTFBypass" HelpText="TF bypass valve" Canvas.Right="26" Canvas.Top="30" d:ValveState="Closed" />
-        <wpf:Valve Component="vTF_IP1" HelpText="TF-IP1 valve" Canvas.Right="0" Canvas.Top="56" d:ValveState="Closed" />
+        <wpf:Valve Component="vTFBypass" Canvas.Right="26" Canvas.Top="30" d:ValveState="Closed" />
+        <wpf:Valve Component="vTF_IP1" Canvas.Right="0" Canvas.Top="56" d:ValveState="Closed" />
     </Canvas>
 </wpf:View>

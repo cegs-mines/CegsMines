@@ -13,27 +13,27 @@
             <wpf:Chamber Canvas.Left="5" Canvas.Top="-164"
                     Data="M0,0 h234 M0,0 v-121 M0,0 v17 M208,0 v-199 M234,0 v-69 M234,0 v17
                           M26,0 v-13 M52,0 v-13 M78,0 v17 M130,0 v17"
-                    Component="Section.VM1" HelpText="Vacuum manifold 1" />
+                    Component="Section.VM1" />
 
             <!--Vacuum manifold pressure-->
             <wpf:VMPressure Component="pVM1" Canvas.Left="22.5" Canvas.Bottom="160" />
 
             <!--Gas supplies-->
             <wpf:GasSupply Canvas.Top="52" Canvas.Left="-1" 
-                GasName="O2" Valve="vO2_VM1" HelpText="Oxygen gas supply" />
+                GasName="O2" Valve="vO2_VM1" AutomationProperties.HelpText="Oxygen gas supply"/>
 
             <wpf:GasSupply Canvas.Top="52" Canvas.Left="233" HorizontalAlignment="Left" VerticalAlignment="Center"
-                GasName="He" Valve="vHe_VM1" HelpText="Helium gas supply" />
+                GasName="He" Valve="vHe_VM1" AutomationProperties.HelpText="Helium gas supply" />
 
             <!--Vacuum system-->
             <wpf:VacuumSystem Component="VacuumSystem1" Canvas.Left="75" Canvas.Top="52"/>
 
             <wpf:Valve Canvas.Left="0" Canvas.Top="-104" d:ValveState="Opened"
-                    Component="vIM_VM1" HelpText="IMC-VM1 valve" />
+                    Component="vIM_VM1" />
             <wpf:Valve Canvas.Left="208" Canvas.Top="-182" d:ValveState="Opened"
-                    Component="vCT1_VM1" HelpText="CT1-VM1 valve" />
+                    Component="vCT1_VM1" />
             <wpf:Valve Canvas.Left="234" Canvas.Top="-52" d:ValveState="Opened"
-                    Component="vCT2_VM1" HelpText="CT2-VM1 valve" />
+                    Component="vCT2_VM1" />
 
         </Canvas>
 
@@ -42,7 +42,7 @@
             <wpf:Chamber Canvas.Left="8" Canvas.Top="-86"
                     Data="M0,0 h234 M0,0 v-121 M0,0 v17 M234,0 v-17 M234,0 v17
                           M52,0 v17 M91,0 v-13 M117,0 v-13 M182,0 v17 M208,0 v17"
-                    Component="Section.VM2" HelpText="Vacuum manifold 2" />
+                    Component="Section.VM2" />
 
             <!--Vacuum manifold pressure-->
             <wpf:VMPressure Component="pVM2" Canvas.Left="90.5" Canvas.Bottom="160" />
@@ -51,19 +51,19 @@
 
             <Canvas Canvas.Left="184" Canvas.Top="52" Width="73" Height="95">
                 <wpf:GasSupply 
-                    GasName="H2" Valve="vH2_VM2" FlowValve="vH2Flow" HelpText="Hydrogen gas supply" d:FlowValve="" />
+                    GasName="H2" Valve="vH2_VM2" FlowValve="vH2Flow" AutomationProperties.HelpText="Hydrogen gas supply" d:FlowValve="" />
                 <wpf:GasSupply Canvas.Left="26"
-                    GasName="CO2" Valve="vCO2_VM2" FlowValve="vCO2Flow" HelpText="Carbon dioxide gas supply" d:FlowValve="" />
+                    GasName="CO2" Valve="vCO2_VM2" FlowValve="vCO2Flow" AutomationProperties.HelpText="Carbon dioxide gas supply" d:FlowValve="" />
                 <wpf:GasSupply Canvas.Left="52"
-                    GasName="He" Valve="vHe_VM2" FlowValve="vHeFlow" HelpText="Helium gas supply" d:FlowValve="" />
+                    GasName="He" Valve="vHe_VM2" FlowValve="vHeFlow" AutomationProperties.HelpText="Helium gas supply" d:FlowValve="" />
             </Canvas>
 
             <!--Vacuum system-->
             <wpf:VacuumSystem Component="VacuumSystem2" Canvas.Left="0" Canvas.Top="52" />
             <wpf:Valve Canvas.Left="3" Canvas.Top="-104" d:ValveState="Opened"
-                    Component="vCTO_VM2" HelpText="CTO-VM2 valve" />
+                    Component="vCTO_VM2" />
             <wpf:Valve Canvas.Left="237" Canvas.Top="0" d:ValveState="Opened"
-                    Component="vGM_VM2" HelpText="GM-VM2 valve" />
+                    Component="vGM_VM2" />
         </Canvas>
 
         <DockPanel Canvas.Left="162" Canvas.Top="142" Width="137" Height="59" Background="Transparent"

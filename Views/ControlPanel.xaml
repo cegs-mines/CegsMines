@@ -137,13 +137,13 @@
                 <local:d13CM Canvas.Left="898" Canvas.Top="0" />
                 <wpf:GM6 Canvas.Left="872" Canvas.Top="182" />
 
-                <wpf:Valve Component="vIM_CTF" HelpText="IM-CTF valve" Canvas.Left="438" Canvas.Top="157" />
-                <wpf:Valve Component="vCTO_VTT" HelpText="CTO-VTT valve" Canvas.Left="672" Canvas.Top="157" />
-                <wpf:Valve Component="vVTT_MC" HelpText="VTT-MC valve" Canvas.Left="724" Canvas.Top="157" />
-                <wpf:Valve Component="vMC_Split" HelpText="MC-Split valve" Canvas.Left="776" Canvas.Top="157" />
-                <wpf:Valve Component="vSplit_d13C" HelpText="Split-d13C valve" Canvas.Left="828" Canvas.Top="157" />
-                <wpf:Valve Component="vd13C_d13CM" HelpText="d13C-d13CM valve" Canvas.Left="880" Canvas.Top="157" />
-                <wpf:Valve Component="vSplit_GM" HelpText="Split-GM valve" Canvas.Left="854" Canvas.Top="261" />
+                <wpf:Valve Component="vIM_CTF" Canvas.Left="438" Canvas.Top="157" />
+                <wpf:Valve Component="vCTO_VTT" Canvas.Left="672" Canvas.Top="157" />
+                <wpf:Valve Component="vVTT_MC" Canvas.Left="724" Canvas.Top="157" />
+                <wpf:Valve Component="vMC_Split" Canvas.Left="776" Canvas.Top="157" />
+                <wpf:Valve Component="vSplit_d13C" Canvas.Left="828" Canvas.Top="157" />
+                <wpf:Valve Component="vd13C_d13CM" Canvas.Left="880" Canvas.Top="157" />
+                <wpf:Valve Component="vSplit_GM" Canvas.Left="854" Canvas.Top="261" />
             </Canvas>
 
         </DockPanel>

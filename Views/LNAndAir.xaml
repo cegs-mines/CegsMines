@@ -7,70 +7,70 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <wpf:Valve Component="{Binding Component.LNSupplyValve, ElementName=manifold1}" HelpText="LNManifold1 supply valve" HorizontalAlignment="Right" d:ValveState="Closed" />
-        <wpf:LNManifold x:Name="manifold1" Component="LNManifold1" HelpText="LN Manifold 1">
-            <wpf:Valve Component="vLN_CT1" HelpText="CT1 LN valve" />
-            <wpf:Valve Component="vLN_CT2" HelpText="CT2 LN valve" />
-            <wpf:Valve Component="vLN_Spare1" HelpText="Spare LN valve 1" />
-            <wpf:Valve Component="vLN_Spare2" HelpText="Spare LN valve 2" />
-            <wpf:Valve Component="vLN_VTC" HelpText="VTC LN valve" />
-            <wpf:Valve Component="vLN_GR1" HelpText="GR1 LN valve" />
-            <wpf:Valve Component="vLN_GR2" HelpText="GR2 LN valve" />
-            <wpf:Valve Component="vLN_GR3" HelpText="GR3 LN valve" />
-            <wpf:Valve Component="vLN_MC" HelpText="MC LN valve" />
+        <wpf:Valve Component="{Binding Component.LNSupplyValve, ElementName=manifold1}" HorizontalAlignment="Right" d:ValveState="Closed" />
+        <wpf:LNManifold x:Name="manifold1" Component="LNManifold1">
+            <wpf:Valve Component="vLN_CT1" />
+            <wpf:Valve Component="vLN_CT2" />
+            <wpf:Valve Component="vLN_Spare1" />
+            <wpf:Valve Component="vLN_Spare2" />
+            <wpf:Valve Component="vLN_VTC" />
+            <wpf:Valve Component="vLN_GR1" />
+            <wpf:Valve Component="vLN_GR2" />
+            <wpf:Valve Component="vLN_GR3" />
+            <wpf:Valve Component="vLN_MC" />
         </wpf:LNManifold>
 
         <StackPanel Background="Transparent" AutomationProperties.HelpText="Air manifold 1">
             <TextBlock Text="Air Manifold 1" HorizontalAlignment="Center" FontSize="10" Margin="0,10,0,2"/>
             <wpf:StackingPanel Orientation="Right" HorizontalAlignment="Center" Spacing="4">
-                <wpf:Valve Component="vAir_CT1" HelpText="CT1 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_CT2" HelpText="CT2 Air Valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_Spare1" HelpText="Spare air valve 1" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_Spare2" HelpText="Spare air valve 2" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_VTC" HelpText="VTC air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_GR1" HelpText="GR1 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_GR2" HelpText="GR2 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_GR3" HelpText="GR3 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_MC" HelpText="MC air valve" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_CT1" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_CT2" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_Spare1" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_Spare2" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_VTC" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR1" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR2" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR3" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_MC" d:ValveState="Closed" />
             </wpf:StackingPanel>
         </StackPanel>
 
-        <wpf:Valve Component="{Binding Component.LNSupplyValve, ElementName=manifold2}" HelpText="LNManifold2 supply valve" HorizontalAlignment="Right" d:ValveState="Closed" Margin="0,15,0,0" />
-        <wpf:LNManifold x:Name="manifold2" Component="LNManifold2" HelpText="LN Manifold 2">
-            <wpf:Valve Component="vLN_GR4" HelpText="GR4 LN valve" />
-            <wpf:Valve Component="vLN_GR5" HelpText="GR5 LN valve" />
-            <wpf:Valve Component="vLN_GR6" HelpText="GR6 LN valve" />
-            <wpf:Valve Component="vLN_d13C6" HelpText="d13C6 LN valve" />
-            <wpf:Valve Component="vLN_d13C5" HelpText="d13C5 LN valve" />
-            <wpf:Valve Component="vLN_d13C4" HelpText="d13C4 LN valve" />
-            <wpf:Valve Component="vLN_d13C3" HelpText="d13C3 LN valve" />
-            <wpf:Valve Component="vLN_d13C2" HelpText="d13C2 LN valve" />
-            <wpf:Valve Component="vLN_d13C1" HelpText="d13C1 LN valve" />
+        <wpf:Valve Component="{Binding Component.LNSupplyValve, ElementName=manifold2}" HorizontalAlignment="Right" d:ValveState="Closed" Margin="0,15,0,0" />
+        <wpf:LNManifold x:Name="manifold2" Component="LNManifold2">
+            <wpf:Valve Component="vLN_GR4" />
+            <wpf:Valve Component="vLN_GR5" />
+            <wpf:Valve Component="vLN_GR6" />
+            <wpf:Valve Component="vLN_d13C6" />
+            <wpf:Valve Component="vLN_d13C5" />
+            <wpf:Valve Component="vLN_d13C4" />
+            <wpf:Valve Component="vLN_d13C3" />
+            <wpf:Valve Component="vLN_d13C2" />
+            <wpf:Valve Component="vLN_d13C1" />
         </wpf:LNManifold>
 
         <StackPanel Background="Transparent" AutomationProperties.HelpText="Air manifold 2">
             <TextBlock Text="Air Manifold 2" HorizontalAlignment="Center" FontSize="10" Margin="0,10,0,2"/>
             <wpf:StackingPanel Orientation="Right" HorizontalAlignment="Center" Spacing="4">
-                <wpf:Valve Component="vAir_GR4" HelpText="GR4 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_GR5" HelpText="GR5 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_GR6" HelpText="GR6 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C6" HelpText="d13C6 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C5" HelpText="d13C5 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C4" HelpText="d13C4 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C3" HelpText="d13C3 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C2" HelpText="d13C2 air valve" d:ValveState="Closed" />
-                <wpf:Valve Component="vAir_d13C1" HelpText="d13C1 air valve" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR4" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR5" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_GR6" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C6" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C5" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C4" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C3" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C2" d:ValveState="Closed" />
+                <wpf:Valve Component="vAir_d13C1" d:ValveState="Closed" />
             </wpf:StackingPanel>
         </StackPanel>
 
         <TextBlock HorizontalAlignment="Center" FontSize="10" Background="Transparent" Margin="0,10,0,0"
-                   wpf:View.Component="LNScale1" AutomationProperties.HelpText="LN scale"
+                   wpf:View.Component="LNScale1" 
                    DataContext="{Binding (wpf:View.Component), RelativeSource={RelativeSource Self}}">
             <Run Text="LN supply:" />
             <Run Text="{Binding Value, Mode=OneWay, FallbackValue='-- L', StringFormat='0 L'}" />
         </TextBlock>
         <TextBlock HorizontalAlignment="Center" FontSize="10" Background="Transparent" Margin="0,10,0,0"
-                   wpf:View.Component="tLNOverflow" AutomationProperties.HelpText="LN overflow sensor"
+                   wpf:View.Component="tLNOverflow" 
                    DataContext="{Binding (wpf:View.Component), RelativeSource={RelativeSource Self}}">
             <Run Text="LN overflow sensor:" />
             <Run Text="{Binding Temperature, Mode=OneWay, FallbackValue='-- °C', StringFormat='0 °C'}" />

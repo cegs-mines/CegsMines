@@ -8,7 +8,7 @@
         Background="{x:Null}">
 
     <Canvas Width="159" Height="171">
-        <wpf:Chamber Component="Section.d13CM" HelpText="d13C manifold" Canvas.Top="6"
+        <wpf:Chamber Component="Section.d13CM" Canvas.Top="6"
                    Data="M34.5,12.5 h-17 v156 h-17 M17.5,38.5 h17 M17.5,64.5 h17 M17.5,90.5 h17 M17.5,116.5 h17 M17.5,142.5 h17" />
 
         <wpf:AuxiliaryPort Orientation="Right" PortType="Needle" Canvas.Left="34" Canvas.Top="0" Component="d13C6" />
