@@ -12,7 +12,7 @@ namespace AeonHacs.Components;
 public partial class CegsMines : Cegs
 {
     #region HacsComponent
-    
+
     [HacsConnect]
     protected override void Connect()
     {
@@ -208,6 +208,13 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Open and evacuate VS2"] = () => OpenLine(Find<VacuumSystem>("VacuumSystem2"));
         Separators.Add(ProcessDictionary.Count);
 
+        // Sample Process Methods
+        ProcessDictionary["Tube furnace bakeout"] = Bakeout;
+        ProcessDictionary["In situ quartz, day 1"] = Day1;
+        ProcessDictionary["In situ quartz, day 2"] = Day2;
+        ProcessDictionary["Ramped oxidation"] = RampedOxidation;
+        Separators.Add(ProcessDictionary.Count);
+
         // Main process continuations
         ProcessDictionary["Collect, etc."] = CollectEtc;
         ProcessDictionary["Extract, etc."] = ExtractEtc;
@@ -324,6 +331,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Measure valve volumes (plug in MCP1)"] = MeasureValveVolumes;
         ProcessDictionary["Measure remaining chamber volumes"] = MeasureRemainingVolumes;
         ProcessDictionary["Check GR H2 density ratios"] = CalibrateGRH2;
+        ProcessDictionary["Calibrate VP He initial manifold pressure"] = CalibrateVPHeP0;
         ProcessDictionary["Measure Extraction efficiency"] = MeasureExtractEfficiency;
         ProcessDictionary["Measure IP collection efficiency"] = MeasureIpCollectionEfficiency;
 
@@ -507,10 +515,10 @@ public partial class CegsMines : Cegs
     /// </summary>
     protected virtual void LoadTF()
     {
-        var subject = "Ready For Operator";
-        var message = "Load the Tube Furnace and seal it closed.";
+        Subject = "Ready For Operator";
+        Message = "Load the Tube Furnace and seal it closed.";
 
-        Warn(message, subject, NoticeType.Information);
+        Warn(Message, Subject, NoticeType.Information);
     }
 
     /// <summary>
@@ -867,20 +875,23 @@ public partial class CegsMines : Cegs
 
     protected void RampedOxidation()
     {
+        SetParameter("HoldSampleAtPorts", 1);
         FlushIP();
         EvacuateIP(CleanPressure);
 
         IM.ClosePortsExcept(InletPort);
         while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
         {
-            var subject = "Sample Alert";
-            var message = $"{InletPort.Name} is leaking.\r\n" +
-                          $"Process Paused.\r\n" +
-                          $"Ok to try again or\r\n" +
-                          $"Restart the application to abort the process.";
-
-            Warn(message, subject);
+            Message = $"{InletPort.Name} is leaking. Process Paused.\r\n" +
+                "Ok to try again.\r\n" +
+                "Cancel to skip the leak test and continue the process.\r\n" +
+                "Restart to abort the process.";
+            Subject = "Process Exception";
+            if (Warn(Message, Subject).Cancelled())
+                break;
         }
+        OpenVS1Line();
+        EvacuateIP();
 
         ProcessStep.Start($"Heat Quartz");
         TurnOnIpQuartzFurnace();
@@ -888,51 +899,71 @@ public partial class CegsMines : Cegs
         ProcessStep.End();
 
         SelectCT1();
-        SetParameter("IpRampRate", 5);
-        SetParameter("IpSetpoint", 1000);
-        IncludeCO2Analyzer();
+        //IncludeCO2Analyzer();
+        BypassCO2Analyzer();
         UseIpFlow();
-        EnableIpRamp();
-
         StartFlowThroughToTrap();
+
+        SetParameter("IpSetpoint", 1000);
+        SetParameter("IpRampRate", 5);
+        EnableIpRamp();
         TurnOnIpSampleFurnace();
-        ClearCollectionConditions();
-        SetParameter("CollectUntilTemperatureRises", 150);
-        CollectUntilConditionMet();
-        WaitForCegs();
-        StartExtractEtc();
 
-        ToggleCT();
-        SetParameter("CollectUntilTemperatureRises", 200);
-        CollectUntilConditionMet();
-        StopCollecting();
-        WaitForCegs();
-        StartExtractEtc();
-        WaitForCegs();
+        List<Sample> Splits = new() { Sample as Sample };
+        var numberOfSplits = GetParameter("NumberOfSplits");
+        if (!numberOfSplits.IsANumber())
+            numberOfSplits = 1;
 
-        ToggleCT();
-        SetParameter("CollectUntilTemperatureRises", 500);
-        CollectUntilConditionMet();
-        StopCollecting();
-        WaitForCegs();
-        StartExtractEtc();
-        WaitForCegs();
+        for (int i = 1; i <= numberOfSplits; i++)
+        {
+            if (i > 1)
+            {
+                // Clone the sample for subsequent splits
+                Sample = Sample.Clone();
+                Sample.DateTime = DateTime.Now;
+                Sample.MicrogramsDilutionCarbon = 0;
+                Sample.TotalMicrogramsCarbon = 0;
+                Sample.Discards = 0;
+                Sample.SelectedMicrogramsCarbon = 0;
+                Sample.Micrograms_d13C = 0;
+                Sample.d13CPartsPerMillion = 0;
+                // Use autogeneratedgraphite number for Aliquot IDs?
+                // If not, we need a scheme to make them unique.
+                // Prefix with Sample.Name?
 
-        ToggleCT();
-        SetParameter("CollectUntilTemperatureRises", 750);
-        CollectUntilConditionMet();
-        StopCollecting();
-        WaitForCegs();
-        StartExtractEtc();
-        WaitForCegs();
+                Splits.Add(Sample as Sample);
+                ToggleCT();
+            }
+            ClearCollectionConditions();
+            var targetParameterName = $"Split{i}TargetUgc";
+            var targetUgc = GetParameter(targetParameterName);
+            if (!targetUgc.IsANumber())
+            {
+                var subject = "Process Error";
+                var message = $"Sample Parameter '{targetParameterName}' is not defined!\r\n" +
+                    $"Process cannot continue.";
+                Warn(message, subject);
+                return;
+            }
+            SetParameter("CollectUntilUgc", targetUgc);
+            SetParameter("MaximumSampleTemperature", 1000);
+            SetParameter("MinutesAtMaximumTemperature", 10);
+            CollectUntilConditionMet();
+            WaitForCegs();
+            StartExtractEtc();
+        }
 
-        ToggleCT();
-        SetParameter("CollectUntilTemperatureRises", 1000);
-        CollectUntilConditionMet();
-        StopCollecting();
-        WaitForCegs();
-        StartExtractEtc();
-        WaitForCegs();
+        Splits.ForEach(s =>
+        {
+            Sample = s;
+
+            // Re-freeze and start graphite reactor(s) (typically only 1 per split).
+            Sample.Aliquots.ForEach(a =>
+                Find<GraphiteReactor>(a.GraphiteReactor).Coldfinger.Raise());
+            GraphitizeAliquots();
+
+            AddCarrierTo_d13C();
+        });
 
         OpenLine();
     }
@@ -1042,108 +1073,12 @@ public partial class CegsMines : Cegs
 
     #region Test functions
 
-    protected virtual void TestProcess()
-    {
-        SetParameter("HoldSampleAtPorts", 1);
-        //FlushIP();
-        //EvacuateIP(CleanPressure);
-
-        //IM.ClosePortsExcept(InletPort);
-        //while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
-        //    Pause("Sample Alert", $"{InletPort.Name} is leaking. Process Paused. Close Program to abort, or Ok to try again");
-        OpenVS1Line();
-        EvacuateIP();
-
-        ProcessStep.Start($"Heat Quartz");
-        TurnOnIpQuartzFurnace();
-        //WaitMinutes((int)QuartzFurnaceWarmupMinutes);
-        ProcessStep.End();
-
-        SelectCT1();
-        //IncludeCO2Analyzer();
-        BypassCO2Analyzer();
-        UseIpFlow();
-        StartFlowThroughToTrap();
-
-        SetParameter("IpSetpoint", 1000);
-        SetParameter("IpRampRate", 5);
-        EnableIpRamp();
-        TurnOnIpSampleFurnace();
-
-        List<Sample> Splits = new() { Sample as Sample };
-        var numberOfSplits = GetParameter("NumberOfSplits");
-        if (!numberOfSplits.IsANumber())
-            numberOfSplits = 1;
-
-        for (int i = 1; i <= numberOfSplits; i++)
-        {
-            if (i > 1)
-            {
-                Sample = Sample.Clone();
-                Sample.DateTime = DateTime.Now;
-                Sample.MicrogramsDilutionCarbon = 0;
-                Sample.TotalMicrogramsCarbon = 0;
-                Sample.Discards = 0;
-                Sample.SelectedMicrogramsCarbon = 0;
-                Sample.Micrograms_d13C = 0;
-                Sample.d13CPartsPerMillion = 0;
-                // Use autogeneratedgraphite number for Aliquot IDs?
-                // If not, we need a scheme to make them unique.
-                // Prefix with Sample.Name?
-
-                Splits.Add(Sample as Sample);
-                ToggleCT();
-            }
-            ClearCollectionConditions();
-            var targetParameterName = $"Split{i}TargetUgc";
-            var targetUgc = GetParameter(targetParameterName);
-            if (!targetUgc.IsANumber())
-            {
-                var subject = "Process Error";
-                var message = $"Sample Parameter '{targetParameterName}' is not defined!\r\n" +
-                    $"Process cannot continue.";
-                Warn(message, subject);
-                return;
-            }
-            SetParameter("CollectUntilUgc", targetUgc);
-            SetParameter("MaximumSampleTemperature", 1000);
-            SetParameter("MinutesAtMaximumTemperature", 10);
-            CollectUntilConditionMet();
-            WaitForCegs();
-            StartExtractEtc();
-        }
-
-        Splits.ForEach(s => 
-        {
-            Sample = s;
-
-            // make sure reactors and d13C ports are all frozen
-            Sample.Aliquots.ForEach(a =>
-                Find<GraphiteReactor>(a.GraphiteReactor).Coldfinger.Raise());
-            Sample.d13CPort.Coldfinger.Raise();
-            Sample.d13CPort.Coldfinger.FreezeWait();
-
-            GraphitizeAliquots();
-            AddCarrierTo_d13C();
-        });
-
-        OpenLine();
-    }
-
-    protected override void AddCarrierTo_d13C()
-    {
-
-    }
-
-
-
-
     /// <summary>
     /// General-purpose code tester. Put whatever you want here.
     /// </summary>
     protected override void Test()
     {
-        TestProcess();
+        RampedOxidation();
     }
 
     #endregion Test functions
