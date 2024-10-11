@@ -3,17 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:CegsMines.Views"
         xmlns:wpf="http://schemas.aeonhacs.com/wpf"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        Background="{x:Null}">
 
     <Canvas Width="513" Height="191">
         <Canvas Width="253" Height="191">
             <!--Vacuum manifold-->
-            <wpf:Chamber Canvas.Left="5" Canvas.Top="-164"
+            <wpf:Chamber Component="Section.VM1" Canvas.Left="5" Canvas.Top="-164"
                     Data="M0,0 h234 M0,0 v-121 M0,0 v17 M208,0 v-199 M234,0 v-69 M234,0 v17
-                          M26,0 v-13 M52,0 v-13 M78,0 v17 M130,0 v17"
-                    Component="Section.VM1" />
+                          M26,0 v-13 M52,0 v-13 M78,0 v17 M130,0 v17" />
 
             <!--Vacuum manifold pressure-->
             <wpf:VMPressure Component="pVM1" Canvas.Left="22.5" Canvas.Bottom="160" />
@@ -28,12 +27,9 @@
             <!--Vacuum system-->
             <wpf:VacuumSystem Component="VacuumSystem1" Canvas.Left="75" Canvas.Top="52"/>
 
-            <wpf:Valve Canvas.Left="0" Canvas.Top="-104" d:ValveState="Opened"
-                    Component="vIM_VM1" />
-            <wpf:Valve Canvas.Left="208" Canvas.Top="-182" d:ValveState="Opened"
-                    Component="vCT1_VM1" />
-            <wpf:Valve Canvas.Left="234" Canvas.Top="-52" d:ValveState="Opened"
-                    Component="vCT2_VM1" />
+            <wpf:Valve Component="vIM_VM1" Canvas.Left="0" Canvas.Top="-104" />
+            <wpf:Valve Component="vCT1_VM1" Canvas.Left="208" Canvas.Top="-182" />
+            <wpf:Valve Component="vCT2_VM1" Canvas.Left="234" Canvas.Top="-52" />
 
         </Canvas>
 
@@ -60,10 +56,9 @@
 
             <!--Vacuum system-->
             <wpf:VacuumSystem Component="VacuumSystem2" Canvas.Left="0" Canvas.Top="52" />
-            <wpf:Valve Canvas.Left="3" Canvas.Top="-104" d:ValveState="Opened"
-                    Component="vCTO_VM2" />
-            <wpf:Valve Canvas.Left="237" Canvas.Top="0" d:ValveState="Opened"
-                    Component="vGM_VM2" />
+            
+            <wpf:Valve Component="vCTO_VM2" Canvas.Left="3" Canvas.Top="-104" />
+            <wpf:Valve Component="vGM_VM2" Canvas.Left="237" Canvas.Top="0" />
         </Canvas>
 
         <DockPanel Canvas.Left="162" Canvas.Top="142" Width="137" Height="59" Background="Transparent"

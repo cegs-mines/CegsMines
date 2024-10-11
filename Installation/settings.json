@@ -737,9 +737,9 @@
     "HeaterController1": {
       "$type": "AeonHacs.Components.HC6Controller, AeonHacs.Core",
       "Name": "HeaterController1",
-      "Description": "Heater Controller 1",
+      "Description": "Heater controller 1",
       "SerialController": {
-        "Name": "",
+        "Name": "HeaterController1.SerialController",
         "Description": "",
         "SerialDevice": {
           "RtsMode": "Enabled",
@@ -806,9 +806,9 @@
     "HeaterController2": {
       "$type": "AeonHacs.Components.HC6Controller, AeonHacs.Core",
       "Name": "HeaterController2",
-      "Description": "Heater Controller 2",
+      "Description": "Heater controller 2",
       "SerialController": {
-        "Name": "",
+        "Name": "HeaterController2.SerialController",
         "Description": "",
         "SerialDevice": {
           "RtsMode": "Enabled",
@@ -869,9 +869,9 @@
     "HeaterController3": {
       "$type": "AeonHacs.Components.HC6Controller, AeonHacs.Core",
       "Name": "HeaterController3",
-      "Description": "Heater Controller 3",
+      "Description": "Heater controller 3",
       "SerialController": {
-        "Name": "",
+        "Name": "HeaterController3.SerialController",
         "Description": "",
         "SerialDevice": {
           "RtsMode": "Enabled",
@@ -912,13 +912,13 @@
       "LogEverything": false,
       "Devices": {
         "t7": "tVTC_wire",
-        "t8": "tLN_VTC"
+        "t8": "tLN_VTT"
       }
     },
     "ActuatorController1": {
       "$type": "AeonHacs.Components.ActuatorController, AeonHacs.Core",
       "Name": "ActuatorController1",
-      "Description": "Actuator Controller 1",
+      "Description": "Actuator controller 1",
       "Channels": 64,
       "AeonServo": {
         "Name": "AeonServo1",
@@ -959,7 +959,7 @@
         "IdleTimeout": -1
       },
       "SerialController": {
-        "Name": "",
+        "Name": "ActuatorController1.SerialController",
         "Description": "",
         "SerialDevice": {
           "RtsMode": "Enabled",
@@ -1063,7 +1063,7 @@
     "ActuatorController2": {
       "$type": "AeonHacs.Components.ActuatorController, AeonHacs.Core",
       "Name": "ActuatorController2",
-      "Description": "Actuator Controller 2",
+      "Description": "Actuator controller 2",
       "Channels": 24,
       "AeonServo": {
         "Name": "AeonServo2",
@@ -1153,7 +1153,7 @@
         "6": "vLN_CT2",
         "7": "vLN_Spare1",
         "8": "vLN_Spare2",
-        "9": "vLN_VTC",
+        "9": "vLN_VTT",
         "10": "vLN_GR1",
         "11": "vLN_GR2",
         "12": "vLN_GR3",
@@ -1164,13 +1164,13 @@
         "17": "vLN_d13C1"
       }
     },
-    "SwitchBank1": {
+    "SwitchBank": {
       "$type": "AeonHacs.Components.SwitchBank, AeonHacs.Core",
-      "Name": "SwitchBank1",
-      "Description": "Switch Bank 1",
+      "Name": "SwitchBank",
+      "Description": "Switch bank",
       "Channels": 32,
       "SerialController": {
-        "Name": "SwitchBank1.SerialController",
+        "Name": "SwitchBank.SerialController",
         "Description": "",
         "SerialDevice": {
           "RtsMode": "Enabled",
@@ -1227,7 +1227,7 @@
         "14": "vAir_GR2",
         "15": "vAir_GR1",
         "16": "vAir_Spare2",
-        "17": "vAir_VTC",
+        "17": "vAir_VTT",
         "18": "vLNSupply1",
         "19": "vLNSupply2"
       }
@@ -1383,7 +1383,7 @@
         "StepChange": 0.012
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1544,7 +1544,7 @@
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 35,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.01
       },
@@ -1592,7 +1592,7 @@
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 35,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.01
       },
@@ -1640,7 +1640,7 @@
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 35,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.01
       },
@@ -1688,7 +1688,7 @@
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 35,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.01
       },
@@ -1923,7 +1923,7 @@
       "$type": "AeonHacs.Components.EdwardsAimX, AeonHacs.Core",
       "Name": "pVM1_IG",
       "Description": "Vacuum manifold 1 ion gauge pressure",
-      "errorSignalVoltage": 2.0,
+      "ErrorSignalVoltage": 2.0,
       "AnalogInputMode": "SingleEnded",
       "DigitalOutput": "pVM1_IG.Enable",
       "MillisecondsToValid": 5000,
@@ -1993,7 +1993,7 @@
       "$type": "AeonHacs.Components.EdwardsAimX, AeonHacs.Core",
       "Name": "pVM2_IG",
       "Description": "Vacuum manifold 2 ion gauge pressure",
-      "errorSignalVoltage": 2.0,
+      "ErrorSignalVoltage": 2.0,
       "AnalogInputMode": "SingleEnded",
       "DigitalOutput": "pVM2_IG.Enable",
       "MillisecondsToValid": 5000,
@@ -2452,7 +2452,7 @@
     "DC5VMainsDetect": {
       "$type": "AeonHacs.Components.AIVoltmeter, AeonHacs.Core",
       "Name": "DC5VMainsDetect",
-      "Description": "Mains Detected (5 VDC signal)",
+      "Description": "Mains detected (5 VDC signal)",
       "MaximumVoltage": 10.0,
       "AnalogInputMode": "SingleEnded",
       "MinimumVoltage": 0.0,
@@ -2646,9 +2646,9 @@
       "Rising": 0.0,
       "ZerosToAverage": 30
     },
-    "tLN_VTC": {
+    "tLN_VTT": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
-      "Name": "tLN_VTC",
+      "Name": "tLN_VTT",
       "Description": "VTC LN level sensor temperature",
       "Type": "T",
       "UnitSymbol": "°C",
@@ -2857,7 +2857,7 @@
     "tLNManifold1": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLNManifold1",
-      "Description": "LN manifold 1 LN level sensor temperature",
+      "Description": "LN manifold 1 level sensor temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -2883,7 +2883,7 @@
     "tLNManifold2": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLNManifold2",
-      "Description": "LN manifold 2 LN level sensor temperature",
+      "Description": "LN manifold 2 level sensor temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -2909,7 +2909,7 @@
     "tLN_CT1": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_CT1",
-      "Description": "Coil trap 1 LN level sensor temperature",
+      "Description": "Coil trap 1 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -2935,7 +2935,7 @@
     "tLN_CT2": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_CT2",
-      "Description": "Coil trap 2 LN level sensor temperature",
+      "Description": "Coil trap 2 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -2961,7 +2961,7 @@
     "tLN_MC": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_MC",
-      "Description": "Measurement chamber LN level sensor temperature",
+      "Description": "Measurement chamber coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -2987,7 +2987,7 @@
     "tLN_GR1": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR1",
-      "Description": "Graphite reactor 1 LN level sensor temperature",
+      "Description": "Graphite reactor 1 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3013,7 +3013,7 @@
     "tLN_GR2": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR2",
-      "Description": "Graphite reactor 2 LN level sensor temperature",
+      "Description": "Graphite reactor 2 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3039,7 +3039,7 @@
     "tLN_GR3": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR3",
-      "Description": "Graphite reactor 3 LN level sensor temperature",
+      "Description": "Graphite reactor 3 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3065,7 +3065,7 @@
     "tLN_GR4": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR4",
-      "Description": "Graphite reactor 4 LN level sensor temperature",
+      "Description": "Graphite reactor 4 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3091,7 +3091,7 @@
     "tLN_GR5": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR5",
-      "Description": "Graphite reactor 5 LN level sensor temperature",
+      "Description": "Graphite reactor 5 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3117,7 +3117,7 @@
     "tLN_GR6": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_GR6",
-      "Description": "Graphite reactor 6 LN level sensor temperature",
+      "Description": "Graphite reactor 6 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3143,7 +3143,7 @@
     "tLN_d13C1": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C1",
-      "Description": "d13C1 LN level sensor temperature",
+      "Description": "d13C1 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3169,7 +3169,7 @@
     "tLN_d13C2": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C2",
-      "Description": "d13C2 LN level sensor temperature",
+      "Description": "d13C2 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3195,7 +3195,7 @@
     "tLN_d13C3": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C3",
-      "Description": "d13C3 LN level sensor temperature",
+      "Description": "d13C3 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3221,7 +3221,7 @@
     "tLN_d13C4": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C4",
-      "Description": "d13C4 LN level sensor temperature",
+      "Description": "d13C4 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3247,7 +3247,7 @@
     "tLN_d13C5": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C5",
-      "Description": "d13C5 LN level sensor temperature",
+      "Description": "d13C5 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3273,7 +3273,7 @@
     "tLN_d13C6": {
       "$type": "AeonHacs.Components.HC6Thermocouple, AeonHacs.Core",
       "Name": "tLN_d13C6",
-      "Description": "d13C6 LN level sensor temperature",
+      "Description": "d13C6 coldfinger temperature",
       "Type": "T",
       "UnitSymbol": "°C",
       "Ratiometric": false,
@@ -3325,7 +3325,7 @@
     "ugCinMC": {
       "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
       "Name": "ugCinMC",
-      "Description": "Micrograms of carbon in the measurement chamber",
+      "Description": "Micrograms of carbon in the Measurement chamber",
       "UnitSymbol": "ugC",
       "Ratiometric": false,
       "MaxValue": 0.0,
@@ -5761,10 +5761,10 @@
         }
       ]
     },
-    "vLN_VTC": {
+    "vLN_VTT": {
       "$type": "AeonHacs.Components.CpwValve, AeonHacs.Core",
-      "Name": "vLN_VTC",
-      "Description": "Variable-temperature coldfinger LN valve",
+      "Name": "vLN_VTT",
+      "Description": "Variable-temperature trap LN valve",
       "ValveState": "Closed",
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
@@ -6319,7 +6319,7 @@
     "vHeFlow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vHeFlow",
-      "Description": "He flow valve",
+      "Description": "He-VM flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6414,7 +6414,7 @@
     "vH2Flow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vH2Flow",
-      "Description": "H2 flow valve",
+      "Description": "H2-VM flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6509,7 +6509,7 @@
     "vCO2Flow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCO2Flow",
-      "Description": "CO2 flow valve",
+      "Description": "CO2-VM flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6641,10 +6641,10 @@
       "OnOffState": "Off",
       "StopAction": "TurnOff"
     },
-    "vAir_VTC": {
+    "vAir_VTT": {
       "$type": "AeonHacs.Components.SolenoidValve, AeonHacs.Core",
-      "Name": "vAir_VTC",
-      "Description": "Variable-temperature coldfinger air valve",
+      "Name": "vAir_VTT",
+      "Description": "Variable-temperature trap air valve",
       "OpenedVolumeDelta": 0.0,
       "PoweredState": "Opened",
       "MillisecondsToChangeState": 20,
@@ -7152,7 +7152,7 @@
     "PID_GR6": {
       "$type": "AeonHacs.Components.PidSetup, AeonHacs.Core",
       "Name": "PID_GR6",
-      "Description": "PID parameters for GR1 furnace",
+      "Description": "PID parameters for GR6 furnace",
       "Gain": 12.36,
       "Integral": 0.00747,
       "Derivative": 161.3,
@@ -7213,9 +7213,9 @@
       "Liters": "LNScale1",
       "LevelSensor": "tLNManifold1",
       "OverflowSensor": "tLNOverflow",
-      "OverflowTrigger": 25,
+      "OverflowTrigger": 15,
       "MinimumLiters": 10,
-      "TargetTemperature": -180,
+      "TargetTemperature": -185,
       "FillTrigger": 5,
       "SecondsSlowToFill": 180,
       "ColdTemperature": -150,
@@ -7231,9 +7231,9 @@
       "Liters": "LNScale1",
       "LevelSensor": "tLNManifold2",
       "OverflowSensor": "tLNOverflow",
-      "OverflowTrigger": 25,
+      "OverflowTrigger": 15,
       "MinimumLiters": 10,
-      "TargetTemperature": -175,
+      "TargetTemperature": -185,
       "FillTrigger": 5,
       "SecondsSlowToFill": 180,
       "ColdTemperature": -150,
@@ -7295,15 +7295,15 @@
       "Description": "Variable-temperature coldfinger",
       "Heater": "hVTC",
       "Coldfinger": {
-        "Name": "ftcVTC",
-        "Description": "Variable-temperature coldfinger FTC",
-        "LevelSensor": "tLN_VTC",
-        "LNValve": "vLN_VTC",
+        "Name": "",
+        "Description": "",
+        "LevelSensor": "tLN_VTT",
+        "LNValve": "vLN_VTT",
         "Trickle": "ColdTrickle",
-        "AirValve": "vAir_VTC",
+        "AirValve": "vAir_VTT",
         "LNManifold": "LNManifold1",
         "AirThermometer": null,
-        "FrozenTemperature": -192,
+        "FrozenTemperature": -185,
         "FreezeTrigger": 5,
         "RaiseTrigger": 2,
         "MaximumSecondsLNFlowing": 60,
@@ -7344,7 +7344,7 @@
       "AirValve": "vAir_MC",
       "LNManifold": "LNManifold1",
       "AirThermometer": "tMC",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7367,7 +7367,7 @@
       "AirValve": "vAir_GR1",
       "LNManifold": "LNManifold1",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7390,7 +7390,7 @@
       "AirValve": "vAir_GR2",
       "LNManifold": "LNManifold1",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7413,7 +7413,7 @@
       "AirValve": "vAir_GR3",
       "LNManifold": "LNManifold1",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7436,7 +7436,7 @@
       "AirValve": "vAir_GR4",
       "LNManifold": "LNManifold2",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7459,7 +7459,7 @@
       "AirValve": "vAir_GR5",
       "LNManifold": "LNManifold2",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7482,7 +7482,7 @@
       "AirValve": "vAir_GR6",
       "LNManifold": "LNManifold2",
       "AirThermometer": "tGM",
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7505,7 +7505,7 @@
       "AirValve": "vAir_d13C1",
       "LNManifold": "LNManifold2",
       "AirThermometer": null,
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7528,7 +7528,7 @@
       "AirValve": "vAir_d13C2",
       "LNManifold": "LNManifold2",
       "AirThermometer": null,
-      "FrozenTemperature": -190,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7551,7 +7551,7 @@
       "AirValve": "vAir_d13C3",
       "LNManifold": "LNManifold2",
       "AirThermometer": null,
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7574,7 +7574,7 @@
       "AirValve": "vAir_d13C4",
       "LNManifold": "LNManifold2",
       "AirThermometer": null,
-      "FrozenTemperature": -192,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7597,7 +7597,7 @@
       "AirValve": "vAir_d13C5",
       "LNManifold": "LNManifold2",
       "AirThermometer": null,
-      "FrozenTemperature": -180,
+      "FrozenTemperature": -185,
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
@@ -7658,7 +7658,7 @@
       "LowVacuumRequiredPressure": 8.0,
       "StateStopwatch": {
         "IsRunning": true,
-        "Accumulated": 40787
+        "Accumulated": 4543
       },
       "IdleTimeout": 50
     },
@@ -7685,7 +7685,7 @@
       "LowVacuumRequiredPressure": 8.0,
       "StateStopwatch": {
         "IsRunning": true,
-        "Accumulated": 40796
+        "Accumulated": 4542
       },
       "IdleTimeout": 50
     }
@@ -7916,7 +7916,7 @@
     "IP1": {
       "$type": "AeonHacs.Components.InletPort, AeonHacs.Core",
       "Name": "IP1",
-      "Description": "Inlet port 1 chamber",
+      "Description": "Inlet port 1",
       "SupportedPortTypes": [
         "TFCombustion"
       ],
@@ -7938,7 +7938,7 @@
     "IP2": {
       "$type": "AeonHacs.Components.InletPort, AeonHacs.Core",
       "Name": "IP2",
-      "Description": "Inlet port 2 chamber",
+      "Description": "Inlet port 2",
       "SupportedPortTypes": [
         "Combustion",
         "FlowThrough",
@@ -7985,7 +7985,7 @@
     "GR1": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR1",
-      "Description": "Graphite reactor 1 chamber",
+      "Description": "Graphite reactor 1",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8017,7 +8017,7 @@
     "GR2": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR2",
-      "Description": "Graphite reactor 2 chamber",
+      "Description": "Graphite reactor 2",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8049,7 +8049,7 @@
     "GR3": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR3",
-      "Description": "Graphite reactor 3 chamber",
+      "Description": "Graphite reactor 3",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8081,7 +8081,7 @@
     "GR4": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR4",
-      "Description": "Graphite reactor 4 chamber",
+      "Description": "Graphite reactor 4",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8113,7 +8113,7 @@
     "GR5": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR5",
-      "Description": "Graphite reactor 5 chamber",
+      "Description": "Graphite reactor 5",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8145,7 +8145,7 @@
     "GR6": {
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR6",
-      "Description": "Graphite reactor 6 chamber",
+      "Description": "Graphite reactor 6",
       "State": "Prepared",
       "Size": "Standard",
       "Sample": null,
@@ -8177,7 +8177,7 @@
     "d13C1": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C1",
-      "Description": "d13C port 1 chamber",
+      "Description": "d13C port 1",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -8191,7 +8191,7 @@
     "d13C2": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C2",
-      "Description": "d13C port 2 chamber",
+      "Description": "d13C port 2",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -8205,7 +8205,7 @@
     "d13C3": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C3",
-      "Description": "d13C port 3 chamber",
+      "Description": "d13C port 3",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -8219,7 +8219,7 @@
     "d13C4": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C4",
-      "Description": "d13C port 4 chamber",
+      "Description": "d13C port 4",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -8233,7 +8233,7 @@
     "d13C5": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C5",
-      "Description": "d13C port 5 chamber",
+      "Description": "d13C port 5",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -8247,7 +8247,7 @@
     "d13C6": {
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C6",
-      "Description": "d13C port 6 chamber",
+      "Description": "d13C port 6",
       "State": "Empty",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
@@ -9861,7 +9861,7 @@
       "GasName": "CO2",
       "SourceValve": "vCO2_VM2",
       "FlowValve": "vCO2Flow",
-      "Meter": null,
+      "Meter": "ugCinMC",
       "SecondsSettlingTime": 1.0,
       "FlowManager": "CO2.MCFlowManager",
       "Destination": "MC",
@@ -10126,7 +10126,7 @@
       "Name": "CO2.MCFlowManager",
       "Description": "Carbon dioxide to Measurement chamber flow manager",
       "FlowValve": "vCO2Flow",
-      "Meter": null,
+      "Meter": "ugCinMC",
       "MillisecondsTimeout": 100,
       "SecondsCycle": 2.0,
       "StartingMovement": -50,
@@ -10639,7 +10639,7 @@
       ],
       "ChangeTimeoutMilliseconds": 60000,
       "OnlyLogWhenChanged": false,
-      "FileName": "CA1 Data.txt",
+      "FileName": "CA1 data.txt",
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": true
     },
@@ -10670,7 +10670,7 @@
       ],
       "ChangeTimeoutMilliseconds": 30000,
       "OnlyLogWhenChanged": false,
-      "FileName": "CT Data.txt",
+      "FileName": "CT data.txt",
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": true
     },
@@ -10681,7 +10681,7 @@
       "InsertLatestSkippedEntry": false,
       "Columns": [
         {
-          "Name": "tLN_VTC",
+          "Name": "tLN_VTT",
           "Resolution": 1.0,
           "Format": "0.00",
           "Path": ""
@@ -10744,7 +10744,7 @@
       ],
       "ChangeTimeoutMilliseconds": 30000,
       "OnlyLogWhenChanged": false,
-      "FileName": "MC Data.txt",
+      "FileName": "MC data.txt",
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": true
     },
@@ -10987,7 +10987,7 @@
           "Path": ""
         },
         {
-          "Name": "tLN_VTC",
+          "Name": "tLN_VTT",
           "Resolution": 1.0,
           "Format": "0.00",
           "Path": ""

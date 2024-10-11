@@ -181,7 +181,7 @@ public partial class CegsMines : Cegs
 
     #region Process Management
 
-    protected override void BuildProcessDictionary()
+    protected void BuildProcessDictionary()
     {
         Separators.Clear();
 
@@ -222,9 +222,6 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Graphitize, etc."] = GraphitizeEtc;
         Separators.Add(ProcessDictionary.Count);
 
-        // Quartz processes
-        ProcessDictionary["Day 2"] = Day2;
-
         // Top-level steps for main process sequence
         ProcessDictionary["Admit sealed CO2 to InletPort"] = AdmitSealedCO2IP;
         ProcessDictionary["Collect CO2 from InletPort"] = Collect;
@@ -235,7 +232,9 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Dilute small sample"] = Dilute;
         ProcessDictionary["Graphitize aliquots"] = GraphitizeAliquots;
         ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
+        Separators.Add(ProcessDictionary.Count);
 
+        // Main process continuations
         ProcessDictionary["Collect, etc."] = CollectEtc;
         ProcessDictionary["Extract, etc."] = ExtractEtc;
         ProcessDictionary["Measure, etc."] = MeasureEtc;
@@ -322,7 +321,6 @@ public partial class CegsMines : Cegs
         //Separators.Add(ProcessDictionary.Count);
 
         // Utilities (generally not for sample processing)
-        Separators.Add(ProcessDictionary.Count);
         ProcessDictionary["Exercise all Opened valves"] = ExerciseAllValves;
         ProcessDictionary["Close all Opened valves"] = CloseAllValves;
         ProcessDictionary["Exercise all LN Manifold valves"] = ExerciseLNValves;
@@ -334,9 +332,9 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Calibrate VP He initial manifold pressure"] = CalibrateVPHeP0;
         ProcessDictionary["Measure Extraction efficiency"] = MeasureExtractEfficiency;
         ProcessDictionary["Measure IP collection efficiency"] = MeasureIpCollectionEfficiency;
+        Separators.Add(ProcessDictionary.Count);
 
         // Test functions
-        Separators.Add(ProcessDictionary.Count);
         ProcessDictionary["Test"] = Test;
     }
 

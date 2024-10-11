@@ -8,7 +8,7 @@
         <Authors>Jim Wilson, Tyler Wilson</Authors>
         <Copyright>$(Company), 2022</Copyright>
         <AssemblyName>CegsMines</AssemblyName>
-        <RepositoryUrl>https://github.com/AeonLaboratories/CegsMines</RepositoryUrl>
+        <RepositoryUrl>https://github.com/cegs-mines/CegsMines</RepositoryUrl>
         <RootNamespace>CegsMines</RootNamespace>
 
         <UseWPF>true</UseWPF>
