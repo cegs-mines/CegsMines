@@ -181,7 +181,7 @@ public partial class CegsMines : Cegs
 
     #region Process Management
 
-    protected void BuildProcessDictionary()
+    protected override void BuildProcessDictionary()
     {
         Separators.Clear();
 
@@ -206,6 +206,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Open and evacuate line"] = OpenLine;
         ProcessDictionary["Open and evacuate VS1"] = () => OpenLine(Find<VacuumSystem>("VacuumSystem1"));
         ProcessDictionary["Open and evacuate VS2"] = () => OpenLine(Find<VacuumSystem>("VacuumSystem2"));
+        ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
         Separators.Add(ProcessDictionary.Count);
 
         // Sample Process Methods
@@ -231,14 +232,6 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Remove sulfur"] = RemoveSulfur;
         ProcessDictionary["Dilute small sample"] = Dilute;
         ProcessDictionary["Graphitize aliquots"] = GraphitizeAliquots;
-        ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
-        Separators.Add(ProcessDictionary.Count);
-
-        // Main process continuations
-        ProcessDictionary["Collect, etc."] = CollectEtc;
-        ProcessDictionary["Extract, etc."] = ExtractEtc;
-        ProcessDictionary["Measure, etc."] = MeasureEtc;
-        ProcessDictionary["Graphitize, etc."] = GraphitizeEtc;
         Separators.Add(ProcessDictionary.Count);
 
         // Secondary-level process sub-steps
