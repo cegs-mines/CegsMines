@@ -599,7 +599,7 @@
           "Minutes": 15,
           "AdmitO2": true,
           "WaitForSetpoint": false,
-          "Name": "Pre-Burn",
+          "Name": "Clean",
           "Description": ""
         },
         {
@@ -1479,7 +1479,7 @@
         "StepChange": 0.009
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1527,7 +1527,7 @@
         "StepChange": 0.003
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1623,7 +1623,7 @@
         "StepChange": 0.007
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1671,7 +1671,7 @@
         "StepChange": 0.005
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1719,7 +1719,7 @@
         "StepChange": 0.008
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1761,7 +1761,7 @@
         "StepChange": 0.008
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "VoltageConversion",
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -2085,12 +2085,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.4999388246"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*388.5144"
           }
         ]
@@ -2127,12 +2127,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.4978207852186822"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*389.5227"
           }
         ]
@@ -2169,12 +2169,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.48473642779713155"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*388.8425"
           }
         ]
@@ -2211,12 +2211,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.494516263089976"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*388.9251"
           }
         ]
@@ -2253,12 +2253,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.4937073022095786"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*386.2224"
           }
         ]
@@ -2295,12 +2295,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.4860699464358483"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*388.9997"
           }
         ]
@@ -2337,12 +2337,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.4968"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*389.7306"
           }
         ]
@@ -2379,12 +2379,12 @@
         "Operations": [
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "ZeroOffset",
             "Argument": "x-0.5"
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "",
+            "Name": "Gain",
             "Argument": "x*62.1333"
           }
         ]
@@ -3325,7 +3325,7 @@
     "ugCinMC": {
       "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
       "Name": "ugCinMC",
-      "Description": "Micrograms of carbon in the Measurement chamber",
+      "Description": "Micrograms of carbon in the measurement chamber",
       "UnitSymbol": "ugC",
       "Ratiometric": false,
       "MaxValue": 0.0,
@@ -3405,13 +3405,13 @@
           "Name": "Close",
           "Value": 1750,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1195,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3427,13 +3427,13 @@
           "Name": "Close",
           "Value": 1710,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1145,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3678,13 +3678,13 @@
           "Name": "Close",
           "Value": 1780,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1270,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3700,13 +3700,13 @@
           "Name": "Close",
           "Value": 1750,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1240,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3722,13 +3722,13 @@
           "Name": "Close",
           "Value": 1700,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1180,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3744,13 +3744,13 @@
           "Name": "Close",
           "Value": 1840,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1290,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -3766,13 +3766,13 @@
           "Name": "Close",
           "Value": 1660,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         },
         {
           "Name": "Open",
           "Value": 1160,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t0.8"
         }
       ]
     },
@@ -5729,7 +5729,7 @@
           "Name": "Open fully",
           "Value": 960,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5745,19 +5745,19 @@
           "Name": "Close",
           "Value": 1950,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0""Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5773,31 +5773,31 @@
           "Name": "Close",
           "Value": 1870,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "ColdTrickle",
           "Value": 1230,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "WarmTrickle",
           "Value": 1250,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1100,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5813,19 +5813,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1100,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5841,19 +5841,19 @@
           "Name": "Close",
           "Value": 1830,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1010,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1010,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5869,19 +5869,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5897,19 +5897,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5925,19 +5925,19 @@
           "Name": "Close",
           "Value": 1770,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 950,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5953,19 +5953,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1200,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -5981,19 +5981,19 @@
           "Name": "Close",
           "Value": 1920,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1100,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1100,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6009,19 +6009,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1300,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6037,19 +6037,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1150,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6065,19 +6065,19 @@
           "Name": "Close",
           "Value": 1770,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1200,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 950,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6093,19 +6093,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1120,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6121,19 +6121,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1100,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6149,19 +6149,19 @@
           "Name": "Close",
           "Value": 1820,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1150,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6177,19 +6177,19 @@
           "Name": "Close",
           "Value": 1770,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 950,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 950,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6205,19 +6205,19 @@
           "Name": "Close",
           "Value": 1870,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open fully",
           "Value": 1000,
           "Incremental": false,
-          "Configuration": "t0.7"
+          "Configuration": "t1.0"
         }
       ]
     },
@@ -6312,7 +6312,7 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t0.4"
+          "Configuration": "i500 t1.5"
         }
       ]
     },
@@ -6407,7 +6407,7 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t0.4"
+          "Configuration": "i500 t1.5"
         }
       ]
     },
@@ -6502,7 +6502,7 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t0.4"
+          "Configuration": "i500 t1.5"
         }
       ]
     },
@@ -6597,7 +6597,7 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t0.4"
+          "Configuration": "i500 t1.5"
         }
       ]
     },
@@ -7295,8 +7295,8 @@
       "Description": "Variable-temperature coldfinger",
       "Heater": "hVTC",
       "Coldfinger": {
-        "Name": "",
-        "Description": "",
+        "Name": "ftcVTC",
+        "Description": "Variable-temperature coldfinger FTC",
         "LevelSensor": "tLN_VTT",
         "LNValve": "vLN_VTT",
         "Trickle": "ColdTrickle",
@@ -11112,7 +11112,7 @@
     "IpFan1": {
       "$type": "AeonHacs.Components.IpFan, AeonHacs.Core",
       "Name": "IpFan1",
-      "Description": "Trap fans for Inlet ports",
+      "Description": "Trap fan for Inlet ports",
       "Fan": "fan1",
       "InletPorts": [
         "IP1",
@@ -11593,6 +11593,36 @@
         "ParameterName": "WaitTimerMinutes",
         "Value": 10.0,
         "Description": "How many minutes to wait."
+      },
+      {
+        "ParameterName": "MaximumMinutesGrToReachTemperature",
+        "Value": 20.0,
+        "Description": "The maximum time a graphite reactor should take to reach its setpoint."
+      },
+      {
+        "ParameterName": "MaximumMinutesIpToReachTemperature",
+        "Value": 10.0,
+        "Description": "The maximum time an inlet port should take to reach its setpoint."
+      },
+      {
+        "ParameterName": "IpMinutes",
+        "Value": 60.0,
+        "Description": "Set time for the IP Timer."
+      },
+      {
+        "ParameterName": "IpTemperatureCushion",
+        "Value": 20.0,
+        "Description": "The acceptable range around IpSetpoint considered at temperature."
+      },
+      {
+        "ParameterName": "MaximumSecondsAdmitGas",
+        "Value": 60.0,
+        "Description": "The longest time allowed for admitting gas."
+      },
+      {
+        "ParameterName": "KeepFeUnderH2",
+        "Value": 0.0,
+        "Description": "Whether to evacuate H2 after preconditioning graphite reactors."
       }
     ]
   },
