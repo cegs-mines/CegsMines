@@ -129,6 +129,22 @@
                 <local:VS Canvas.Left="386" Canvas.Top="287" />
                 <wpf:IM2CA Canvas.Left="189" Canvas.Top="147" />
                 <wpf:CarbonAnalyzer Canvas.Left="412" Canvas.Top="55" />
+                <StackPanel Canvas.Left="553" Canvas.Top="35">
+                    <StackPanel wpf:View.Component="CtFlowMonitor" Background="Transparent" Orientation="Horizontal">
+                        <wpf:Gauge
+                            Component="CtFlowMonitor" DisplayMemberPath="TrackedFlow"
+                            DefaultContentString="0.0" ContentStringFormat="0.0"
+                            d:Content="{Binding DefaultContentString, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock Margin="3,0,0,0">scc</TextBlock>
+                    </StackPanel>
+                    <StackPanel wpf:View.Component="CollectedUgc" Background="Transparent" Orientation="Horizontal">
+                        <wpf:Gauge
+                            Component="CollectedUgc" DisplayMemberPath="Value"
+                            DefaultContentString="0.0" ContentStringFormat="0.0"
+                            d:Content="{Binding DefaultContentString, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock Margin="3,0,0,0">µgC</TextBlock>
+                    </StackPanel>
+                </StackPanel>
                 <wpf:DualCT Canvas.Left="456" Canvas.Top="84" />
                 <wpf:VTT Canvas.Left="690" Canvas.Top="162" />
                 <wpf:MC Canvas.Left="742" Canvas.Top="127" />
