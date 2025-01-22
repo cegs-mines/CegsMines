@@ -2,6 +2,474 @@
   "$type": "AeonHacs.Components.CegsMines, CegsMines",
   "Name": "CegsMines",
   "ProcessSequences": {
+    "Graphite": {
+      "Name": "Graphite",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat Quartz and Open Line",
+          "Description": ""
+        },
+        {
+          "Name": "Evacuate Inlet Port",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 500,
+          "Minutes": 15,
+          "AdmitO2": true,
+          "WaitForSetpoint": false,
+          "Name": "Pre-Burn",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 850,
+          "Minutes": 50,
+          "AdmitO2": true,
+          "WaitForSetpoint": true,
+          "Name": "Combust",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Oxalic Acid": {
+      "Name": "Oxalic Acid",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat Quartz and Open Line",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 150,
+          "Minutes": 15,
+          "AdmitO2": false,
+          "WaitForSetpoint": true,
+          "Name": "Combust",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Organic": {
+      "Name": "Organic",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat Quartz and Open Line",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 150,
+          "Minutes": 15,
+          "AdmitO2": true,
+          "WaitForSetpoint": false,
+          "Name": "Pre-Burn",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 625,
+          "Minutes": 45,
+          "AdmitO2": true,
+          "WaitForSetpoint": true,
+          "Name": "Combust",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Carbonate": {
+      "Name": "Carbonate",
+      "Description": "",
+      "PortType": "Needle",
+      "Steps": [
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Sealed CO2": {
+      "Name": "Sealed CO2",
+      "Description": "",
+      "PortType": "Manual",
+      "Steps": [
+        {
+          "Name": "Admit sealed CO2 to InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Collect, etc.": {
+      "Name": "Collect, etc.",
+      "Description": "",
+      "PortType": "Manual",
+      "Steps": [
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Clean graphite": {
+      "Name": "Clean graphite",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Evacuate Inlet Port",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 500,
+          "Minutes": 15,
+          "AdmitO2": true,
+          "WaitForSetpoint": false,
+          "Name": "Clean",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "Name": "Close IP",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised"
+      ]
+    },
+    "Pyrolize": {
+      "Name": "Pyrolize",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 425,
+          "Minutes": 30,
+          "AdmitO2": false,
+          "WaitForSetpoint": true,
+          "Name": "Combust",
+          "Description": ""
+        },
+        {
+          "Name": "Turn Off CC Furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for operator",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Collect & Measure": {
+      "Name": "Collect & Measure",
+      "Description": "",
+      "PortType": "Manual",
+      "Steps": [
+        {
+          "Name": "Collect CO2 from InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Extract",
+          "Description": ""
+        },
+        {
+          "Name": "Measure",
+          "Description": ""
+        }
+      ],
+      "CheckList": []
+    },
+    "Measure Sealed CO2": {
+      "Name": "Measure Sealed CO2",
+      "Description": "",
+      "PortType": "Manual",
+      "Steps": [
+        {
+          "Name": "Admit sealed CO2 to InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Collect CO2 from InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Extract",
+          "Description": ""
+        },
+        {
+          "Name": "Measure",
+          "Description": ""
+        }
+      ],
+      "CheckList": []
+    },
+    "Combust, Measure": {
+      "Name": "Combust, Measure",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat Quartz and Open Line",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 150,
+          "Minutes": 15,
+          "AdmitO2": true,
+          "WaitForSetpoint": false,
+          "Name": "Pre-Burn",
+          "Description": ""
+        },
+        {
+          "Name": "Discard IP gases",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
+          "Temperature": 625,
+          "Minutes": 45,
+          "AdmitO2": true,
+          "WaitForSetpoint": true,
+          "Name": "Combust",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Collect CO2 from InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Extract",
+          "Description": ""
+        },
+        {
+          "Name": "Measure",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Dead CO2": {
+      "Name": "Dead CO2",
+      "Description": "",
+      "PortType": "GasSupply",
+      "Steps": [
+        {
+          "Name": "Admit Dead CO2 into MC",
+          "Description": ""
+        },
+        {
+          "Name": "Measure, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Carbonate (close IP at 5 Torr)": {
+      "Name": "Carbonate (close IP at 5 Torr)",
+      "Description": "",
+      "PortType": "Needle",
+      "Steps": [
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectCloseIpAtPressure",
+          "Description": "",
+          "Value": 5.0
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
     "In Situ Quartz Day 1": {
       "Name": "In Situ Quartz Day 1",
       "Description": "",
@@ -270,425 +738,18 @@
       ],
       "CheckList": []
     },
-    "Dead CO2": {
-      "Name": "Dead CO2",
+    "RampedOxidation": {
+      "Name": "RampedOxidation",
       "Description": "",
-      "PortType": "GasSupply",
+      "PortType": "FlowThrough",
       "Steps": [
         {
-          "Name": "Admit Dead CO2 into MC",
-          "Description": ""
-        },
-        {
-          "Name": "Measure, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Graphite": {
-      "Name": "Graphite",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Heat Quartz and Open Line",
-          "Description": ""
-        },
-        {
-          "Name": "Evacuate Inlet Port",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 500,
-          "Minutes": 15,
-          "AdmitO2": true,
-          "WaitForSetpoint": false,
-          "Name": "Pre-Burn",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 850,
-          "Minutes": 50,
-          "AdmitO2": true,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
-          "Description": ""
-        },
-        {
-          "Name": "Turn off IP furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised",
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Oxalic Acid": {
-      "Name": "Oxalic Acid",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Heat Quartz and Open Line",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 150,
-          "Minutes": 15,
-          "AdmitO2": false,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
-          "Description": ""
-        },
-        {
-          "Name": "Turn off IP furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised",
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Organic": {
-      "Name": "Organic",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Heat Quartz and Open Line",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 150,
-          "Minutes": 15,
-          "AdmitO2": true,
-          "WaitForSetpoint": false,
-          "Name": "Pre-Burn",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 625,
-          "Minutes": 45,
-          "AdmitO2": true,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
-          "Description": ""
-        },
-        {
-          "Name": "Turn off IP furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised",
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Carbonate": {
-      "Name": "Carbonate",
-      "Description": "",
-      "PortType": "Needle",
-      "Steps": [
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Pyrolize": {
-      "Name": "Pyrolize",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 425,
-          "Minutes": 30,
-          "AdmitO2": false,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
-          "Description": ""
-        },
-        {
-          "Name": "Turn Off CC Furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Wait for operator",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised",
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Collect & Measure": {
-      "Name": "Collect & Measure",
-      "Description": "",
-      "PortType": "Manual",
-      "Steps": [
-        {
-          "Name": "Collect CO2 from InletPort",
-          "Description": ""
-        },
-        {
-          "Name": "Extract",
-          "Description": ""
-        },
-        {
-          "Name": "Measure",
+          "Name": "Ramped oxidation",
           "Description": ""
         }
       ],
       "CheckList": []
-    },
-    "Sealed CO2": {
-      "Name": "Sealed CO2",
-      "Description": "",
-      "PortType": "Manual",
-      "Steps": [
-        {
-          "Name": "Admit sealed CO2 to InletPort",
-          "Description": ""
-        },
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Collect, etc.": {
-      "Name": "Collect, etc.",
-      "Description": "",
-      "PortType": "Manual",
-      "Steps": [
-        {
-          "Name": "Collect, etc.",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    },
-    "Clean graphite": {
-      "Name": "Clean graphite",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Evacuate Inlet Port",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 500,
-          "Minutes": 15,
-          "AdmitO2": true,
-          "WaitForSetpoint": false,
-          "Name": "Clean",
-          "Description": ""
-        },
-        {
-          "Name": "Turn off IP furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "Name": "Close IP",
-          "Description": ""
-        },
-        {
-          "Name": "Open and evacuate line",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised"
-      ]
-    },
-    "Combust, Measure": {
-      "Name": "Combust, Measure",
-      "Description": "",
-      "PortType": "Combustion",
-      "Steps": [
-        {
-          "Name": "Flush Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Heat Quartz and Open Line",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 150,
-          "Minutes": 15,
-          "AdmitO2": true,
-          "WaitForSetpoint": false,
-          "Name": "Pre-Burn",
-          "Description": ""
-        },
-        {
-          "Name": "Discard IP gases",
-          "Description": ""
-        },
-        {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 625,
-          "Minutes": 45,
-          "AdmitO2": true,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
-          "Description": ""
-        },
-        {
-          "Name": "Turn off IP furnaces",
-          "Description": ""
-        },
-        {
-          "Name": "Collect CO2 from InletPort",
-          "Description": ""
-        },
-        {
-          "Name": "Extract",
-          "Description": ""
-        },
-        {
-          "Name": "Measure",
-          "Description": ""
-        }
-      ],
-      "CheckList": [
-        "Combustion Chamber furnaces are raised",
-        "GR furnaces are lowered",
-        "GR FTCs are raised"
-      ]
-    }
+    }    
   },
   "Description": "Carbon extraction and graphitization system for Colorado School of Mines",
   "DeviceManagers": {
@@ -1383,24 +1444,28 @@
         "StepChange": 0.012
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.001132093913009336"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.00375862101218927,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "CompensatedGain",
-            "Argument": "x*14.994"
+                "Item1": 6.6731,
+                "Item2": 100.0
+              }
+            ]
           }
         ]
       },
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 19,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.01
       },
@@ -1420,8 +1485,8 @@
       "Ratiometric": false,
       "MaxValue": 10.0,
       "MinValue": 0.0,
-      "Sensitivity": 0.001,
-      "Resolution": 0.001,
+      "Sensitivity": 0.0001,
+      "Resolution": 0.0001,
       "ResolutionIsProportional": false,
       "Filter": {
         "$type": "AeonHacs.ExponentialFilter, AeonHacs.Core",
@@ -1431,24 +1496,28 @@
         "StepChange": 0.0018
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x+0.0059492519490454854"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": -0.007386596900820255,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "CompensatedGain",
-            "Argument": "x*1.224"
+                "Item1": 8.1625,
+                "Item2": 10.0
+              }
+            ]
           }
         ]
       },
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 21,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 5000.0,
         "Resolution": 0.001
       },
@@ -1479,24 +1548,28 @@
         "StepChange": 0.009
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.012414170222282502"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.0012651379760957404,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "CompensatedGain",
-            "Argument": "x*122.6588"
+                "Item1": 8.154,
+                "Item2": 1000.0
+              }
+            ]
           }
         ]
       },
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 21,
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 5000.0,
         "Resolution": 0.001
       },
@@ -1527,17 +1600,21 @@
         "StepChange": 0.003
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.47892678309094494"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.47743037640800573,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*392.6641"
+                "Item1": 2.2601,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1575,17 +1652,21 @@
         "StepChange": 0.005
       },
       "Conversion": {
-        "Name": "VoltageCorrection",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4861850780221639"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4822985128721663,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*392.6641"
+                "Item1": 2.265,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1623,17 +1704,21 @@
         "StepChange": 0.007
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4972184909102933"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.49717507644360626,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*389.1647"
+                "Item1": 2.2959,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1671,17 +1756,21 @@
         "StepChange": 0.005
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4730959362816788"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.47193657479396695                ,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.7722"
+                "Item1": 2.2725,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1719,17 +1808,21 @@
         "StepChange": 0.008
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4805529410376842"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4753390430112115,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.9035"
+                "Item1": 2.2753,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1761,17 +1854,21 @@
         "StepChange": 0.008
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4856368171669219"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4856368171669219,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.3026"
+                "Item1": 2.2884,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -1828,7 +1925,7 @@
           },
           {
             "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
-            "Name": "ValueConversion",
+            "Name": "TransferFunction",
             "Operations": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1897,7 +1994,7 @@
           },
           {
             "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
-            "Name": "ValueConversion",
+            "Name": "TransferFunction",
             "Operations": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1946,18 +2043,22 @@
         "Name": "",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x+0"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltageCorrection",
+            "CalibrationData": [
+              {
+                "Item1": 0.0,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "VoltageCorrection",
-            "Argument": "x*1.2252"
+                "Item1": 8.1619,
+                "Item2": 10.0
+              }
+            ]
           },
           {
             "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
-            "Name": "ValueConversion",
+            "Name": "TransferFunction",
             "Operations": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -1978,7 +2079,7 @@
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "UnitConversion",
+            "Name": "mbarToTorr",
             "Argument": "x*0.750061683"
           }
         ]
@@ -2081,17 +2182,21 @@
         "StepChange": 0.01
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4999388246"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4999388246,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.5144"
+                "Item1": 2.3017,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2123,17 +2228,21 @@
         "StepChange": 0.01
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4978207852186822"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4799391604299637,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*389.5227"
+                "Item1": 2.277,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2165,17 +2274,21 @@
         "StepChange": 0.01
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.48473642779713155"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.47546602365893287,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.8425"
+                "Item1": 2.2757,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2207,17 +2320,21 @@
         "StepChange": 0.01
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.494516263089976"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.48674679040926805,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.9251"
+                "Item1": 2.2866,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2249,17 +2366,21 @@
         "StepChange": 0.01
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4937073022095786"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4937073022095786,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*386.2224"
+                "Item1": 2.3061,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2291,17 +2412,21 @@
         "StepChange": 0.006
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4860699464358483"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4860699464358483,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*388.9997"
+                "Item1": 2.2856,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2333,17 +2458,21 @@
         "StepChange": 0.015
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.4968"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToTorr",
+            "CalibrationData": [
+              {
+                "Item1": 0.4968,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*389.7306"
+                "Item1": 2.2929,
+                "Item2": 700.0
+              }
+            ]
           }
         ]
       },
@@ -2375,17 +2504,21 @@
         "StepChange": 0.004
       },
       "Conversion": {
-        "Name": "VoltageConversion",
+        "Name": "ValueConversion",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x-0.5"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltsToDegC",
+            "CalibrationData": [
+              {
+                "Item1": 0.7414,
+                "Item2": 15.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "Gain",
-            "Argument": "x*62.1333"
+                "Item1": 0.9828,
+                "Item2": 30.0
+              }
+            ]
           }
         ]
       },
@@ -2421,7 +2554,7 @@
         "Operations": [
           {
             "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
-            "Name": "Interpolate",
+            "Name": "VoltsToDegC",
             "CalibrationData": [
               {
                 "Item1": 0.737,
@@ -3001,7 +3134,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3027,7 +3160,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3079,7 +3212,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3105,7 +3238,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3131,7 +3264,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3157,7 +3290,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3183,7 +3316,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3235,7 +3368,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3261,7 +3394,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3287,7 +3420,7 @@
         "Name": "",
         "Description": "",
         "Power": 1.2,
-        "StepChange": 5.0
+        "StepChange": 3.0
       },
       "Conversion": null,
       "RateOfChange": null,
@@ -3328,7 +3461,7 @@
       "Description": "Micrograms of carbon in the measurement chamber",
       "UnitSymbol": "ugC",
       "Ratiometric": false,
-      "MaxValue": 0.0,
+      "MaxValue": 3000.0,
       "MinValue": 0.0,
       "Sensitivity": 0.01,
       "Resolution": 0.01,
@@ -3338,7 +3471,57 @@
       "RateOfChange": {
         "Name": "",
         "Description": "",
-        "FilterLength": 21,
+        "FilterLength": 13,
+        "MaxIntervalMilliseconds": 1000.0,
+        "Resolution": 0.1
+      },
+      "Stable": 0.2,
+      "Falling": -0.21,
+      "Rising": 0.21,
+      "ZerosToAverage": 30
+    },
+    "CtFlowRateMeter": {
+      "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
+      "Name": "CtFlowRateMeter",
+      "Description": "Coil trap flow rate meter",
+      "UnitSymbol": "sccm",
+      "Ratiometric": false,
+      "MaxValue": 0.0,
+      "MinValue": 0.0,
+      "Sensitivity": 0.001,
+      "Resolution": 0.001,
+      "ResolutionIsProportional": false,
+      "Filter": null,
+      "Conversion": null,
+      "RateOfChange": {
+        "Name": "",
+        "Description": "",
+        "FilterLength": 13,
+        "MaxIntervalMilliseconds": 1000.0,
+        "Resolution": 0.1
+      },
+      "Stable": 0.2,
+      "Falling": -0.21,
+      "Rising": 0.21,
+      "ZerosToAverage": 30
+    },
+    "CollectedUgc": {
+      "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
+      "Name": "CollectedUgc",
+      "Description": "Micrograms of carbon collected in the Coil trap",
+      "UnitSymbol": "µgC",
+      "Ratiometric": false,
+      "MaxValue": 0.0,
+      "MinValue": 0.0,
+      "Sensitivity": 0.0001,
+      "Resolution": 0.0001,
+      "ResolutionIsProportional": false,
+      "Filter": null,
+      "Conversion": null,
+      "RateOfChange": {
+        "Name": "",
+        "Description": "",
+        "FilterLength": 13,
         "MaxIntervalMilliseconds": 1000.0,
         "Resolution": 0.1
       },
@@ -3354,6 +3537,7 @@
       "Name": "vHV1",
       "Description": "Vacuum system 1 high vacuum valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3376,6 +3560,7 @@
       "Name": "vHV2",
       "Description": "Vacuum system 2 high vacuum valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3398,6 +3583,7 @@
       "Name": "vLV1",
       "Description": "Vacuum system 1 low vacuum valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3420,6 +3606,7 @@
       "Name": "vLV2",
       "Description": "Vacuum system 2 low vacuum valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3442,6 +3629,7 @@
       "Name": "vB1",
       "Description": "Vacuum system 1 turbo pump backing valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3464,6 +3652,7 @@
       "Name": "vB2",
       "Description": "Vacuum system 2 turbo pump backing valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3486,6 +3675,7 @@
       "Name": "vR1",
       "Description": "Vacuum system 1 roughing pump valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3508,6 +3698,7 @@
       "Name": "vR2",
       "Description": "Vacuum system 2 roughing pump valve",
       "ValveState": "Opened",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3576,14 +3767,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCTO_VM2",
       "Description": "CTO-VM2 valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -3623,14 +3814,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vGM_VM2",
       "Description": "GM-VM2 valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -3671,6 +3862,7 @@
       "Name": "vHe_VM2",
       "Description": "He-VM2 gas shutoff valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3693,6 +3885,7 @@
       "Name": "vH2_VM2",
       "Description": "H2-VM2 gas shutoff valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3715,6 +3908,7 @@
       "Name": "vCO2_VM2",
       "Description": "CO2-VM2 gas shutoff valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3737,6 +3931,7 @@
       "Name": "vO2_VM1",
       "Description": "O2-VM1 gas shutoff valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3759,6 +3954,7 @@
       "Name": "vHe_VM1",
       "Description": "He-VM1 gas shutoff valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -3962,6 +4158,12 @@
           "Value": 1,
           "Incremental": true,
           "Configuration": "i500 t0.4"
+        },
+        {
+          "Name": "_Move",
+          "Value": -1,
+          "Incremental": true,
+          "Configuration": "i500 t15"
         }
       ]
     },
@@ -4346,14 +4548,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vIM_CA",
       "Description": "IM-CA valve",
-      "Position": 192,
+      "Position": 0,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Closed",
+      "ValveState": "Opened",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4393,14 +4595,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCA_CTF",
       "Description": "CA-CTF valve",
-      "Position": 192,
+      "Position": 0,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Closed",
+      "ValveState": "Opened",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4581,14 +4783,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCT2_CTO",
       "Description": "CT2-CTO valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4722,14 +4924,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCT1_CTO",
       "Description": "CT1-CTO valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4769,14 +4971,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCTO_VTT",
       "Description": "CTO-VTT valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4816,14 +5018,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vVTT_MC",
       "Description": "VTT-MC valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4863,14 +5065,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vMC_MCP1",
       "Description": "MC-MCP1 valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -4910,14 +5112,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vMC_MCP2",
       "Description": "MC-MCP2 valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -5051,14 +5253,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vSplit_d13C",
       "Description": "Split-d13C valve",
-      "Position": 0,
+      "Position": 192,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Opened",
+      "ValveState": "Closed",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -5192,14 +5394,14 @@
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vGR3_GM",
       "Description": "GR3-GM valve",
-      "Position": 192,
+      "Position": 0,
       "MinimumPosition": 0,
       "MaximumPosition": 192,
       "PositionsPerTurn": 96,
       "ClosedOffset": 0,
       "Calibrated": true,
       "ConsecutiveMatches": 9,
-      "ValveState": "Closed",
+      "ValveState": "Opened",
       "OpenedVolumeDelta": 0.166,
       "IdleCurrentLimit": 110,
       "ActuatorOperations": [
@@ -5710,18 +5912,19 @@
       "Name": "vLN_CT1",
       "Description": "Coil trap 1 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1800,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1250,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5738,18 +5941,19 @@
       "Name": "vLN_CT2",
       "Description": "Coil trap 2 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1950,
+          "Value": 2000,
           "Incremental": false,
-          "Configuration": "t1.0""Configuration": "t1.0"
+          "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1250,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5766,18 +5970,19 @@
       "Name": "vLN_VTT",
       "Description": "Variable-temperature trap LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1870,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "ColdTrickle",
-          "Value": 1230,
+          "Value": 1310,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5806,18 +6011,19 @@
       "Name": "vLN_MC",
       "Description": "Measurement chamber LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1100,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5834,18 +6040,19 @@
       "Name": "vLN_GR1",
       "Description": "Graphite reactor 1 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1830,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1010,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5862,18 +6069,19 @@
       "Name": "vLN_GR2",
       "Description": "Graphite reactor 2 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5890,18 +6098,19 @@
       "Name": "vLN_GR3",
       "Description": "Graphite reactor 3 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5918,18 +6127,19 @@
       "Name": "vLN_GR4",
       "Description": "Graphite reactor 4 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1950,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1100,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5946,12 +6156,13 @@
       "Name": "vLN_GR5",
       "Description": "Graphite reactor 5 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5974,12 +6185,13 @@
       "Name": "vLN_GR6",
       "Description": "Graphite reactor 6 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1920,
+          "Value": 2100,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6002,18 +6214,19 @@
       "Name": "vLN_d13C1",
       "Description": "d13C1 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1300,
+          "Value": 1100,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6030,12 +6243,13 @@
       "Name": "vLN_d13C2",
       "Description": "d13C2 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6058,12 +6272,13 @@
       "Name": "vLN_d13C3",
       "Description": "d13C3 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1950,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6086,40 +6301,13 @@
       "Name": "vLN_d13C4",
       "Description": "d13C4 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
-          "Incremental": false,
-          "Configuration": "t1.0"
-        },
-        {
-          "Name": "Open",
-          "Value": 1120,
-          "Incremental": false,
-          "Configuration": "t1.0"
-        },
-        {
-          "Name": "Open fully",
-          "Value": 1000,
-          "Incremental": false,
-          "Configuration": "t1.0"
-        }
-      ]
-    },
-    "vLN_d13C5": {
-      "$type": "AeonHacs.Components.CpwValve, AeonHacs.Core",
-      "Name": "vLN_d13C5",
-      "Description": "d13C5 LN valve",
-      "ValveState": "Closed",
-      "OpenedVolumeDelta": 0.0,
-      "IdleCurrentLimit": 80,
-      "ActuatorOperations": [
-        {
-          "Name": "Close",
-          "Value": 1820,
+          "Value": 1900,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6131,7 +6319,36 @@
         },
         {
           "Name": "Open fully",
-          "Value": 1000,
+          "Value": 950,
+          "Incremental": false,
+          "Configuration": "t1.0"
+        }
+      ]
+    },
+    "vLN_d13C5": {
+      "$type": "AeonHacs.Components.CpwValve, AeonHacs.Core",
+      "Name": "vLN_d13C5",
+      "Description": "d13C5 LN valve",
+      "ValveState": "Closed",
+      "Position": 0,
+      "OpenedVolumeDelta": 0.0,
+      "IdleCurrentLimit": 80,
+      "ActuatorOperations": [
+        {
+          "Name": "Close",
+          "Value": 2000,
+          "Incremental": false,
+          "Configuration": "t1.0"
+        },
+        {
+          "Name": "Open",
+          "Value": 1200,
+          "Incremental": false,
+          "Configuration": "t1.0"
+        },
+        {
+          "Name": "Open fully",
+          "Value": 1050,
           "Incremental": false,
           "Configuration": "t1.0"
         }
@@ -6142,18 +6359,19 @@
       "Name": "vLN_d13C6",
       "Description": "d13C6 LN valve",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1150,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6170,12 +6388,13 @@
       "Name": "vLN_Spare1",
       "Description": "Spare LN valve 1",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1850,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6198,12 +6417,13 @@
       "Name": "vLN_Spare2",
       "Description": "Spare LN valve 2",
       "ValveState": "Closed",
+      "Position": 0,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1870,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6312,14 +6532,14 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t1.5"
+          "Configuration": "i500 t0.4"
         }
       ]
     },
     "vHeFlow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vHeFlow",
-      "Description": "He-VM flow valve",
+      "Description": "He-VM2 flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6407,14 +6627,14 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t1.5"
+          "Configuration": "i500 t0.4"
         }
       ]
     },
     "vH2Flow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vH2Flow",
-      "Description": "H2-VM flow valve",
+      "Description": "H2-VM2 flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6502,14 +6722,14 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t1.5"
+          "Configuration": "i500 t0.4"
         }
       ]
     },
     "vCO2Flow": {
       "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
       "Name": "vCO2Flow",
-      "Description": "CO2-VM flow valve",
+      "Description": "CO2-VM2 flow valve",
       "Position": 672,
       "MinimumPosition": 0,
       "MaximumPosition": 682,
@@ -6597,7 +6817,7 @@
           "Name": "Calibrate",
           "Value": 1,
           "Incremental": true,
-          "Configuration": "i500 t1.5"
+          "Configuration": "i500 t0.4"
         }
       ]
     },
@@ -6803,6 +7023,35 @@
     }
   },
   "Heaters": {
+    "hIP2CCS": {
+      "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
+      "Name": "hIP2CCS",
+      "Description": "Inlet port 2 sample furnace",
+      "ThermocoupleChannel": 1,
+      "PidSetup": "PID_IP2",
+      "Setpoint": 150.0,
+      "MinimumSetpoint": 0.0,
+      "MaximumSetpoint": 850.0,
+      "StopAction": "None",
+      "OnOffState": "Off",
+      "UnitSymbol": "°C",
+      "Ratiometric": false,
+      "MaxValue": 0.0,
+      "MinValue": 0.0,
+      "Sensitivity": 0.0,
+      "Resolution": 0.0,
+      "ResolutionIsProportional": false,
+      "Filter": null,
+      "Conversion": null,
+      "RateOfChange": null,
+      "Stable": 0.0,
+      "Falling": 0.0,
+      "Rising": 0.0,
+      "ZerosToAverage": 30,
+      "ManualMode": false,
+      "PowerLevel": 4.0,
+      "MaximumPowerLevel": 15.0
+    },
     "hIP1CCQ": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
       "Name": "hIP1CCQ",
@@ -6831,35 +7080,6 @@
       "ManualMode": true,
       "PowerLevel": 10.0591,
       "MaximumPowerLevel": 10.06
-    },
-    "hIP2CCS": {
-      "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
-      "Name": "hIP2CCS",
-      "Description": "Inlet port 2 sample furnace",
-      "ThermocoupleChannel": 1,
-      "PidSetup": "PID_IP2",
-      "Setpoint": 625.0,
-      "MinimumSetpoint": 0.0,
-      "MaximumSetpoint": 850.0,
-      "StopAction": "None",
-      "OnOffState": "Off",
-      "UnitSymbol": "°C",
-      "Ratiometric": false,
-      "MaxValue": 0.0,
-      "MinValue": 0.0,
-      "Sensitivity": 0.0,
-      "Resolution": 0.0,
-      "ResolutionIsProportional": false,
-      "Filter": null,
-      "Conversion": null,
-      "RateOfChange": null,
-      "Stable": 0.0,
-      "Falling": 0.0,
-      "Rising": 0.0,
-      "ZerosToAverage": 30,
-      "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
     },
     "hIP2CCQ": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -6896,7 +7116,7 @@
       "Description": "Graphite reactor 1 furnace",
       "ThermocoupleChannel": 0,
       "PidSetup": "PID_GR1",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -6916,8 +7136,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hGR2": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -6925,7 +7145,7 @@
       "Description": "Graphite reactor 2 furnace",
       "ThermocoupleChannel": 1,
       "PidSetup": "PID_GR2",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -6945,8 +7165,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hGR3": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -6954,7 +7174,7 @@
       "Description": "Graphite reactor 3 furnace",
       "ThermocoupleChannel": 2,
       "PidSetup": "PID_GR3",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -6974,8 +7194,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hGR4": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -6983,7 +7203,7 @@
       "Description": "Graphite reactor 4 furnace",
       "ThermocoupleChannel": 3,
       "PidSetup": "PID_GR4",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -7003,8 +7223,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hGR5": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -7012,7 +7232,7 @@
       "Description": "Graphite reactor 5 furnace",
       "ThermocoupleChannel": 4,
       "PidSetup": "PID_GR5",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -7032,8 +7252,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hGR6": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -7041,7 +7261,7 @@
       "Description": "Graphite reactor 6 furnace",
       "ThermocoupleChannel": 5,
       "PidSetup": "PID_GR6",
-      "Setpoint": 580.0,
+      "Setpoint": 400.0,
       "MinimumSetpoint": 0.0,
       "MaximumSetpoint": 600.0,
       "StopAction": "None",
@@ -7061,8 +7281,8 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
-      "MaximumPowerLevel": 15.0
+      "PowerLevel": 0.0,
+      "MaximumPowerLevel": 8.0
     },
     "hVTC": {
       "$type": "AeonHacs.Components.HC6Heater, AeonHacs.Core",
@@ -7090,7 +7310,7 @@
       "Rising": 0.0,
       "ZerosToAverage": 30,
       "ManualMode": false,
-      "PowerLevel": 4.0,
+      "PowerLevel": 0.0,
       "MaximumPowerLevel": 3.0
     }
   },
@@ -7158,24 +7378,6 @@
       "Derivative": 161.3,
       "Preset": 0.785
     },
-    "CFF60V88W": {
-      "$type": "AeonHacs.Components.PidSetup, AeonHacs.Core",
-      "Name": "CFF60V88W",
-      "Description": "Generic PID parameters for a 60V 88W CF furnace",
-      "Gain": 7.53,
-      "Integral": 0.00891,
-      "Derivative": 100.7,
-      "Preset": 0.687
-    },
-    "GROven200W": {
-      "$type": "AeonHacs.Components.PidSetup, AeonHacs.Core",
-      "Name": "GROven200W",
-      "Description": "Generic PID parameters for a 200W GR oven",
-      "Gain": 19.23,
-      "Integral": 0.00672,
-      "Derivative": 283.6,
-      "Preset": 0.991
-    },
     "VtcCold": {
       "$type": "AeonHacs.Components.PidSetup, AeonHacs.Core",
       "Name": "VtcCold",
@@ -7217,7 +7419,7 @@
       "MinimumLiters": 10,
       "TargetTemperature": -185,
       "FillTrigger": 5,
-      "SecondsSlowToFill": 180,
+      "SecondsSlowToFill": 240,
       "ColdTemperature": -150,
       "State": "Monitor",
       "IdleTimeout": 500,
@@ -7235,7 +7437,7 @@
       "MinimumLiters": 10,
       "TargetTemperature": -185,
       "FillTrigger": 5,
-      "SecondsSlowToFill": 180,
+      "SecondsSlowToFill": 240,
       "ColdTemperature": -150,
       "State": "Monitor",
       "IdleTimeout": 500,
@@ -7257,7 +7459,7 @@
       "FreezeTrigger": 8,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 60.0,
@@ -7307,7 +7509,7 @@
         "FreezeTrigger": 5,
         "RaiseTrigger": 2,
         "MaximumSecondsLNFlowing": 60,
-        "MaximumMinutesToFreeze": 4,
+        "MaximumMinutesToFreeze": 10,
         "MaximumMinutesToThaw": 10,
         "SecondsToWaitAfterRaised": 5,
         "NearAirTemperature": 10.0,
@@ -7324,7 +7526,7 @@
       "MaximumWarmHeaterPower": 3.0,
       "WarmHeaterPid": "VtcWarm",
       "ColdTemperature": -170,
-      "MaximumMinutesToFreeze": 8,
+      "MaximumMinutesToFreeze": 15,
       "MaximumMinutesToThaw": 10,
       "CleanupTemperature": 50,
       "HeaterOnTrickle": "WarmTrickle",
@@ -7348,7 +7550,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 7.0,
@@ -7371,7 +7573,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7394,7 +7596,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7417,7 +7619,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7440,7 +7642,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7463,7 +7665,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7486,7 +7688,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7509,7 +7711,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7532,7 +7734,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7555,7 +7757,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7578,7 +7780,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7601,7 +7803,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7624,7 +7826,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 10.0,
@@ -7650,16 +7852,11 @@
       "VacuumManifold": "VM1",
       "MySection": "VS1All",
       "State": "Evacuate",
-      "TargetPressure": 0.1,
       "BaselinePressure": 0.0005,
-      "GoodBackingPressure": 3.5,
+      "GoodBackingPressure": 4.0,
       "HighVacuumPreferredPressure": 7.0,
       "HighVacuumRequiredPressure": 5.0,
       "LowVacuumRequiredPressure": 8.0,
-      "StateStopwatch": {
-        "IsRunning": true,
-        "Accumulated": 4543
-      },
       "IdleTimeout": 50
     },
     "VacuumSystem2": {
@@ -7677,16 +7874,11 @@
       "VacuumManifold": "VM2",
       "MySection": "VS2All",
       "State": "Evacuate",
-      "TargetPressure": 0.0005,
       "BaselinePressure": 0.0005,
-      "GoodBackingPressure": 3.5,
+      "GoodBackingPressure": 4.0,
       "HighVacuumPreferredPressure": 7.0,
       "HighVacuumRequiredPressure": 5.0,
       "LowVacuumRequiredPressure": 8.0,
-      "StateStopwatch": {
-        "IsRunning": true,
-        "Accumulated": 4542
-      },
       "IdleTimeout": 50
     }
   },
@@ -7765,7 +7957,7 @@
       "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
       "Name": "CA",
       "Description": "Carbon analyzer chamber",
-      "MilliLiters": 4.7018347562250415,
+      "MilliLiters": 31.0,
       "Manometer": null,
       "Thermometer": null,
       "Heater": null,
@@ -7775,8 +7967,18 @@
       "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
       "Name": "CTF",
       "Description": "Coil trap flow chamber",
-      "MilliLiters": 16.71432318865156,
+      "MilliLiters": 17.3,
       "Manometer": "pCT",
+      "Thermometer": null,
+      "Heater": null,
+      "Coldfinger": null
+    },
+    "CTFL": {
+      "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
+      "Name": "CTFL",
+      "Description": "Coil trap flow chamber left",
+      "MilliLiters": 6.4,
+      "Manometer": null,
       "Thermometer": null,
       "Heater": null,
       "Coldfinger": null
@@ -7950,7 +8152,7 @@
       "WarmTemperature": 40,
       "QuartzFurnace": "hIP2CCQ",
       "SampleFurnace": "hIP2CCS",
-      "State": "Loaded",
+      "State": "Empty",
       "MilliLiters": 6.1574427299500645,
       "Sample": null,
       "Aliquot": 0,
@@ -7972,7 +8174,7 @@
       "WarmTemperature": 40,
       "QuartzFurnace": null,
       "SampleFurnace": null,
-      "State": "Loaded",
+      "State": "Empty",
       "MilliLiters": 10000000000.0,
       "Sample": null,
       "Aliquot": 0,
@@ -7986,7 +8188,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR1",
       "Description": "Graphite reactor 1",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8005,9 +8207,9 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 291.5,
-      "PressurePeak": 1638,
-      "MilliLiters": 2.682469007449721,
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
       "Valve": "vGR1_GM",
       "Manometer": "pGR1",
       "Thermometer": "tGR1",
@@ -8018,7 +8220,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR2",
       "Description": "Graphite reactor 2",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8037,10 +8239,10 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 2000.0,
-      "PressurePeak": 1786,
-      "MilliLiters": 2.754478266902086,
-      "Valve": "vGR2_GM",
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
+     "Valve": "vGR2_GM",
       "Manometer": "pGR2",
       "Thermometer": "tGR2",
       "Heater": "hGR2",
@@ -8050,7 +8252,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR3",
       "Description": "Graphite reactor 3",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8069,10 +8271,10 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 216.0,
-      "PressurePeak": 1648,
-      "MilliLiters": 2.785790989674183,
-      "Valve": "vGR3_GM",
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
+     "Valve": "vGR3_GM",
       "Manometer": "pGR3",
       "Thermometer": "tGR3",
       "Heater": "hGR3",
@@ -8082,7 +8284,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR4",
       "Description": "Graphite reactor 4",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8101,9 +8303,9 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 2000.0,
-      "PressurePeak": 919,
-      "MilliLiters": 2.8099452397850397,
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
       "Valve": "vGR4_GM",
       "Manometer": "pGR4",
       "Thermometer": "tGR4",
@@ -8114,7 +8316,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR5",
       "Description": "Graphite reactor 5",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8133,9 +8335,9 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 2000.0,
-      "PressurePeak": 843,
-      "MilliLiters": 2.8161000111003727,
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
       "Valve": "vGR5_GM",
       "Manometer": "pGR5",
       "Thermometer": "tGR5",
@@ -8146,7 +8348,7 @@
       "$type": "AeonHacs.Components.GraphiteReactor, AeonHacs.Core",
       "Name": "GR6",
       "Description": "Graphite reactor 6",
-      "State": "Prepared",
+      "State": "WaitService",
       "Size": "Standard",
       "Sample": null,
       "Aliquot": 0,
@@ -8165,9 +8367,9 @@
         "IsRunning": false,
         "Accumulated": 0
       },
-      "PriorPressure": 2000.0,
-      "PressurePeak": 144,
-      "MilliLiters": 2.825662627441457,
+      "PriorPressure": 0.0,
+      "PressurePeak": 0,
+      "MilliLiters": 2.75,
       "Valve": "vGR6_GM",
       "Manometer": "pGR6",
       "Thermometer": "tGR6",
@@ -8178,7 +8380,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C1",
       "Description": "d13C port 1",
-      "State": "Empty",
+      "State": "Complete",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8192,7 +8394,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C2",
       "Description": "d13C port 2",
-      "State": "Empty",
+      "State": "Complete",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8206,7 +8408,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C3",
       "Description": "d13C port 3",
-      "State": "Empty",
+      "State": "Prepared",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8220,7 +8422,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C4",
       "Description": "d13C port 4",
-      "State": "Empty",
+      "State": "Prepared",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8234,7 +8436,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C5",
       "Description": "d13C port 5",
-      "State": "Empty",
+      "State": "Prepared",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8248,7 +8450,7 @@
       "$type": "AeonHacs.Components.d13CPort, AeonHacs.Core",
       "Name": "d13C6",
       "Description": "d13C port 6",
-      "State": "Empty",
+      "State": "Prepared",
       "MilliLiters": 9.533251444913702,
       "Sample": null,
       "Aliquot": 0,
@@ -8260,54 +8462,6 @@
     }
   },
   "Sections": {
-    "VM1": {
-      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
-      "Name": "VM1",
-      "Description": "Vacuum manifold 1",
-      "MilliLiters": null,
-      "Chambers": [
-        "VM1"
-      ],
-      "Ports": null,
-      "VacuumSystem": "VacuumSystem1",
-      "Isolation": [
-        "vO2_VM1",
-        "vHe_VM1",
-        "vIM_VM1",
-        "vCT1_VM1",
-        "vCT2_VM1",
-        "vLV1",
-        "vHV1"
-      ],
-      "InternalValves": null,
-      "PathToVacuum": null,
-      "PathToVacuumIsolation": null,
-      "FlowManager": null
-    },
-    "VM2": {
-      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
-      "Name": "VM2",
-      "Description": "Vacuum manifold 2",
-      "MilliLiters": null,
-      "Chambers": [
-        "VM2"
-      ],
-      "Ports": null,
-      "VacuumSystem": "VacuumSystem2",
-      "Isolation": [
-        "vHe_VM2",
-        "vH2_VM2",
-        "vCO2_VM2",
-        "vCTO_VM2",
-        "vGM_VM2",
-        "vLV2",
-        "vHV2"
-      ],
-      "InternalValves": null,
-      "PathToVacuum": null,
-      "PathToVacuumIsolation": null,
-      "FlowManager": null
-    },
     "FTG": {
       "$type": "AeonHacs.Components.Section, AeonHacs.Core",
       "Name": "FTG",
@@ -8738,6 +8892,54 @@
       ],
       "FlowManager": null
     },
+    "VM1": {
+      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
+      "Name": "VM1",
+      "Description": "Vacuum manifold 1",
+      "MilliLiters": null,
+      "Chambers": [
+        "VM1"
+      ],
+      "Ports": null,
+      "VacuumSystem": "VacuumSystem1",
+      "Isolation": [
+        "vO2_VM1",
+        "vHe_VM1",
+        "vIM_VM1",
+        "vCT1_VM1",
+        "vCT2_VM1",
+        "vLV1",
+        "vHV1"
+      ],
+      "InternalValves": null,
+      "PathToVacuum": null,
+      "PathToVacuumIsolation": null,
+      "FlowManager": null
+    },
+    "VM2": {
+      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
+      "Name": "VM2",
+      "Description": "Vacuum manifold 2",
+      "MilliLiters": null,
+      "Chambers": [
+        "VM2"
+      ],
+      "Ports": null,
+      "VacuumSystem": "VacuumSystem2",
+      "Isolation": [
+        "vHe_VM2",
+        "vH2_VM2",
+        "vCO2_VM2",
+        "vCTO_VM2",
+        "vGM_VM2",
+        "vLV2",
+        "vHV2"
+      ],
+      "InternalValves": null,
+      "PathToVacuum": null,
+      "PathToVacuumIsolation": null,
+      "FlowManager": null
+    },
     "TF_IP1": {
       "$type": "AeonHacs.Components.Section, AeonHacs.Core",
       "Name": "TF_IP1",
@@ -8889,6 +9091,33 @@
       "PathToVacuumIsolation": null,
       "FlowManager": null
     },
+    "IM_CA": {
+      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
+      "Name": "IM_CA",
+      "Description": "Inlet manifold to Carbon section",
+      "MilliLiters": null,
+      "Chambers": [
+        "IM",
+        "CA"
+      ],
+      "Ports": null,
+      "VacuumSystem": "VacuumSystem1",
+      "Isolation": [
+        "vIP1_IM",
+        "vIP2_IM",
+        "vCA_CTF",
+        "vIM_CTF",
+        "vIM_VM1"
+      ],
+      "InternalValves": [
+        "vIM_CA"
+      ],
+      "PathToVacuum": [
+        "vIM_VM1"
+      ],
+      "PathToVacuumIsolation": null,
+      "FlowManager": "FTG_IMFlowManager"
+    },
     "IM_CA_CTF": {
       "$type": "AeonHacs.Components.Section, AeonHacs.Core",
       "Name": "IM_CA_CTF",
@@ -8945,8 +9174,7 @@
       ],
       "InternalValves": [
         "vIM_CTF",
-        "vCTF_CT1",
-        "vCTFlow"
+        "vCTF_CT1"
       ],
       "PathToVacuum": [
         "vCT1_VM1"
@@ -8979,8 +9207,7 @@
       ],
       "InternalValves": [
         "vIM_CTF",
-        "vCTF_CT2",
-        "vCTFlow"
+        "vCTF_CT2"
       ],
       "PathToVacuum": [
         "vCT2_VM1"
@@ -9012,11 +9239,10 @@
       "InternalValves": [
         "vIM_CA",
         "vCA_CTF",
-        "vCTF_CT1",
-        "vCTFlow"
+        "vCTF_CT1"
       ],
       "PathToVacuum": [
-        "vIM_VM1"
+        "vCT1_VM1"
       ],
       "PathToVacuumIsolation": null,
       "FlowManager": "CTFlowManager"
@@ -9045,11 +9271,10 @@
       "InternalValves": [
         "vIM_CA",
         "vCA_CTF",
-        "vCTF_CT2",
-        "vCTFlow"
+        "vCTF_CT2"
       ],
       "PathToVacuum": [
-        "vIM_VM1"
+        "vCT2_VM1"
       ],
       "PathToVacuumIsolation": null,
       "FlowManager": "CTFlowManager"
@@ -9257,42 +9482,6 @@
       ],
       "FlowManager": null
     },
-    "MCA": {
-      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
-      "Name": "MCA",
-      "Description": "Measurement chamber and ports MCP1, MCP2 section",
-      "MilliLiters": null,
-      "Chambers": [
-        "MC",
-        "MCP1",
-        "MCP2"
-      ],
-      "Ports": null,
-      "VacuumSystem": "VacuumSystem2",
-      "Isolation": [
-        "vVTT_MC",
-        "vMC_Split"
-      ],
-      "InternalValves": [
-        "vMC_MCP1",
-        "vMC_MCP2"
-      ],
-      "PathToVacuum": [
-        "vMC_Split",
-        "vSplit_GM",
-        "vGM_VM2"
-      ],
-      "PathToVacuumIsolation": [
-        "vSplit_d13C",
-        "vGR1_GM",
-        "vGR2_GM",
-        "vGR3_GM",
-        "vGR4_GM",
-        "vGR5_GM",
-        "vGR6_GM"
-      ],
-      "FlowManager": null
-    },
     "MC_Split": {
       "$type": "AeonHacs.Components.Section, AeonHacs.Core",
       "Name": "MC_Split",
@@ -9363,6 +9552,42 @@
         "vGM_VM2"
       ],
       "PathToVacuumIsolation": null,
+      "FlowManager": null
+    },
+    "MCA": {
+      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
+      "Name": "MCA",
+      "Description": "Measurement chamber and ports MCP1, MCP2 section",
+      "MilliLiters": null,
+      "Chambers": [
+        "MC",
+        "MCP1",
+        "MCP2"
+      ],
+      "Ports": null,
+      "VacuumSystem": "VacuumSystem2",
+      "Isolation": [
+        "vVTT_MC",
+        "vMC_Split"
+      ],
+      "InternalValves": [
+        "vMC_MCP1",
+        "vMC_MCP2"
+      ],
+      "PathToVacuum": [
+        "vMC_Split",
+        "vSplit_GM",
+        "vGM_VM2"
+      ],
+      "PathToVacuumIsolation": [
+        "vSplit_d13C",
+        "vGR1_GM",
+        "vGR2_GM",
+        "vGR3_GM",
+        "vGR4_GM",
+        "vGR5_GM",
+        "vGR6_GM"
+      ],
       "FlowManager": null
     },
     "MCA_GM": {
@@ -9508,6 +9733,7 @@
       ],
       "InternalValves": [
         "vIM_CTF",
+        "vCTFlow",
         "vCTF_CT1",
         "vCTF_CT2",
         "vCT1_CTO",
@@ -9884,6 +10110,21 @@
       "PurgePressure": 10.0,
       "SecondsToPurge": 20
     },
+    "O2.FTG_CA": {
+      "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
+      "Name": "O2.FTG_CA",
+      "Description": "Oxygen gas supply for Carbon Analyzer",
+      "GasName": "O2",
+      "SourceValve": "vFTG_IP2",
+      "FlowValve": "vFtgFlow",
+      "Meter": "pIM",
+      "SecondsSettlingTime": 2.5,
+      "FlowManager": "FTG_IMFlowManager",
+      "Destination": "IM_CA",
+      "Path": "IP2",
+      "PurgePressure": 10.0,
+      "SecondsToPurge": 20
+    },
     "He.IM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
       "Name": "He.IM",
@@ -9969,13 +10210,13 @@
       "Meter": "pCT",
       "MillisecondsTimeout": 200,
       "SecondsCycle": 3.1,
-      "StartingMovement": -24,
+      "StartingMovement": -4,
       "MaximumMovement": 96,
       "MaximumRate": 0.04,
       "Lag": 3.0,
       "Deadband": 0.1,
       "DeadbandIsFractionOfTarget": false,
-      "Gain": -2.0,
+      "Gain": -8.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
       "StopOnFullyClosed": false,
@@ -10113,8 +10354,8 @@
       "MaximumMovement": 12,
       "MaximumRate": 1.0,
       "Lag": 30.0,
-      "Deadband": 0.02,
-      "DeadbandIsFractionOfTarget": true,
+      "Deadband": 0.5,
+      "DeadbandIsFractionOfTarget": false,
       "Gain": -5.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
@@ -10128,13 +10369,13 @@
       "FlowValve": "vCO2Flow",
       "Meter": "ugCinMC",
       "MillisecondsTimeout": 100,
-      "SecondsCycle": 2.0,
-      "StartingMovement": -50,
+      "SecondsCycle": 3.0,
+      "StartingMovement": -30,
       "MaximumMovement": 12,
       "MaximumRate": 25.0,
       "Lag": 25.0,
-      "Deadband": 0.02,
-      "DeadbandIsFractionOfTarget": true,
+      "Deadband": 1.0,
+      "DeadbandIsFractionOfTarget": false,
       "Gain": -5.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
@@ -10206,7 +10447,7 @@
             "vSplit_d13C",
             "vSplit_GM"
           ]
-        },
+    },
         {
           "Name": "GM",
           "Description": "",
@@ -10473,13 +10714,13 @@
         {
           "Name": "pForeline1",
           "Resolution": 0.1,
-          "Format": "0.00",
+          "Format": "0.0",
           "Path": ""
         },
         {
           "Name": "pForeline2",
           "Resolution": 0.1,
-          "Format": "0.00",
+          "Format": "0.0",
           "Path": ""
         },
         {
@@ -10534,7 +10775,7 @@
         {
           "Name": "pVM1_GP",
           "Resolution": -1.0,
-          "Format": "0.0e0",
+          "Format": "0.0",
           "Path": ""
         }
       ],
@@ -10640,6 +10881,61 @@
       "ChangeTimeoutMilliseconds": 60000,
       "OnlyLogWhenChanged": false,
       "FileName": "CA1 data.txt",
+      "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
+      "ArchiveDaily": true
+    },
+    "CollectionLog": {
+      "$type": "AeonHacs.Components.DataLog, AeonHacs.Core",
+      "Name": "CollectionLog",
+      "Description": "Collection data log",
+      "InsertLatestSkippedEntry": false,
+      "Columns": [
+        {
+          "Name": "pIM",
+          "Resolution": 1.0,
+          "Format": "0.0",
+          "Path": ""
+        },
+        {
+          "Name": "pCT",
+          "Resolution": 0.01,
+          "Format": "0.000",
+          "Path": ""
+        },
+        {
+          "Name": "sccm",
+          "Resolution": 0.01,
+          "Format": "0.000",
+          "Path": "CtFlowRateMeter"
+        },
+        {
+          "Name": "CO2ppm",
+          "Resolution": 0.1,
+          "Format": "0",
+          "Path": "CA1.CO2Ppm"
+        },
+        {
+          "Name": "scc",
+          "Resolution": 0.1,
+          "Format": "0.00",
+          "Path": "CtFlowMonitor.TrackedFlow"
+        },
+        {
+          "Name": "CollectedUgc",
+          "Resolution": 0.1,
+          "Format": "0.00",
+          "Path": ""
+        },
+        {
+          "Name": "vFlowPos",
+          "Resolution": 1.0,
+          "Format": "0",
+          "Path": "vCTFlow.Position"
+        }
+      ],
+      "ChangeTimeoutMilliseconds": 30000,
+      "OnlyLogWhenChanged": false,
+      "FileName": "Collection data.txt",
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": true
     },
@@ -11096,15 +11392,6 @@
       "Header": "",
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": false
-    },
-    "EventLog": {
-      "$type": "AeonHacs.HacsLog, AeonHacs.Core",
-      "Name": "EventLog",
-      "Description": "Event log",
-      "FileName": "Event log.txt",
-      "Header": "",
-      "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
-      "ArchiveDaily": false
     }
   },
   "Samples": {},
@@ -11112,7 +11399,7 @@
     "IpFan1": {
       "$type": "AeonHacs.Components.IpFan, AeonHacs.Core",
       "Name": "IpFan1",
-      "Description": "Trap fan for Inlet ports",
+      "Description": "Trap fans for Inlet ports",
       "Fan": "fan1",
       "InletPorts": [
         "IP1",
@@ -11160,6 +11447,13 @@
       "$type": "AeonHacs.Components.SableCA10, AeonHacs.Core",
       "Name": "CA1",
       "Description": "Carbon analyzer 1",
+      "Filter": {
+        "$type": "AeonHacs.ExponentialFilter, AeonHacs.Core",
+        "Name": "",
+        "Description": "",
+        "Power": 2.0,
+        "StepChange": 0.1
+      },
       "SerialDevice": {
         "RtsMode": "Enabled",
         "PortSettings": {
@@ -11277,6 +11571,12 @@
       "IdleTimeout": 1000,
       "LogEverything": false
     },
+    "CtFlowMonitor": {
+      "$type": "AeonHacs.Components.FlowMonitor, AeonHacs.Core",
+      "Name": "CtFlowMonitor",
+      "Description": "Coil trap flow monitor",
+      "FlowRateMeter": "CtFlowRateMeter"
+    },
     "Power": {
       "$type": "AeonHacs.Components.Power, AeonHacs.Core",
       "Name": "Power",
@@ -11370,6 +11670,11 @@
         "Description": "Usually about 10 Torr over standard; should be slightly greater than the atmospheric pressure at any lab that will handle gas samples in septum-sealed vials (including external labs)."
       },
       {
+            "ParameterName": "LeakTestBasePressure",
+            "Value": 0.0005,
+            "Description": "Evacuate a section to this pressure when starting a leak test."
+        },
+        {
         "ParameterName": "LeakTightTorrLitersPerSecond",
         "Value": 3E-05,
         "Description": "The effective gas load below which a volume is considered leak free."
@@ -11476,7 +11781,7 @@
       },
       {
         "ParameterName": "MeasurementSeconds",
-        "Value": 15.0,
+            "Value": 10.0,
         "Description": "How long to average a measurement."
       },
       {
@@ -11490,6 +11795,11 @@
         "Description": "Minimum Graphitization time."
       },
       {
+            "ParameterName": "ThawBeforeGraphitizing",
+            "Value": "NaN",
+            "Description": "Thaw the CO2 in the graphite reactor before starting the furnace."
+        },
+        {
         "ParameterName": "SplitEquilibrationSeconds",
         "Value": 10.0,
         "Description": "After expanding a sample into a larger section, how long to wait before subdividing it."
@@ -11521,12 +11831,12 @@
       },
       {
         "ParameterName": "SmallSampleMicrogramsCarbon",
-        "Value": 10.0,
+        "Value": 0.0,
         "Description": "A sample with less than this much carbon is processed as \"small.\""
       },
       {
         "ParameterName": "MinimumUgCThatPermits_d13CSplit",
-        "Value": 1000.0,
+        "Value": 100.0,
         "Description": "The minimum Aliquot mass (in micrograms) sufficient to provide a d13C split."
       },
       {
@@ -11565,6 +11875,21 @@
         "Description": "During sample collection, close the Inlet Port when the Coil Trap pressure falls to this value, provided that it is a number (i.e., not NaN)."
       },
       {
+        "ParameterName": "CollectUntilCtFlowFullyOpen",
+        "Value": "NaN",
+        "Description": "Stop collecting into the coil trap when Coil Trap flow valve is fully open, if this value is a non-zero number."
+      },
+      {
+        "ParameterName": "MinutesCollectingTooLong",
+        "Value": "NaN",
+        "Description": "Something's wrong if collection takes this long; this check is disabled if the value is not a number."
+      },
+      {
+        "ParameterName": "FinishCollecting",
+        "Value": 1.0,
+        "Description": "Continue collecting into the coil trap until Coil Trap pressure stops falling, if this value is a non-zero number."
+      },
+      {
         "ParameterName": "CollectUntilUgc",
         "Value": "NaN",
         "Description": "Stop collecting into the coil trap when amount of carbon in the Coil Trap reaches this value, provided that it is a number (i.e., not NaN)."
@@ -11576,7 +11901,7 @@
       },
       {
         "ParameterName": "CollectUntilCtPressureFalls",
-        "Value": 0.2,
+        "Value": "NaN",
         "Description": "Stop collecting when the Coil Trap pressure falls to or below this value, provided that it is a number (i.e., not NaN)."
       },
       {
@@ -11630,8 +11955,8 @@
   "Power": "Power",
   "SampleLog": "SampleLog",
   "TestLog": "TestLog",
+  "SampleRecords": null,
   "Ambient": "Ambient",
-  "VacuumSystem": "VacuumSystem2",
   "InletManifold": "IM",
   "CoilTrap": "CT1",
   "VariableTemperatureTrap": "VTT",
