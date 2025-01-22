@@ -1972,9 +1972,9 @@
         "Name": "",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
             "Name": "VoltageCorrection",
-            "Operations": [
+            "CalibrationData": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
                 "Name": "Zero Offset",
@@ -2117,18 +2117,22 @@
         "Name": "",
         "Operations": [
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "ZeroOffset",
-            "Argument": "x+0"
+            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "Name": "VoltageCorrection",
+            "CalibrationData": [
+              {
+                "Item1": 0.0,
+                "Item2": 0.0
           },
           {
-            "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "VoltageCorrection",
-            "Argument": "x*1.2252"
+                "Item1": 8.0091,
+                "Item2": 9.98
+              }
+            ]
           },
           {
             "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
-            "Name": "ValueConversion",
+            "Name": "TransferFunction",
             "Operations": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
@@ -2149,7 +2153,7 @@
           },
           {
             "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
-            "Name": "UnitConversion",
+            "Name": "mbarToTorr",
             "Argument": "x*0.750061683"
           }
         ]
@@ -2557,19 +2561,19 @@
             "Name": "VoltsToDegC",
             "CalibrationData": [
               {
-                "Item1": 0.737,
-                "Item2": 15.0
+                "Item1": 0.758,
+                "Item2": 15.1
               },
               {
-                "Item1": 0.83,
+                "Item1": 0.827,
                 "Item2": 20.0
               },
               {
-                "Item1": 0.941,
-                "Item2": 27.0
+                "Item1": 0.93,
+                "Item2": 27.1
               },
               {
-                "Item1": 1.074,
+                "Item1": 1.002,
                 "Item2": 35.0
               }
             ]
@@ -7395,15 +7399,6 @@
       "Integral": 0.00385,
       "Derivative": 300.0,
       "Preset": 0.704
-    },
-    "HeatTape120V470W": {
-      "$type": "AeonHacs.Components.PidSetup, AeonHacs.Core",
-      "Name": "HeatTape120V470W",
-      "Description": "Generic PID parameters for 470W heat tape",
-      "Gain": 63.49,
-      "Integral": 0.02907,
-      "Derivative": 166.7,
-      "Preset": 8.273
     }
   },
   "LNManifolds": {
@@ -7482,7 +7477,7 @@
       "FreezeTrigger": 5,
       "RaiseTrigger": 2,
       "MaximumSecondsLNFlowing": 60,
-      "MaximumMinutesToFreeze": 4,
+      "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 10,
       "SecondsToWaitAfterRaised": 8,
       "NearAirTemperature": 60.0,
@@ -8242,7 +8237,7 @@
       "PriorPressure": 0.0,
       "PressurePeak": 0,
       "MilliLiters": 2.75,
-     "Valve": "vGR2_GM",
+      "Valve": "vGR2_GM",
       "Manometer": "pGR2",
       "Thermometer": "tGR2",
       "Heater": "hGR2",
@@ -8274,7 +8269,7 @@
       "PriorPressure": 0.0,
       "PressurePeak": 0,
       "MilliLiters": 2.75,
-     "Valve": "vGR3_GM",
+      "Valve": "vGR3_GM",
       "Manometer": "pGR3",
       "Thermometer": "tGR3",
       "Heater": "hGR3",
@@ -10812,7 +10807,7 @@
         {
           "Name": "pVM2_LP",
           "Resolution": -1.0,
-          "Format": "0.00e0",
+          "Format": "0.0",
           "Path": ""
         },
         {
@@ -11625,36 +11620,6 @@
         "Description": "Set GR and d13C FTCs to Standby and hold to start reactions later."
       },
       {
-        "ParameterName": "NumberOfSplits",
-        "Value": 5.0,
-        "Description": "Number of splits to take for an RPO sample"
-      },
-      {
-        "ParameterName": "Split1TargetUgc",
-        "Value": 120.0,
-        "Description": "Target sample size (UgC) for the first split (lowest T)"
-      },
-      {
-        "ParameterName": "Split2TargetUgc",
-        "Value": 240.0,
-        "Description": "Target sample size (UgC) for the second split (second T range)"
-      },
-      {
-        "ParameterName": "Split3TargetUgc",
-        "Value": 240.0,
-        "Description": "Target sample size (UgC) for the third split (third T range)"
-      },
-      {
-        "ParameterName": "Split4TargetUgc",
-        "Value": 240.0,
-        "Description": "Target sample size (UgC) for the fourth split (fourth T range)"
-      },
-      {
-        "ParameterName": "Split5TargetUgc",
-        "Value": 240.0,
-        "Description": "Target sample size (UgC) for the fifth split (highest T range)"
-      },
-      {
         "ParameterName": "MaximumSampleTemperature",
         "Value": "NaN",
         "Description": "End of reaction temperature."
@@ -11720,9 +11685,14 @@
         "Description": "The first trap pressure at which the process should stop the Bleed process."
       },
       {
-        "ParameterName": "FirstTrapFlowBypassPressure",
+        "ParameterName": "FirstTrapOpenFlowPressure",
         "Value": 5.0,
-        "Description": "The maximum pressure differential across the first trap for opening its flow bypass valve. Choose this pressure so that opening the bypass valve will not produce an excessive downstream pressure spike."
+        "Description": "Fully open the flow valve when the pressure differential between the IM and the FirstTrap falls below this value. Choose this pressure to avoid an excessive downstream pressure spike."
+      },
+      {
+        "ParameterName": "FirstTrapFlowBypassPressure",
+        "Value": 2.0,
+        "Description": "Open the flow bypass valve when the pressure differential between the IM and the FirstTrap falls below this value. Choose this pressure to avoid an excessive downstream pressure spike."
       },
       {
         "ParameterName": "IronPreconditionH2Pressure",
