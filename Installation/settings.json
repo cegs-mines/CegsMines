@@ -1972,9 +1972,9 @@
         "Name": "",
         "Operations": [
           {
-            "$type": "AeonHacs.PchipInterpolator, AeonHacs.Core",
+            "$type": "AeonHacs.Utilities.OperationSet, AeonHacs.Core",
             "Name": "VoltageCorrection",
-            "CalibrationData": [
+            "Operations": [
               {
                 "$type": "AeonHacs.Utilities.Arithmetic, AeonHacs.Core",
                 "Name": "Zero Offset",
@@ -2123,10 +2123,10 @@
               {
                 "Item1": 0.0,
                 "Item2": 0.0
-          },
-          {
-                "Item1": 8.0091,
-                "Item2": 9.98
+              },
+              {
+                "Item1": 8.1619,
+                "Item2": 10.0
               }
             ]
           },
@@ -2561,19 +2561,19 @@
             "Name": "VoltsToDegC",
             "CalibrationData": [
               {
-                "Item1": 0.758,
-                "Item2": 15.1
+                "Item1": 0.737,
+                "Item2": 15.0
               },
               {
-                "Item1": 0.827,
+                "Item1": 0.83,
                 "Item2": 20.0
               },
               {
-                "Item1": 0.93,
-                "Item2": 27.1
+                "Item1": 0.941,
+                "Item2": 27.0
               },
               {
-                "Item1": 1.002,
+                "Item1": 1.074,
                 "Item2": 35.0
               }
             ]
@@ -11618,6 +11618,36 @@
         "ParameterName": "HoldSampleAtPorts",
         "Value": "NaN",
         "Description": "Set GR and d13C FTCs to Standby and hold to start reactions later."
+      },
+      {
+        "ParameterName": "NumberOfSplits",
+        "Value": 5.0,
+        "Description": "Number of splits to take for an RPO sample"
+      },
+      {
+        "ParameterName": "Split1TargetUgc",
+        "Value": 120.0,
+        "Description": "Target sample size (UgC) for the first split (lowest T)"
+      },
+      {
+        "ParameterName": "Split2TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the second split (second T range)"
+      },
+      {
+        "ParameterName": "Split3TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the third split (third T range)"
+      },
+      {
+        "ParameterName": "Split4TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the fourth split (fourth T range)"
+      },
+      {
+        "ParameterName": "Split5TargetUgc",
+        "Value": 240.0,
+        "Description": "Target sample size (UgC) for the fifth split (highest T range)"
       },
       {
         "ParameterName": "MaximumSampleTemperature",

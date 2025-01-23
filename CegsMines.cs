@@ -298,6 +298,7 @@ public partial class CegsMines : Cegs
 
         // General-purpose process control actions
         ProcessDictionary["Wait for timer"] = WaitForTimer;
+        ProcessDictionary["Wait for IP timer"] = WaitIpMinutes;
         ProcessDictionary["Wait for operator"] = WaitForOperator;
         ProcessDictionary["Wait for CEGS to be free"] = WaitForCegs;
         ProcessDictionary["Start Extract, Etc"] = StartExtractEtc;
