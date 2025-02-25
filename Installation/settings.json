@@ -3457,6 +3457,56 @@
       "Falling": -0.21,
       "Rising": 0.21,
       "ZerosToAverage": 30
+    },
+    "CtFlowRateMeter": {
+      "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
+      "Name": "CtFlowRateMeter",
+      "Description": "Coil trap flow rate meter",
+      "UnitSymbol": "sccm",
+      "Ratiometric": false,
+      "MaxValue": 0.0,
+      "MinValue": 0.0,
+      "Sensitivity": 0.001,
+      "Resolution": 0.001,
+      "ResolutionIsProportional": false,
+      "Filter": null,
+      "Conversion": null,
+      "RateOfChange": {
+        "Name": "",
+        "Description": "",
+        "FilterLength": 13,
+        "MaxIntervalMilliseconds": 1000.0,
+        "Resolution": 0.1
+      },
+      "Stable": 0.2,
+      "Falling": -0.21,
+      "Rising": 0.21,
+      "ZerosToAverage": 30
+    },
+    "CollectedUgc": {
+      "$type": "AeonHacs.Components.Meter, AeonHacs.Core",
+      "Name": "CollectedUgc",
+      "Description": "Micrograms of carbon collected in the Coil trap",
+      "UnitSymbol": "µgC",
+      "Ratiometric": false,
+      "MaxValue": 0.0,
+      "MinValue": 0.0,
+      "Sensitivity": 0.0001,
+      "Resolution": 0.0001,
+      "ResolutionIsProportional": false,
+      "Filter": null,
+      "Conversion": null,
+      "RateOfChange": {
+        "Name": "",
+        "Description": "",
+        "FilterLength": 13,
+        "MaxIntervalMilliseconds": 1000.0,
+        "Resolution": 0.1
+      },
+      "Stable": 0.2,
+      "Falling": -0.21,
+      "Rising": 0.21,
+      "ZerosToAverage": 30
     }
   },
   "Valves": {
@@ -5840,13 +5890,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1800,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1250,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5869,13 +5919,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1950,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1250,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5898,13 +5948,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1870,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "ColdTrickle",
-          "Value": 1230,
+          "Value": 1310,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5939,13 +5989,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1100,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5968,13 +6018,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1830,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1010,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -5997,13 +6047,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6026,13 +6076,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2050,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6055,13 +6105,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1950,
           "Incremental": false,
           "Configuration": "t1.0"
         },
         {
           "Name": "Open",
-          "Value": 1000,
+          "Value": 1100,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6084,7 +6134,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6113,7 +6163,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1920,
+          "Value": 2100,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -6142,13 +6192,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open",
-          "Value": 1300,
+          "Value": 1100,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -6171,7 +6221,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2025,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -6200,7 +6250,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1950,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -6229,19 +6279,19 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 1900,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open",
-          "Value": 1120,
+          "Value": 1100,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open fully",
-          "Value": 1000,
+          "Value": 950,
           "Incremental": false,
           "Configuration": "t0.7"
         }
@@ -6258,19 +6308,19 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open",
-          "Value": 1100,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open fully",
-          "Value": 1000,
+          "Value": 1050,
           "Incremental": false,
           "Configuration": "t0.7"
         }
@@ -6287,13 +6337,13 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1820,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t0.7"
         },
         {
           "Name": "Open",
-          "Value": 1150,
+          "Value": 1200,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -6316,7 +6366,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1770,
+          "Value": 1850,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -6345,7 +6395,7 @@
       "ActuatorOperations": [
         {
           "Name": "Close",
-          "Value": 1870,
+          "Value": 2000,
           "Incremental": false,
           "Configuration": "t0.7"
         },
@@ -7870,7 +7920,7 @@
       "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
       "Name": "CA",
       "Description": "Carbon analyzer chamber",
-      "MilliLiters": 4.7018347562250415,
+      "MilliLiters": 31.0,
       "Manometer": null,
       "Thermometer": null,
       "Heater": null,
@@ -7880,8 +7930,18 @@
       "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
       "Name": "CTF",
       "Description": "Coil trap flow chamber",
-      "MilliLiters": 16.71432318865156,
+      "MilliLiters": 17.3,
       "Manometer": "pCT",
+      "Thermometer": null,
+      "Heater": null,
+      "Coldfinger": null
+    },
+    "CTFL": {
+      "$type": "AeonHacs.Components.Chamber, AeonHacs.Core",
+      "Name": "CTFL",
+      "Description": "Coil trap flow chamber left",
+      "MilliLiters": 6.4,
+      "Manometer": null,
       "Thermometer": null,
       "Heater": null,
       "Coldfinger": null
@@ -8994,6 +9054,33 @@
       "PathToVacuumIsolation": null,
       "FlowManager": null
     },
+    "IM_CA": {
+      "$type": "AeonHacs.Components.Section, AeonHacs.Core",
+      "Name": "IM_CA",
+      "Description": "Inlet manifold to Carbon section",
+      "MilliLiters": null,
+      "Chambers": [
+        "IM",
+        "CA"
+      ],
+      "Ports": null,
+      "VacuumSystem": "VacuumSystem1",
+      "Isolation": [
+        "vIP1_IM",
+        "vIP2_IM",
+        "vCA_CTF",
+        "vIM_CTF",
+        "vIM_VM1"
+      ],
+      "InternalValves": [
+        "vIM_CA"
+      ],
+      "PathToVacuum": [
+        "vIM_VM1"
+      ],
+      "PathToVacuumIsolation": null,
+      "FlowManager": "FTG_IMFlowManager"
+    },
     "IM_CA_CTF": {
       "$type": "AeonHacs.Components.Section, AeonHacs.Core",
       "Name": "IM_CA_CTF",
@@ -9050,8 +9137,7 @@
       ],
       "InternalValves": [
         "vIM_CTF",
-        "vCTF_CT1",
-        "vCTFlow"
+        "vCTF_CT1"
       ],
       "PathToVacuum": [
         "vCT1_VM1"
@@ -9084,8 +9170,7 @@
       ],
       "InternalValves": [
         "vIM_CTF",
-        "vCTF_CT2",
-        "vCTFlow"
+        "vCTF_CT2"
       ],
       "PathToVacuum": [
         "vCT2_VM1"
@@ -9117,11 +9202,10 @@
       "InternalValves": [
         "vIM_CA",
         "vCA_CTF",
-        "vCTF_CT1",
-        "vCTFlow"
+        "vCTF_CT1"
       ],
       "PathToVacuum": [
-        "vIM_VM1"
+        "vCT1_VM1"
       ],
       "PathToVacuumIsolation": null,
       "FlowManager": "CTFlowManager"
@@ -9150,11 +9234,10 @@
       "InternalValves": [
         "vIM_CA",
         "vCA_CTF",
-        "vCTF_CT2",
-        "vCTFlow"
+        "vCTF_CT2"
       ],
       "PathToVacuum": [
-        "vIM_VM1"
+        "vCT2_VM1"
       ],
       "PathToVacuumIsolation": null,
       "FlowManager": "CTFlowManager"
@@ -9989,6 +10072,21 @@
       "PurgePressure": 10.0,
       "SecondsToPurge": 20
     },
+    "O2.FTG_CA": {
+      "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
+      "Name": "O2.FTG_CA",
+      "Description": "Oxygen gas supply for Carbon Analyzer",
+      "GasName": "O2",
+      "SourceValve": "vFTG_IP2",
+      "FlowValve": "vFtgFlow",
+      "Meter": "pIM",
+      "SecondsSettlingTime": 2.5,
+      "FlowManager": "FTG_IMFlowManager",
+      "Destination": "IM_CA",
+      "Path": "IP2",
+      "PurgePressure": 10.0,
+      "SecondsToPurge": 20
+    },
     "He.IM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
       "Name": "He.IM",
@@ -10074,13 +10172,13 @@
       "Meter": "pCT",
       "MillisecondsTimeout": 200,
       "SecondsCycle": 3.1,
-      "StartingMovement": -24,
+      "StartingMovement": -4,
       "MaximumMovement": 96,
       "MaximumRate": 0.04,
       "Lag": 3.0,
-      "Deadband": 0.2,
+      "Deadband": 0.1,
       "DeadbandIsFractionOfTarget": false,
-      "Gain": -2.0,
+      "Gain": -8.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
       "StopOnFullyClosed": false,
@@ -10748,6 +10846,61 @@
       "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
       "ArchiveDaily": true
     },
+    "CollectionLog": {
+      "$type": "AeonHacs.Components.DataLog, AeonHacs.Core",
+      "Name": "CollectionLog",
+      "Description": "Collection data log",
+      "InsertLatestSkippedEntry": false,
+      "Columns": [
+        {
+          "Name": "pIM",
+          "Resolution": 1.0,
+          "Format": "0.0",
+          "Path": ""
+        },
+        {
+          "Name": "pCT",
+          "Resolution": 0.01,
+          "Format": "0.000",
+          "Path": ""
+        },
+        {
+          "Name": "sccm",
+          "Resolution": 0.01,
+          "Format": "0.000",
+          "Path": "CtFlowRateMeter"
+        },
+        {
+          "Name": "CO2ppm",
+          "Resolution": 0.1,
+          "Format": "0",
+          "Path": "CA1.CO2Ppm"
+        },
+        {
+          "Name": "scc",
+          "Resolution": 0.1,
+          "Format": "0.00",
+          "Path": "CtFlowMonitor.TrackedFlow"
+        },
+        {
+          "Name": "CollectedUgc",
+          "Resolution": 0.1,
+          "Format": "0.00",
+          "Path": ""
+        },
+        {
+          "Name": "vFlowPos",
+          "Resolution": 1.0,
+          "Format": "0",
+          "Path": "vCTFlow.Position"
+        }
+      ],
+      "ChangeTimeoutMilliseconds": 30000,
+      "OnlyLogWhenChanged": false,
+      "FileName": "Collection data.txt",
+      "TimeStampFormat": "MM/dd/yyyy HH:mm:ss.fff\t",
+      "ArchiveDaily": true
+    },
     "CTLog": {
       "$type": "AeonHacs.Components.DataLog, AeonHacs.Core",
       "Name": "CTLog",
@@ -11256,7 +11409,13 @@
       "$type": "AeonHacs.Components.SableCA10, AeonHacs.Core",
       "Name": "CA1",
       "Description": "Carbon analyzer 1",
-      "Filter": null,
+      "Filter": {
+        "$type": "AeonHacs.ExponentialFilter, AeonHacs.Core",
+        "Name": "",
+        "Description": "",
+        "Power": 2.0,
+        "StepChange": 0.1
+      },
       "SerialDevice": {
         "RtsMode": "Enabled",
         "PortSettings": {
@@ -11373,6 +11532,12 @@
       "RateDegreesPerMinute": 5.0,
       "IdleTimeout": 1000,
       "LogEverything": false
+    },
+    "CtFlowMonitor": {
+      "$type": "AeonHacs.Components.FlowMonitor, AeonHacs.Core",
+      "Name": "CtFlowMonitor",
+      "Description": "Coil trap flow monitor",
+      "FlowRateMeter": "CtFlowRateMeter"
     },
     "Power": {
       "$type": "AeonHacs.Components.Power, AeonHacs.Core",
