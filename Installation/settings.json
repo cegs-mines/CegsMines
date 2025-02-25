@@ -5884,7 +5884,7 @@
       "Name": "vLN_CT1",
       "Description": "Coil trap 1 LN valve",
       "ValveState": "Closed",
-      "Position": 1800,
+      "Position": 2050,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -5913,7 +5913,7 @@
       "Name": "vLN_CT2",
       "Description": "Coil trap 2 LN valve",
       "ValveState": "Closed",
-      "Position": 1950,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -5942,7 +5942,7 @@
       "Name": "vLN_VTT",
       "Description": "Variable-temperature trap LN valve",
       "ValveState": "Closed",
-      "Position": 1870,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -5983,7 +5983,7 @@
       "Name": "vLN_MC",
       "Description": "Measurement chamber LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2025,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6012,7 +6012,7 @@
       "Name": "vLN_GR1",
       "Description": "Graphite reactor 1 LN valve",
       "ValveState": "Closed",
-      "Position": 1830,
+      "Position": 2050,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6041,7 +6041,7 @@
       "Name": "vLN_GR2",
       "Description": "Graphite reactor 2 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2050,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6070,7 +6070,7 @@
       "Name": "vLN_GR3",
       "Description": "Graphite reactor 3 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2050,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6099,7 +6099,7 @@
       "Name": "vLN_GR4",
       "Description": "Graphite reactor 4 LN valve",
       "ValveState": "Closed",
-      "Position": 1770,
+      "Position": 1950,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6128,7 +6128,7 @@
       "Name": "vLN_GR5",
       "Description": "Graphite reactor 5 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6157,7 +6157,7 @@
       "Name": "vLN_GR6",
       "Description": "Graphite reactor 6 LN valve",
       "ValveState": "Closed",
-      "Position": 1920,
+      "Position": 2100,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6186,7 +6186,7 @@
       "Name": "vLN_d13C1",
       "Description": "d13C1 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2025,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6215,7 +6215,7 @@
       "Name": "vLN_d13C2",
       "Description": "d13C2 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2025,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6244,7 +6244,7 @@
       "Name": "vLN_d13C3",
       "Description": "d13C3 LN valve",
       "ValveState": "Closed",
-      "Position": 1770,
+      "Position": 1950,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6273,7 +6273,7 @@
       "Name": "vLN_d13C4",
       "Description": "d13C4 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 1900,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6302,7 +6302,7 @@
       "Name": "vLN_d13C5",
       "Description": "d13C5 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6331,7 +6331,7 @@
       "Name": "vLN_d13C6",
       "Description": "d13C6 LN valve",
       "ValveState": "Closed",
-      "Position": 1820,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6360,7 +6360,7 @@
       "Name": "vLN_Spare1",
       "Description": "Spare LN valve 1",
       "ValveState": "Closed",
-      "Position": 1770,
+      "Position": 1850,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
@@ -6389,7 +6389,7 @@
       "Name": "vLN_Spare2",
       "Description": "Spare LN valve 2",
       "ValveState": "Closed",
-      "Position": 1870,
+      "Position": 2000,
       "OpenedVolumeDelta": 0.0,
       "IdleCurrentLimit": 80,
       "ActuatorOperations": [
