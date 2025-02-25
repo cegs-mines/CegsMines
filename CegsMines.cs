@@ -274,6 +274,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Clear collection conditions"] = ClearCollectionConditions;
         ProcessDictionary["Collect until condition met"] = CollectUntilConditionMet;
         ProcessDictionary["Stop collecting"] = StopCollecting;
+        ProcessDictionary["Stop collecting immediately"] = StopCollectingImmediately;
         ProcessDictionary["Stop collecting after bleed down"] = StopCollectingAfterBleedDown;
         ProcessDictionary["Evacuate and Freeze VTT"] = FreezeVtt;
         ProcessDictionary["Admit Dead CO2 into MC"] = AdmitDeadCO2;
@@ -297,6 +298,7 @@ public partial class CegsMines : Cegs
 
         // General-purpose process control actions
         ProcessDictionary["Wait for timer"] = WaitForTimer;
+        ProcessDictionary["Wait for IP timer"] = WaitIpMinutes;
         ProcessDictionary["Wait for operator"] = WaitForOperator;
         ProcessDictionary["Wait for CEGS to be free"] = WaitForCegs;
         ProcessDictionary["Start Extract, Etc"] = StartExtractEtc;
@@ -310,7 +312,7 @@ public partial class CegsMines : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Flow control steps & special collection operations
-        ProcessDictionary["Reset tracked flow and collected µgc."] = ResetUgcTracking;
+        ProcessDictionary["Reset tracked flow and collected µgC."] = ResetUgcTracking;
         ProcessDictionary["No IP flow"] = NoIpFlow;
         ProcessDictionary["Use IP flow"] = UseIpFlow;
         ProcessDictionary["Include CO2 analyzer"] = IncludeCO2Analyzer;
@@ -321,7 +323,12 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Notify to load TF"] = LoadTF;
         ProcessDictionary["Admit O2 to TF"] = AdmitO2toTF;
         ProcessDictionary["Open TF to IP1"] = OpenTF_IP1;
+        ProcessDictionary["Start collecting"] = StartCollecting;
+        ProcessDictionary["Clear collection conditions"] = ClearCollectionConditions;
+        ProcessDictionary["Collect until condition met"] = CollectUntilConditionMet;
         ProcessDictionary["Toggle CT collection"] = ToggleCT;
+        ProcessDictionary["Stop collecting"] = StopCollecting;
+        ProcessDictionary["Stop collecting after bleed down"] = StopCollectingAfterBleedDown;
         Separators.Add(ProcessDictionary.Count);
 
 
@@ -385,6 +392,10 @@ public partial class CegsMines : Cegs
         Section.Connections(vacuumSystems.First().MySection, vacuumSystems.Last().MySection).Open();
         ProcessStep.End();
 
+        ProcessStep.Start($"Isolate {CA.Name} (temp. due to leak)");
+        CA.Isolate();
+        ProcessStep.End();
+
     }
 
     /// <summary>
@@ -400,8 +411,6 @@ public partial class CegsMines : Cegs
         OpenLine(vacuumSystem);     // Thaws coldfingers.
         ProcessStep.End();
     }
-
-
 
     #endregion OpenLine
 
@@ -514,10 +523,8 @@ public partial class CegsMines : Cegs
     /// Notify the operator to load the tube furnace and
     /// wait for their 'Ok" to continue.
     /// </summary>
-    protected virtual void LoadTF()
-    {
+    protected virtual void LoadTF() =>
         WaitForOperator("Load the Tube Furnace and seal it closed.");
-    }
 
     /// <summary>
     /// Evacuate the Inlet Port to 'OkPressure'.
@@ -603,9 +610,9 @@ public partial class CegsMines : Cegs
             IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
             StartSampleFlow(trap);          // Manage CT flow to maintain bleed pressure
             o2.OpenWait();
-
-            // TODO magic number "IMFlowPressure"? (make parameter)
+            // TODO magic number
             gasfm.Start(20);                // Manage supply flow to maintain IM pressure
+
         }
 
         ProcessStep.End();
@@ -899,12 +906,12 @@ public partial class CegsMines : Cegs
         SetParameter("HoldSampleAtPorts", 1);
 
         FTG_IP2.Close();
+        EvacuateIP(CleanPressure);
         IM.VacuumSystem.OpenLine(); // don't thaw coldfingers
         EvacuateIP(OkPressure);
         FlushIP();
 
-        IM.ClosePortsExcept(InletPort);
-        while (PortLeakRate(InletPort) > LeakTightTorrLitersPerSecond)
+        while(PortLeakRate(InletPort) > 2 * LeakTightTorrLitersPerSecond)
         {
             if (Warn($"The gas load at {InletPort.Name} is too high.",
                 $"Ok to try again or Cancel to move on.\r\n" +
@@ -922,6 +929,8 @@ public partial class CegsMines : Cegs
         TurnOnIpQuartzFurnace();
         WaitMinutes((int)QuartzFurnaceWarmupMinutes);
         ProcessStep.End();
+        //IncludeCO2Analyzer();
+        BypassCO2Analyzer();
 
         IncludeCO2Analyzer();
         SelectCT1();
@@ -1091,9 +1100,6 @@ public partial class CegsMines : Cegs
     #endregion Process Steps
 
     #endregion Process Management
-
-    #region Test functions
-
     protected virtual void FtgPressurize(string gasName, ISection destination, double pressure)
     {
         // Need to manage the upstream FTG gas supply valve manually, because we want the shutoff to be
@@ -1242,9 +1248,12 @@ public partial class CegsMines : Cegs
         }
     }
 
-    #endregion Coil trap flow rate testing and model
+    #endregion Coil trap flow rate testing and estimation
 
     protected override void TransferCO2FromMCToIP() => TransferCO2FromMCToIPviaGR();
+
+
+    #region Test functions
 
     /// <summary>
     /// General-purpose code tester. Put whatever you want here.
