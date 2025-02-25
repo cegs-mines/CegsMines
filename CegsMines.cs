@@ -388,15 +388,6 @@ public partial class CegsMines : Cegs
     }
 
     /// <summary>
-    /// Open and evacuate the chambers normally serviced by VacuumSystem1
-    /// </summary>
-    protected virtual void OpenVS1Line()
-    {
-        ProcessStep.Start("Open VacuumSystem1 line");
-        OpenLine(VacuumSystem);
-        ProcessStep.End();
-    }
-    /// <summary>
     /// Open and evacuate the chambers normally serviced by TF's VacuumSystem
     /// </summary>
     protected virtual void OpenTF_VS1()
