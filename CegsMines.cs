@@ -615,14 +615,17 @@ public partial class CegsMines : Cegs
         {
             IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
             StartSampleFlow(trap);          // Manage CT flow to maintain bleed pressure
+            // keep LN off
+            //StartSampleFlow(false);          // Manage CT flow to maintain bleed pressure
             o2.OpenWait();
-            // TODO magic number
-            gasfm.Start(20);                // Manage supply flow to maintain IM pressure
 
+            // note gasfm.Meter is pTF for tube furnace; pIM for RPO
+            var targetPressure = IpIsTubeFurnace ? 50 : 20;
+            gasfm.Start(targetPressure);  // Manage supply flow to maintain targetPressure
         }
-
         ProcessStep.End();
     }
+
 
     /// <summary>
     /// Stop flowing O2 into the Inlet Port.
@@ -637,11 +640,11 @@ public partial class CegsMines : Cegs
         var gasSupply = GasSupply("O2", IpIsTubeFurnace ? TF : IM);
 
         gasfm.Stop();
-        gasfm.FlowValve.CloseWait();
         vacfm?.Stop();
-        vacfm?.FlowValve.CloseWait();
         gasSupply.ShutOff();
         supplyValve.CloseWait();
+        gasfm.FlowValve.CloseWait();
+        vacfm?.FlowValve.CloseWait();
 
         ProcessStep.End();
     }
