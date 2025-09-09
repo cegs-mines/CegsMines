@@ -350,16 +350,101 @@
           "Description": ""
         },
         {
-          "$type": "AeonHacs.Components.CombustionStep, AeonHacs.Core",
-          "Temperature": 150,
-          "Minutes": 15,
-          "AdmitO2": false,
-          "WaitForSetpoint": true,
-          "Name": "Combust",
+          "Name": "Enable sample setpoint ramping",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Value": 30.0
+        },
+        {
+          "Name": "Adjust sample ramp rate",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Value": 110.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Turn on sample furnace",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpTemperatureCushion",
+          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Value": 1.0
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Value": 9.0
+        },
+        {
+          "Name": "Adjust sample ramp rate",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Value": 170.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Evacuate and Freeze first trap",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Value": 200.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpMinutes",
+          "Description": "Set time for the IP Timer.",
+          "Value": 2.0
+        },
+        {
+          "Name": "Wait for IP timer",
           "Description": ""
         },
         {
           "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Disable sample setpoint ramping",
           "Description": ""
         },
         {
@@ -372,7 +457,7 @@
         }
       ],
       "CheckList": [
-        "Combustion Chamber furnaces are raised",
+        "Inlet Port furnaces are raised",
         "GR furnaces are lowered",
         "GR FTCs are raised"
       ]
@@ -735,6 +820,146 @@
       ],
       "CheckList": [
         "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Prepare volatile organic": {
+      "Name": "Prepare volatile organic",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Freeze the Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Flush Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Thaw the Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Reset Sample and Inlet Port to Loaded",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Inlet port furnaces are lowered."
+      ]
+    },
+    "Process volatile organic": {
+      "Name": "Process volatile organic",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "Name": "Heat Quartz and Open Line",
+          "Description": ""
+        },
+        {
+          "Name": "Enable sample setpoint ramping",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Value": 30.0
+        },
+        {
+          "Name": "Adjust sample ramp rate",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Value": 150.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Turn on sample furnace",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpTemperatureCushion",
+          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Value": 1.0
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Value": 20.0
+        },
+        {
+          "Name": "Adjust sample ramp rate",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Value": 625.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpTemperatureCushion",
+          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Value": 10.0
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpMinutes",
+          "Description": "Set time for the IP Timer.",
+          "Value": 10.0
+        },
+        {
+          "Name": "Wait for IP timer",
+          "Description": ""
+        },
+        {
+          "Name": "Turn off IP furnaces",
+          "Description": ""
+        },
+        {
+          "Name": "Disable sample setpoint ramping",
+          "Description": ""
+        },
+        {
+          "Name": "Collect, etc.",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Inlet port furnaces are raised",
+        "Graphite furnaces are lowered",
         "GR FTCs are raised"
       ]
     }
@@ -11560,6 +11785,14 @@
       "Description": "Alert manager",
       "AlertsEnabled": true,
       "DuplicateMessageSuppressionDuration": "1.00:00:00"
+    },
+    "IpOvenRamper": {
+      "$type": "AeonHacs.Components.OvenRamper, AeonHacs.Core",
+      "Name": "IpOvenRamper",
+      "Description": "",
+      "RateDegreesPerMinute": 20.0,
+      "IdleTimeout": 500,
+      "LogEverything": false
     }
   },
   "CegsPreferences": {
@@ -11589,7 +11822,7 @@
     "DefaultParameters": [
       {
         "ParameterName": "CO2TransferMinutes",
-        "Value": 4.0,
+        "Value": 1.5,
         "Description": "Time to wait for CO2 transfer between chambers."
       },
       {
@@ -11738,8 +11971,13 @@
         "Description": "Set time for the IP Timer."
       },
       {
+        "ParameterName": "IpRampRate",
+        "Value": 30.0,
+        "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature."
+      },
+      {
         "ParameterName": "IpSetpoint",
-        "Value": 1000.0,
+        "Value": 150.0,
         "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping)."
       },
       {
@@ -11774,7 +12012,7 @@
       },
       {
         "ParameterName": "LeakTestBasePressure",
-        "Value": 0.0005,
+        "Value": 0.001,
         "Description": "Evacuate a section to this pressure when starting a leak test."
       },
       {
@@ -11874,7 +12112,7 @@
       },
       {
         "ParameterName": "SkipMeasuringGRs",
-        "Value": "NaN",
+        "Value": 1.0,
         "Description": "Don't re-measure GR volumes during preconditioning."
       },
       {

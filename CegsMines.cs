@@ -276,6 +276,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Stop collecting"] = StopCollecting;
         ProcessDictionary["Stop collecting immediately"] = StopCollectingImmediately;
         ProcessDictionary["Stop collecting after bleed down"] = StopCollectingAfterBleedDown;
+        ProcessDictionary["Evacuate and Freeze first trap"] = FreezeFirstTrap;
         ProcessDictionary["Evacuate and Freeze VTT"] = FreezeVtt;
         ProcessDictionary["Admit Dead CO2 into MC"] = AdmitDeadCO2;
         ProcessDictionary["Purify CO2 in MC"] = CleanupCO2InMC;
@@ -284,6 +285,11 @@ public partial class CegsMines : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Granular inlet port & sample process control
+        ProcessDictionary["Reset Inlet Port to Loaded"] = ResetIpToLoaded;
+        ProcessDictionary["Freeze the Inlet Port"] = FreezeIp;
+        ProcessDictionary["Raise LN on the Inlet Port"] = RaiseLNIp;
+        ProcessDictionary["Thaw the Inlet Port"] = ThawIp;
+        ProcessDictionary["Raise IP furnaces"] = RaiseIpFurnaces;
         ProcessDictionary["Turn on quartz furnace"] = TurnOnIpQuartzFurnace;
         ProcessDictionary["Turn off quartz furnace"] = TurnOffIpQuartzFurnace;
         ProcessDictionary["Disable sample setpoint ramping"] = DisableIpRamp;
