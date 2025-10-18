@@ -125,7 +125,7 @@
             <!--==============================================-->
             <Canvas DockPanel.Dock="Left" Width="1124" Height="486" Margin="10,10,0,80" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <local:TF Canvas.Left="0" Canvas.Top="75" />
-                <local:FTG InletPort="IP2" Canvas.Left="122" Canvas.Top="188" />
+                <local:FTG InletPort="IP2" Canvas.Left="96" Canvas.Top="261" />
                 <local:VS Canvas.Left="386" Canvas.Top="287" />
                 <wpf:IM2CA Canvas.Left="189" Canvas.Top="147" />
                 <wpf:CarbonAnalyzer Canvas.Left="412" Canvas.Top="55" />
