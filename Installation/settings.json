@@ -8425,6 +8425,16 @@
         "Description": "Thaw the CO2 in the graphite reactor before starting the furnace."
       },
       {
+        "ParameterName": "ThawColdfingersWhenOpeningLine",
+        "Value": 1.0,
+        "Description": "First thaw any coldfingers in a VacuumSystem's chambers whenever running OpenLine."
+      },
+      {
+        "ParameterName": "ThawVttAfterExtract",
+        "Value": 1.0,
+        "Description": "Thaw the VTT after extracting the CO2 to MC. Otherwise, set it to Standby."
+      },
+      {
         "ParameterName": "UseH2ToFlushGRs",
         "Value": "NaN",
         "Description": "Use hydrogen instead of inert gas for flushing the GRs."
