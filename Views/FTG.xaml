@@ -29,7 +29,7 @@
         </wpf:StackingPanel>
 
         <wpf:MassFlowController Component="mfcHe" Orientation="Left" Canvas.Right="60" Canvas.Top="52" />
-        <wpf:FlowGauge Component="mfcHe" Canvas.Right="75" Canvas.Top="87"/>
+        <wpf:FlowGauge Component="mfcHe" Canvas.Right="75" Canvas.Top="87" ContentStringFormat="0.00"/>
 
         <wpf:StackingPanel Canvas.Left="55" Canvas.Top="26" Width="21" Orientation="Down">
             <wpf:Valve Component="vO2_FTG" d:ValveState="Closed" />
@@ -44,7 +44,7 @@
         </wpf:StackingPanel>
 
         <wpf:MassFlowController Component="mfcO2" Orientation="Right" Canvas.Left="60" Canvas.Top="52" />
-        <wpf:FlowGauge Component="mfcO2" Canvas.Left="75" Canvas.Top="87" />
+        <wpf:FlowGauge Component="mfcO2" Canvas.Left="75" Canvas.Top="87" ContentStringFormat="0.00" />
 
         <wpf:Stub Orientation="Left" Canvas.Left="0" Canvas.Top="6" HorizontalAlignment="Center" VerticalAlignment="Top" />
         <wpf:Stub Orientation="Right" Canvas.Left="101" Canvas.Top="6" HorizontalAlignment="Left" VerticalAlignment="Center" />

@@ -8,6 +8,10 @@
       "PortType": "TFCombustion",
       "Steps": [
         {
+          "Name": "Bypass CO2 analyzer",
+          "Description": ""
+        },
+        {
           "Name": "Turn on quartz furnace",
           "Description": "Turn on the IP quartz furnace."
         },
@@ -117,6 +121,10 @@
       "Description": "",
       "PortType": "TFCombustion",
       "Steps": [
+        {
+          "Name": "Bypass CO2 analyzer",
+          "Description": ""
+        },
         {
           "Name": "Turn on quartz furnace",
           "Description": "Turn on the IP quartz furnace"
@@ -337,6 +345,10 @@
       "Description": "",
       "PortType": "Combustion",
       "Steps": [
+        {
+          "Name": "Bypass CO2 analyzer",
+          "Description": ""
+        },
         {
           "Name": "Flush Inlet Port",
           "Description": ""
@@ -3776,6 +3788,12 @@
         {
           "Name": "Close",
           "Value": 1680,
+          "Incremental": false,
+          "Configuration": "t1.0"
+        },
+        {
+          "Name": "Open 45",
+          "Value": 1185,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -10151,7 +10169,8 @@
       "Destination": "GM",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.GM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10166,7 +10185,8 @@
       "Destination": "GM",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.MC": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10181,7 +10201,8 @@
       "Destination": "MC",
       "Path": "VM2_Split",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.MCA": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10196,7 +10217,8 @@
       "Destination": "MCA",
       "Path": "VM2_Split",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.CTO_MCA": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10211,7 +10233,8 @@
       "Destination": "CTO_MCA",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.IM_MCA": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10226,7 +10249,8 @@
       "Destination": "IM_MCA",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.MC_GM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10241,7 +10265,8 @@
       "Destination": "MC_GM",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.MCA_GM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10256,7 +10281,8 @@
       "Destination": "MCA_GM",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "He.d13CM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10271,7 +10297,8 @@
       "Destination": "GM_d13CM",
       "Path": "VM2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "CO2.MC": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10286,7 +10313,8 @@
       "Destination": "MC",
       "Path": "VM2_Split",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "O2.IM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10301,7 +10329,8 @@
       "Destination": "IM",
       "Path": "VM1",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 20
     },
     "O2.FTG_CA": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10316,7 +10345,8 @@
       "Destination": "IM_CA",
       "Path": "IP2",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 20
     },
     "He.IM": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10331,7 +10361,8 @@
       "Destination": "IM",
       "Path": "VM1",
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 20
     },
     "He.TF": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10346,7 +10377,8 @@
       "Destination": "TF",
       "Path": null,
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     },
     "O2.IP2": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10361,7 +10393,8 @@
       "Destination": "IP2",
       "Path": null,
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 20
     },
     "He.IP2": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10376,7 +10409,8 @@
       "Destination": "IP2",
       "Path": null,
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 20
     },
     "O2.TF": {
       "$type": "AeonHacs.Components.GasSupply, AeonHacs.Core",
@@ -10391,7 +10425,8 @@
       "Destination": "TF",
       "Path": null,
       "PurgePressure": 10.0,
-      "SecondsToPurge": 20
+      "SecondsToPurge": 20,
+      "SecondsToPressurize": 180
     }
   },
   "FlowManagers": {
@@ -10409,7 +10444,7 @@
       "Lag": 3.0,
       "Deadband": 0.1,
       "DeadbandIsFractionOfTarget": false,
-      "Gain": -8.0,
+      "Gain": -20.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
       "StopOnFullyClosed": false,
@@ -10449,7 +10484,7 @@
       "Lag": 3.0,
       "Deadband": 0.2,
       "DeadbandIsFractionOfTarget": false,
-      "Gain": -0.2,
+      "Gain": -3.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": true,
       "StopOnFullyClosed": false,
@@ -11615,6 +11650,7 @@
         "TcpPort": 502,
         "IdleTimeout": 1000
       },
+      "LogEverything": false,
       "SetpointRamp": null,
       "Setpoint": 1000.0,
       "MinimumSetpoint": 0.0,
@@ -11785,14 +11821,6 @@
       "Description": "Alert manager",
       "AlertsEnabled": true,
       "DuplicateMessageSuppressionDuration": "1.00:00:00"
-    },
-    "IpOvenRamper": {
-      "$type": "AeonHacs.Components.OvenRamper, AeonHacs.Core",
-      "Name": "IpOvenRamper",
-      "Description": "",
-      "RateDegreesPerMinute": 20.0,
-      "IdleTimeout": 500,
-      "LogEverything": false
     }
   },
   "CegsPreferences": {
