@@ -1,7 +1,7 @@
 {
   "$type": "AeonHacs.Components.CegsLL6, CegsLL6",
   "Name": "CegsLL6",
-  "ProcessSequences": {
+  "Protocols": {
     "Graphite": {
       "Name": "Graphite",
       "Description": "",
@@ -379,7 +379,7 @@
           "Description": ""
         },
         {
-          "Name": "Turn Off CC Furnaces",
+          "Name": "Turn off IP furnaces",
           "Description": ""
         },
         {
@@ -577,7 +577,7 @@
           "Description": ""
         },
         {
-          "Name": "Reset Sample and Inlet Port to Loaded",
+          "Name": "Reset Inlet Port to Loaded",
           "Description": ""
         }
       ],
@@ -585,8 +585,8 @@
         "Inlet port furnaces are lowered."
       ]
     },
-    "Process volatile organic": {
-      "Name": "Process volatile organic",
+    "Volatile organic": {
+      "Name": "Volatile organic",
       "Description": "",
       "PortType": "Combustion",
       "Steps": [
@@ -8180,11 +8180,6 @@
         "Description": "Time to spend extracting CO2 from the VTT into the MC."
       },
       {
-        "ParameterName": "FinishCollecting",
-        "Value": 1.0,
-        "Description": "Continue collecting into the coil trap until Coil Trap pressure stops falling, if this value is a non-zero number."
-      },
-      {
         "ParameterName": "FirstTrapBleedPressure",
         "Value": 2.0,
         "Description": "The first trap pressure to maintain when collecting CO2 out of a carrier gas by \"bleeding\" the mixture through the FirstTrap."
@@ -8448,6 +8443,11 @@
         "ParameterName": "VPInitialPressure",
         "Value": -555.0,
         "Description": "An initial manifold pressure that will result in PressureOverAtm when expanded into an LN-frozen vial"
+      },
+      {
+        "ParameterName": "WaitForBleedDown",
+        "Value": 1.0,
+        "Description": "Continue collecting into the coil trap until Coil Trap pressure stops falling, if this value is a non-zero number."
       },
       {
         "ParameterName": "WaitTimerMinutes",

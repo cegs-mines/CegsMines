@@ -24,7 +24,7 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Prepare GRs for new iron and desiccant"] = PrepareGRsForService;
         ProcessDictionary["Precondition GR iron"] = PreconditionGRs;
         ProcessDictionary["Replace iron in sulfur traps"] = ChangeSulfurFe;
-        ProcessDictionary["Prepare loaded inlet ports for collection"] = PrepareIPsForCollection;
+        ProcessDictionary["Prepare loaded inlet ports for collection"] = PrepareInletPorts;
         Separators.Add(ProcessDictionary.Count);
 
         ProcessDictionary["Prepare carbonate sample for acid"] = PrepareCarbonateSample;
@@ -42,7 +42,7 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Graphitize, etc."] = GraphitizeEtc;
         Separators.Add(ProcessDictionary.Count);
 
-        // Top-level steps for main process sequence
+        // Top-level steps for standard protocol
         ProcessDictionary["Admit sealed CO2 to InletPort"] = AdmitSealedCO2IP;
         ProcessDictionary["Collect CO2 from InletPort"] = Collect;
         ProcessDictionary["Extract"] = Extract;
@@ -74,6 +74,13 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Purify CO2 in MC"] = CleanupCO2InMC;
         ProcessDictionary["Discard MC gases"] = DiscardMCGases;
         ProcessDictionary["Divide sample into aliquots"] = DivideAliquots;
+        Separators.Add(ProcessDictionary.Count);
+
+        // Split sample processing
+        ProcessDictionary["Prepare for split sample processing"] = InitializeSplits;
+        ProcessDictionary["Collect a sample split; send it to the VTT"] = CollectSampleSplit;
+        ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
+        ProcessDictionary["Clear split sample processing data"] = ClearSplits;
         Separators.Add(ProcessDictionary.Count);
 
         // Granular inlet port & sample process control
@@ -111,7 +118,9 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Exercise all Opened valves"] = ExerciseAllValves;
         ProcessDictionary["Close all Opened valves"] = CloseAllValves;
         ProcessDictionary["Exercise all LN Manifold valves"] = ExerciseLNValves;
+        ProcessDictionary["Close all LN Manifold valves"] = CloseLNValves;
         ProcessDictionary["Calibrate all multi-turn valves"] = CalibrateRS232Valves;
+        ProcessDictionary["Open all multi-turn valves"] = OpenRS232Valves;
         ProcessDictionary["Measure MC volume (KV in MCP1)"] = MeasureVolumeMC;
         ProcessDictionary["Measure valve volumes (plug in MCP1)"] = MeasureValveVolumes;
         ProcessDictionary["Measure remaining chamber volumes"] = MeasureRemainingVolumes;
