@@ -24,6 +24,7 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Prepare GRs for new iron and desiccant"] = PrepareGRsForService;
         ProcessDictionary["Precondition GR iron"] = PreconditionGRs;
         ProcessDictionary["Replace iron in sulfur traps"] = ChangeSulfurFe;
+        ProcessDictionary["Prepare active inlet port"] = PrepareInletPort;
         ProcessDictionary["Prepare loaded inlet ports for collection"] = PrepareInletPorts;
         Separators.Add(ProcessDictionary.Count);
 
