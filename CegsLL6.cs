@@ -33,6 +33,8 @@ public partial class CegsLL6 : Cegs
 
         // Open line
         ProcessDictionary["Open and evacuate line"] = OpenLine;
+        ProcessDictionary["Open and evacuate line (MC)"] = OpenLineMC;
+        ProcessDictionary["Open and evacuate line (IM)"] = OpenLineIM;
         Separators.Add(ProcessDictionary.Count);
 
         // Main process continuations
@@ -57,6 +59,7 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Evacuate Inlet Port"] = EvacuateIP;
         ProcessDictionary["Flush Inlet Port"] = FlushIP;
         ProcessDictionary["Admit O2 into Inlet Port"] = AdmitIPO2;
+        ProcessDictionary["Heat quartz media"] = HeatQuartz;
         ProcessDictionary["Heat Quartz and Open Line"] = HeatQuartzOpenLine;
         ProcessDictionary["Turn off IP furnaces"] = TurnOffIPFurnaces;
         ProcessDictionary["Discard IP gases"] = DiscardIPGases;
@@ -77,10 +80,9 @@ public partial class CegsLL6 : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Split sample processing
-        ProcessDictionary["Prepare for split sample processing"] = InitializeSplits;
-        ProcessDictionary["Collect a sample split; send it to the VTT"] = CollectSampleSplit;
+        ProcessDictionary["Create a sample split."] = CreateSampleSplit;
+        ProcessDictionary["Collect sample gas, then launch Extract, etc"] = CollectAndLaunchExctractEtc;
         ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
-        ProcessDictionary["Clear split sample processing data"] = ClearSplits;
         Separators.Add(ProcessDictionary.Count);
 
         // Granular inlet port & sample process control
