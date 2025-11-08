@@ -44,7 +44,9 @@
                     <!-- Process -->
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="ProcessTime" AutomationProperties.HelpText="Process Run Time"
-                                Content="{Binding Component.ProcessTime, ElementName=Cegs, Converter={StaticResource TimeSpanConverter}, TargetNullValue=00:00:00, FallbackValue=00:00:00 }"
+                                Content="{Binding Component.ProcessTime, ElementName=Cegs, 
+                                    Converter={StaticResource TimeSpanConverter}, 
+                                    TargetNullValue=00:00:00, FallbackValue=00:00:00}"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
                         <ComboBox x:Name="ProcessSelector" AutomationProperties.HelpText="Process"
@@ -60,9 +62,10 @@
                                     TargetNullValue=00:00:00, FallbackValue=00:00:00}"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
-                        <Border Width="350"  AutomationProperties.HelpText="Process Step"
+                        <Border AutomationProperties.HelpText="Process Step"
+                                Background="Transparent"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Margin="0,2,3,2" Padding="3,0" >
+                                Width="350" Margin="0,2,3,2" Padding="3,0" >
                             <TextBlock
                                 DataContext="{Binding Component.ProcessStep, ElementName=Cegs}"
                                 Text="{Binding Latest.Description, TargetNullValue=''}"
@@ -81,9 +84,10 @@
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
                         <Border AutomationProperties.HelpText="Process Substep"
+                                Background="Transparent"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Width="350" Margin="0,2,3,2" Padding="3,0" >
-                            <TextBlock
+                            <TextBlock 
                                 DataContext="{Binding Component.ProcessSubStep, ElementName=Cegs}"
                                 Text="{Binding Latest.Description, TargetNullValue=''}"
                                 wpf:View.Component="{Binding .}"
