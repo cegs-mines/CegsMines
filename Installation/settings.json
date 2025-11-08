@@ -8303,7 +8303,7 @@
     "Description": "System settings, constants and default parameters",
     "EnableWatchdogs": true,
     "EnableAutozero": true,
-	"EnableServiceMode": false,
+    "EnableServiceMode": false,
     "PriorGR": "GR6",
     "NextGraphiteNumber": 1,
     "DefaultMassUnits": "mg",
