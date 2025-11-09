@@ -1,7 +1,7 @@
 {
   "$type": "AeonHacs.Components.CegsMines, CegsMines",
   "Name": "CegsMines",
-  "ProcessSequences": {
+  "Protocols": {
     "In Situ Quartz Day 1": {
       "Name": "In Situ Quartz Day 1",
       "Description": "",
@@ -368,7 +368,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpRampRate",
-          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Description": "",
           "Value": 30.0
         },
         {
@@ -378,7 +378,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
-          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Description": "",
           "Value": 110.0
         },
         {
@@ -392,7 +392,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpTemperatureCushion",
-          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Description": "",
           "Value": 1.0
         },
         {
@@ -402,7 +402,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpRampRate",
-          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Description": "",
           "Value": 9.0
         },
         {
@@ -412,7 +412,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
-          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Description": "",
           "Value": 170.0
         },
         {
@@ -430,7 +430,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
-          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Description": "",
           "Value": 200.0
         },
         {
@@ -444,7 +444,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpMinutes",
-          "Description": "Set time for the IP Timer.",
+          "Description": "",
           "Value": 2.0
         },
         {
@@ -659,7 +659,7 @@
           "Description": ""
         },
         {
-          "Name": "Turn Off CC Furnaces",
+          "Name": "Turn off IP furnaces",
           "Description": ""
         },
         {
@@ -857,7 +857,7 @@
           "Description": ""
         },
         {
-          "Name": "Reset Sample and Inlet Port to Loaded",
+          "Name": "Reset Inlet Port to Loaded",
           "Description": ""
         }
       ],
@@ -865,8 +865,8 @@
         "Inlet port furnaces are lowered."
       ]
     },
-    "Process volatile organic": {
-      "Name": "Process volatile organic",
+    "Volatile organic": {
+      "Name": "Volatile organic",
       "Description": "",
       "PortType": "Combustion",
       "Steps": [
@@ -881,7 +881,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpRampRate",
-          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Description": "",
           "Value": 30.0
         },
         {
@@ -891,7 +891,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
-          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Description": "",
           "Value": 150.0
         },
         {
@@ -905,7 +905,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpTemperatureCushion",
-          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Description": "",
           "Value": 1.0
         },
         {
@@ -915,7 +915,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpRampRate",
-          "Description": "The target rate-of-change when raising the Inlet Port sample furnace's temperature.",
+          "Description": "",
           "Value": 20.0
         },
         {
@@ -925,7 +925,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
-          "Description": "The Inlet Port sample furnace's target setpoint (the final setpoint when ramping).",
+          "Description": "",
           "Value": 625.0
         },
         {
@@ -935,7 +935,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpTemperatureCushion",
-          "Description": "The acceptable range around IpSetpoint considered at temperature.",
+          "Description": "",
           "Value": 10.0
         },
         {
@@ -945,7 +945,7 @@
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpMinutes",
-          "Description": "Set time for the IP Timer.",
+          "Description": "",
           "Value": 10.0
         },
         {
@@ -972,6 +972,220 @@
       "CheckList": [
         "Inlet port furnaces are raised",
         "Graphite furnaces are lowered",
+        "GR FTCs are raised"
+      ]
+    },
+    "Stepped Combustion Example": {
+      "Name": "Stepped Combustion Example",
+      "Description": "",
+      "PortType": "Combustion",
+      "Steps": [
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "ThawColdfingersWhenOpeningLine",
+          "Description": "",
+          "Value": 0.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "ThawVttAfterExtract",
+          "Description": "",
+          "Value": 0.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "HoldSampleAtPorts",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "WaitForBleedDown",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "Name": "Enable sample setpoint ramping",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line (IM)",
+          "Description": ""
+        },
+        {
+          "Name": "Prepare active inlet port",
+          "Description": ""
+        },
+        {
+          "Name": "Evacuate Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat quartz media",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "",
+          "Value": 50.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "",
+          "Value": 380.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpMinutes",
+          "Description": "",
+          "Value": 15.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Turn on sample furnace",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for IP timer",
+          "Description": ""
+        },
+        {
+          "Name": "Prepare for collection",
+          "Description": ""
+        },
+        {
+          "Name": "Start collecting",
+          "Description": ""
+        },
+        {
+          "Name": "Collect sample gas, then launch Extract, etc",
+          "Description": ""
+        },
+        {
+          "Name": "Create a sample split.",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "",
+          "Value": 75.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "",
+          "Value": 550.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpMinutes",
+          "Description": "",
+          "Value": 60.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for IP timer",
+          "Description": ""
+        },
+        {
+          "Name": "Prepare for collection",
+          "Description": ""
+        },
+        {
+          "Name": "Start collecting",
+          "Description": ""
+        },
+        {
+          "Name": "Collect sample gas, then launch Extract, etc",
+          "Description": ""
+        },
+        {
+          "Name": "Create a sample split.",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "",
+          "Value": 75.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "",
+          "Value": 850.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpMinutes",
+          "Description": "",
+          "Value": 60.0
+        },
+        {
+          "Name": "Adjust sample setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for sample to rise to setpoint",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for IP timer",
+          "Description": ""
+        },
+        {
+          "Name": "Prepare for collection",
+          "Description": ""
+        },
+        {
+          "Name": "Start collecting",
+          "Description": ""
+        },
+        {
+          "Name": "Collect sample gas, then launch Extract, etc",
+          "Description": ""
+        },
+        {
+          "Name": "Graphitize all collected splits",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
         "GR FTCs are raised"
       ]
     }
@@ -11828,6 +12042,7 @@
     "Description": "System settings, constants and default parameters",
     "EnableWatchdogs": true,
     "EnableAutozero": true,
+    "EnableServiceMode": false,
     "PriorGR": "GR6",
     "NextGraphiteNumber": 1,
     "DefaultMassUnits": "mg",
@@ -11917,11 +12132,6 @@
         "ParameterName": "ExtractionMinutes",
         "Value": 4.0,
         "Description": "Time to spend extracting CO2 from the VTT into the MC."
-      },
-      {
-        "ParameterName": "FinishCollecting",
-        "Value": 1.0,
-        "Description": "Continue collecting into the coil trap until Coil Trap pressure stops falling, if this value is a non-zero number."
       },
       {
         "ParameterName": "FirstTrapBleedPressure",
@@ -12199,6 +12409,16 @@
         "Description": "Thaw the CO2 in the graphite reactor before starting the furnace."
       },
       {
+        "ParameterName": "ThawColdfingersWhenOpeningLine",
+        "Value": 1.0,
+        "Description": "First thaw any coldfingers in a VacuumSystem's chambers whenever running OpenLine."
+      },
+      {
+        "ParameterName": "ThawVttAfterExtract",
+        "Value": 1.0,
+        "Description": "Thaw the VTT after extracting the CO2 to MC. Otherwise, set it to Standby."
+      },
+      {
         "ParameterName": "UseH2ToFlushGRs",
         "Value": "NaN",
         "Description": "Use hydrogen instead of inert gas for flushing the GRs."
@@ -12212,6 +12432,11 @@
         "ParameterName": "VPInitialPressure",
         "Value": -555.0,
         "Description": "An initial manifold pressure that will result in PressureOverAtm when expanded into an LN-frozen vial"
+      },
+      {
+        "ParameterName": "WaitForBleedDown",
+        "Value": 1.0,
+        "Description": "Continue collecting into the coil trap until Coil Trap pressure stops falling, if this value is a non-zero number."
       },
       {
         "ParameterName": "WaitTimerMinutes",

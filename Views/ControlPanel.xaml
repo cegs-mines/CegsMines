@@ -44,7 +44,9 @@
                     <!-- Process -->
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="ProcessTime" AutomationProperties.HelpText="Process Run Time"
-                                Content="{Binding Component.ProcessTime, ElementName=Cegs, Converter={StaticResource TimeSpanConverter}, FallbackValue='23:59:59'}"
+                                Content="{Binding Component.ProcessTime, ElementName=Cegs, 
+                                    Converter={StaticResource TimeSpanConverter}, 
+                                    TargetNullValue=00:00:00, FallbackValue=00:00:00}"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
                         <ComboBox x:Name="ProcessSelector" AutomationProperties.HelpText="Process"
@@ -55,28 +57,42 @@
                     <!-- Process Step -->
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="ProcessStepTime" AutomationProperties.HelpText="Process Step Time"
-                                Content="{Binding Component.ProcessStep.Elapsed, ElementName=Cegs, Converter={StaticResource TimeSpanConverter}, FallbackValue='23:59:59'}"
+                                Content="{Binding Component.ProcessStep.Latest.Elapsed, ElementName=Cegs, 
+                                    Converter={StaticResource TimeSpanConverter},
+                                    TargetNullValue=00:00:00, FallbackValue=00:00:00}"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
-                        <Border Width="350"  AutomationProperties.HelpText="Process Step"
+                        <Border AutomationProperties.HelpText="Process Step"
+                                Background="Transparent"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Margin="0,2,3,2" Padding="3,0" >
-                            <TextBlock Text="{Binding Component.ProcessStep.CurrentStep.Description, ElementName=Cegs, FallbackValue=''}" 
-                                     VerticalAlignment="Center"/>
+                                Width="350" Margin="0,2,3,2" Padding="3,0" >
+                            <TextBlock
+                                DataContext="{Binding Component.ProcessStep, ElementName=Cegs}"
+                                Text="{Binding Latest.Description, TargetNullValue=''}"
+                                wpf:View.Component="{Binding .}"
+                                VerticalAlignment="Center"
+                                TextTrimming="CharacterEllipsis" />
                         </Border>
                     </StackPanel>
 
                     <!-- Process Substep -->
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="ProcessSubstepTime" AutomationProperties.HelpText="Process Substep Time"
-                                Content="{Binding Component.ProcessSubStep.Elapsed, ElementName=Cegs, Converter={StaticResource TimeSpanConverter}, FallbackValue='23:59:59'}" 
+                                Content="{Binding Component.ProcessSubStep.Latest.Elapsed, ElementName=Cegs, 
+								    Converter={StaticResource TimeSpanConverter}, 
+									TargetNullValue=00:00:00, FallbackValue=00:00:00}"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
                                 Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
                         <Border AutomationProperties.HelpText="Process Substep"
+                                Background="Transparent"
                                 BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Width="350" Margin="0,2,3,2" Padding="3,0">
-                            <TextBlock Text="{Binding Component.ProcessSubStep.CurrentStep.Description, ElementName=Cegs, FallbackValue=''}" 
-                                    VerticalAlignment="Center"/>
+                                Width="350" Margin="0,2,3,2" Padding="3,0" >
+                            <TextBlock 
+                                DataContext="{Binding Component.ProcessSubStep, ElementName=Cegs}"
+                                Text="{Binding Latest.Description, TargetNullValue=''}"
+                                wpf:View.Component="{Binding .}"
+                                VerticalAlignment="Center"
+                                TextTrimming="CharacterEllipsis" />
                         </Border>
                     </StackPanel>
                 </StackPanel>
