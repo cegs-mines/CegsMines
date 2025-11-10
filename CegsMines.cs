@@ -1,6 +1,6 @@
 ﻿namespace AeonHacs.Components;
 
-public partial class CegsLL6 : Cegs
+public partial class CegsMines : Cegs
 {
     #region HacsComponent
     #endregion HacsComponent
