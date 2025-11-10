@@ -8461,8 +8461,8 @@
       },
       {
         "ParameterName": "IpEvacuationPressure",
-        "Value": 0.1,
-        "Description": "Pressure to use when evacuating an IP."
+        "Value": 0.005,
+        "Description": "Pressure to use when evacuating an IP (OkPressure by default)."
       },
       {
         "ParameterName": "IpMinutes",
@@ -8585,6 +8585,11 @@
         "Description": "Something's wrong if collection takes this long; this check is disabled if the value is not a number."
       },
       {
+        "ParameterName": "NotifySampleFurnaceNeeded",
+        "Value": 0.0,
+        "Description": "Notify the operator to raise Sample furnace when ready to begin combustion."
+      },
+      {
         "ParameterName": "OkPressure",
         "Value": 0.005,
         "Description": "Low enough to join sections for drying."
@@ -8689,5 +8694,6 @@
   "MC_Split": "MC_Split",
   "SampleMeter": "ugCinMC",
   "IpOvenRamper": "IpOvenRamper",
-  "Sample": null
+  "Sample": null,
+  "CollectedSample": null
 }
