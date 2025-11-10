@@ -12154,6 +12154,11 @@
         "Description": "Fully open the flow valve when the pressure differential between the IM and the FirstTrap falls below this value. Choose this pressure to avoid an excessive downstream pressure spike."
       },
       {
+        "ParameterName": "FlowThroughIP",
+        "Value": "NaN",
+        "Description": "Provide a flow of oxygen through the Inlet Port to combust the sample, instead of a fixed pressure."
+      },
+      {
         "ParameterName": "GRCompleteTorrPerMinute",
         "Value": 0.4,
         "Description": "The graphitization reaction is considered complete when the declining pressure rate of change falls below this value."
@@ -12197,6 +12202,11 @@
         "ParameterName": "IMPluggedTorrPerSecond",
         "Value": 5.0,
         "Description": "The IM pressure rate of change, following a stable flow, used to detect that something has been put onto the IP needle (a vial or stopper)."
+      },
+      {
+        "ParameterName": "IncludeCO2Analyzer",
+        "Value": "NaN",
+        "Description": "Whether or not to include the CO2 analyzer in the collection path."
       },
       {
         "ParameterName": "IpEvacuationPressure",
