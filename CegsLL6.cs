@@ -40,6 +40,7 @@ public partial class CegsLL6 : Cegs
 
         // Main process continuations
         ProcessDictionary["Collect, etc."] = CollectEtc;
+        ProcessDictionary["Transfer CO2 to VTT, etc."] = TransferCO2FromCTToVttEtc;
         ProcessDictionary["Extract, etc."] = ExtractEtc;
         ProcessDictionary["Measure, etc."] = MeasureEtc;
         ProcessDictionary["Graphitize, etc."] = GraphitizeEtc;
@@ -48,6 +49,7 @@ public partial class CegsLL6 : Cegs
         // Top-level steps for standard protocol
         ProcessDictionary["Admit sealed CO2 to InletPort"] = AdmitSealedCO2IP;
         ProcessDictionary["Collect CO2 from InletPort"] = Collect;
+        ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
         ProcessDictionary["Extract"] = Extract;
         ProcessDictionary["Measure"] = Measure;
         ProcessDictionary["Discard excess CO2 by splits"] = DiscardSplit;
@@ -65,6 +67,7 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Turn off IP furnaces"] = TurnOffIPFurnaces;
         ProcessDictionary["Discard IP gases"] = DiscardIPGases;
         ProcessDictionary["Close IP"] = CloseIP;
+        ProcessDictionary["Isolate IP"] = IsolateIP;
         ProcessDictionary["Prepare for collection"] = PrepareForCollection;
         ProcessDictionary["Start collecting"] = StartCollecting;
         ProcessDictionary["Clear collection conditions"] = ClearCollectionConditions;
@@ -111,7 +114,6 @@ public partial class CegsLL6 : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Transferring CO2
-        ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
         ProcessDictionary["Transfer CO2 from MC to VTT"] = TransferCO2FromMCToVTT;
         ProcessDictionary["Transfer CO2 from MC to GR"] = TransferCO2FromMCToGR;
         ProcessDictionary["Transfer CO2 from prior GR to MC"] = TransferCO2FromGRToMC;
