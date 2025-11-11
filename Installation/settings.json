@@ -1521,7 +1521,6 @@
         "19": "vIM_CTF",
         "20": "vHe_FTG",
         "21": "vFTG_IP2",
-        "22": "vFtgFlow",
         "23": "vO2_FTG",
         "24": "vHe_VM2",
         "25": "vHeFlow",
@@ -1731,6 +1730,47 @@
         "18": "vLNSupply1",
         "19": "vLNSupply2"
       }
+    },
+    "MfcController": {
+      "$type": "AeonHacs.Components.RS485Controller, AeonHacs.Core",
+      "Name": "MfcController",
+      "Description": "RS485 Controller for serial MFCs",
+      "Channels": 2,
+      "SerialController": {
+        "Name": "MfcController.SerialController",
+        "Description": "",
+        "SerialDevice": {
+          "RtsMode": "Enabled",
+          "PortSettings": {
+            "PortName": "COM22",
+            "BaudRate": 38400,
+            "Parity": "None",
+            "DataBits": 8,
+            "StopBits": "One",
+            "Handshake": "None"
+          },
+          "CrcConfig": null,
+          "MillisecondsBetweenMessages": 100,
+          "MillisecondsBetweenBytes": -1,
+          "MaximumMillisecondsSilenceInMessage": 20,
+          "BinaryComms": false,
+          "EscapeLoggedData": false
+        },
+        "LogCommands": false,
+        "LogResponses": false,
+        "LogEverything": false,
+        "TokenizeCommands": false,
+        "IgnoreUnexpectedResponses": true,
+        "ResponseTimeout": 250,
+        "TooManyResponseTimeouts": 5,
+        "IdleTimeout": 1000
+      },
+      "IdleTimeout": 1000,
+      "LogEverything": false,
+      "Devices": {
+        "1": "mfcHe",
+        "2": "mfcO2"
+      }
     }
   },
   "ManagedDevices": {
@@ -1753,6 +1793,28 @@
       "Name": "fan1",
       "Description": "",
       "OnOffState": "Off",
+      "StopAction": "None"
+    },
+    "mfcHe": {
+      "$type": "AeonHacs.Components.ManagedMFC, AeonHacs.Core",
+      "Name": "mfcHe",
+      "Description": "Helium Mass Flow Controller",
+      "Setpoint": 32.0,
+      "OnOffState": "Off",
+      "ShutoffValve": "vHe_FTG",
+      "MinimumSetpoint": 0.0,
+      "MaximumSetpoint": 70.0,
+      "StopAction": "None"
+    },
+    "mfcO2": {
+      "$type": "AeonHacs.Components.ManagedMFC, AeonHacs.Core",
+      "Name": "mfcO2",
+      "Description": "Oxygen Mass Flow Controller",
+      "Setpoint": 3.0,
+      "OnOffState": "Off",
+      "ShutoffValve": "vO2_FTG",
+      "MinimumSetpoint": 0.0,
+      "MaximumSetpoint": 50.0,
       "StopAction": "None"
     }
   },
@@ -4504,101 +4566,6 @@
           "Value": 1,
           "Incremental": true,
           "Configuration": "i700 t1.5"
-        }
-      ]
-    },
-    "vFtgFlow": {
-      "$type": "AeonHacs.Components.RS232Valve, AeonHacs.Core",
-      "Name": "vFtgFlow",
-      "Description": "FTG flow valve",
-      "Position": 672,
-      "MinimumPosition": 0,
-      "MaximumPosition": 682,
-      "PositionsPerTurn": 96,
-      "ClosedOffset": 10,
-      "Calibrated": true,
-      "ConsecutiveMatches": 9,
-      "ValveState": "Closed",
-      "OpenedVolumeDelta": 0.0,
-      "IdleCurrentLimit": 110,
-      "ActuatorOperations": [
-        {
-          "Name": "Close",
-          "Value": 672,
-          "Incremental": false,
-          "Configuration": "i500 t15"
-        },
-        {
-          "Name": "Open",
-          "Value": 0,
-          "Incremental": false,
-          "Configuration": "i550 t15"
-        },
-        {
-          "Name": "Close a bit",
-          "Value": 1,
-          "Incremental": true,
-          "Configuration": "i500 t0.5"
-        },
-        {
-          "Name": "Close quarter turn",
-          "Value": 24,
-          "Incremental": true,
-          "Configuration": "i500 t1"
-        },
-        {
-          "Name": "Close half turn",
-          "Value": 48,
-          "Incremental": true,
-          "Configuration": "i500 t2"
-        },
-        {
-          "Name": "Close one turn",
-          "Value": 96,
-          "Incremental": true,
-          "Configuration": "i500 t3"
-        },
-        {
-          "Name": "Open a bit",
-          "Value": -1,
-          "Incremental": true,
-          "Configuration": "i550 t0.5"
-        },
-        {
-          "Name": "Open a bit more",
-          "Value": -3,
-          "Incremental": true,
-          "Configuration": "i550 t0.5"
-        },
-        {
-          "Name": "Open quarter turn",
-          "Value": -24,
-          "Incremental": true,
-          "Configuration": "i550 t1"
-        },
-        {
-          "Name": "Open half turn",
-          "Value": -48,
-          "Incremental": true,
-          "Configuration": "i550 t2"
-        },
-        {
-          "Name": "Open one turn",
-          "Value": -96,
-          "Incremental": true,
-          "Configuration": "i550 t3"
-        },
-        {
-          "Name": "Open pulse (only if stuck closed!)",
-          "Value": -5,
-          "Incremental": true,
-          "Configuration": "t2.0"
-        },
-        {
-          "Name": "Calibrate",
-          "Value": 1,
-          "Incremental": true,
-          "Configuration": "i500 t0.4"
         }
       ]
     },
@@ -8549,8 +8516,6 @@
         "TFCombustion"
       ],
       "PortType": "TFCombustion",
-      "NotifySampleFurnaceNeeded": false,
-      "WarmTemperature": 40,
       "QuartzFurnace": "hIP1CCQ",
       "SampleFurnace": "TF1",
       "State": "Empty",
@@ -8574,8 +8539,6 @@
         "Manual"
       ],
       "PortType": "FlowThrough",
-      "NotifySampleFurnaceNeeded": false,
-      "WarmTemperature": 40,
       "QuartzFurnace": "hIP2CCQ",
       "SampleFurnace": "hIP2CCS",
       "State": "Empty",
@@ -8596,8 +8559,6 @@
         "GasSupply"
       ],
       "PortType": "GasSupply",
-      "NotifySampleFurnaceNeeded": false,
-      "WarmTemperature": 40,
       "QuartzFurnace": null,
       "SampleFurnace": null,
       "State": "Loaded",
