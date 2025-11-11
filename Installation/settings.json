@@ -8,8 +8,10 @@
       "PortType": "TFCombustion",
       "Steps": [
         {
-          "Name": "Bypass CO2 analyzer",
-          "Description": ""
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IncludeCO2Analyzer",
+          "Description": "",
+          "Value": "NaN"
         },
         {
           "Name": "Turn on quartz furnace",
@@ -122,8 +124,10 @@
       "PortType": "TFCombustion",
       "Steps": [
         {
-          "Name": "Bypass CO2 analyzer",
-          "Description": ""
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IncludeCO2Analyzer",
+          "Description": "",
+          "Value": "NaN"
         },
         {
           "Name": "Turn on quartz furnace",
@@ -220,7 +224,7 @@
           "Description": ""
         },
         {
-          "Name": "Collect in CT1",
+          "Name": "Select CT1",
           "Description": ""
         },
         {
@@ -277,6 +281,198 @@
         }
       ],
       "CheckList": []
+    },
+    "Ramped Oxidation": {
+      "Name": "Ramped Oxidation",
+      "Description": "",
+      "PortType": "FlowThrough",
+      "Steps": [
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "FirstTrapBleedPressure",
+          "Description": "",
+          "Value": 5.5
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "ThawColdfingersWhenOpeningLine",
+          "Description": "",
+          "Value": 0.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "ThawVttAfterExtract",
+          "Description": "",
+          "Value": 0.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "FirstTrapBleedPressure",
+          "Description": "",
+          "Value": 5.5
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IncludeCO2Analyzer",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "WaitForBleedDown",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "HoldSampleAtPorts",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "FlowThroughIP",
+          "Description": "",
+          "Value": 1.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "MaximumSampleTemperature",
+          "Description": "",
+          "Value": 1000.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "MinutesAtMaximumTemperature",
+          "Description": "",
+          "Value": 10.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpEvacuationPressure",
+          "Description": "",
+          "Value": 0.005
+        },
+        {
+          "Name": "Enable sample setpoint ramping",
+          "Description": ""
+        },
+        {
+          "Name": "Open and evacuate line (IM)",
+          "Description": ""
+        },
+        {
+          "Name": "Prepare active inlet port",
+          "Description": ""
+        },
+        {
+          "Name": "Evacuate Inlet Port",
+          "Description": ""
+        },
+        {
+          "Name": "Heat quartz media",
+          "Description": ""
+        },
+        {
+          "Name": "Select CT1",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpSetpoint",
+          "Description": "",
+          "Value": 500.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpRampRate",
+          "Description": "",
+          "Value": 50.0
+        },
+        {
+          "Name": "Start flow through to trap",
+          "Description": ""
+        },
+        {
+          "Name": "Turn on sample furnace",
+          "Description": ""
+        },
+        {
+          "Name": "Clear collection conditions",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilMinutes",
+          "Description": "",
+          "Value": 60.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilUgc",
+          "Description": "",
+          "Value": 120.0
+        },
+        {
+          "Name": "Collect until condition met",
+          "Description": ""
+        },
+        {
+          "Name": "Stop collecting",
+          "Description": ""
+        },
+        {
+          "Name": "Toggle CT collection",
+          "Description": ""
+        },
+        {
+          "Name": "Wait for CEGS to be free",
+          "Description": ""
+        },
+        {
+          "Name": "Transfer CO2 from CT to VTT",
+          "Description": ""
+        },
+        {
+          "Name": "Start Extract, Etc",
+          "Description": ""
+        },
+        {
+          "Name": "Create a sample split",
+          "Description": ""
+        },
+        {
+          "Name": "Clear collection conditions",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilMinutes",
+          "Description": "",
+          "Value": 60.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilUgc",
+          "Description": "",
+          "Value": 120.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilTemperatureRises",
+          "Description": "",
+          "Value": 625.0
+        },
+        {
+          "Name": "Collect sample gas, then launch Extract, etc",
+          "Description": ""
+        }
+      ],
+      "CheckList": [
+        "Combustion Chamber furnaces are raised",
+        "GR furnaces are lowered",
+        "GR FTCs are raised"
+      ]
     },
     "Graphite": {
       "Name": "Graphite",
@@ -346,8 +542,10 @@
       "PortType": "Combustion",
       "Steps": [
         {
-          "Name": "Bypass CO2 analyzer",
-          "Description": ""
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IncludeCO2Analyzer",
+          "Description": "",
+          "Value": "NaN"
         },
         {
           "Name": "Flush Inlet Port",
@@ -1075,7 +1273,7 @@
           "Description": ""
         },
         {
-          "Name": "Create a sample split.",
+          "Name": "Create a sample split",
           "Description": ""
         },
         {
@@ -1125,7 +1323,7 @@
           "Description": ""
         },
         {
-          "Name": "Create a sample split.",
+          "Name": "Create a sample split",
           "Description": ""
         },
         {
@@ -10513,7 +10711,7 @@
       "Description": "Oxygen gas supply for Carbon Analyzer",
       "GasName": "O2",
       "SourceValve": "vFTG_IP2",
-      "FlowValve": "vFtgFlow",
+      "FlowValve": null,
       "Meter": "pIM",
       "SecondsSettlingTime": 2.5,
       "FlowManager": "FTG_IMFlowManager",
@@ -10545,7 +10743,7 @@
       "Description": "Helium gas supply for Tube furnace",
       "GasName": "He",
       "SourceValve": "vFTG_TF",
-      "FlowValve": "vFtgFlow",
+      "FlowValve": null,
       "Meter": "pTF",
       "SecondsSettlingTime": 3.6,
       "FlowManager": "FTG_TFFlowManager",
@@ -10561,7 +10759,7 @@
       "Description": "Oxygen gas supply for Inlet port 2",
       "GasName": "O2",
       "SourceValve": "vFTG_IP2",
-      "FlowValve": "vFtgFlow",
+      "FlowValve": null,
       "Meter": "pIM",
       "SecondsSettlingTime": 3.6,
       "FlowManager": "FTG_IMFlowManager",
@@ -10577,7 +10775,7 @@
       "Description": "Helium gas supply for Inlet port 2",
       "GasName": "He",
       "SourceValve": "vFTG_IP2",
-      "FlowValve": "vFtgFlow",
+      "FlowValve": null,
       "Meter": "pIM",
       "SecondsSettlingTime": 3.6,
       "FlowManager": "FTG_IMFlowManager",
@@ -10593,7 +10791,7 @@
       "Description": "Oxygen gas supply for Tube furnace",
       "GasName": "O2",
       "SourceValve": "vFTG_TF",
-      "FlowValve": "vFtgFlow",
+      "FlowValve": null,
       "Meter": "pTF",
       "SecondsSettlingTime": 3.9,
       "FlowManager": "FTG_TFFlowManager",
@@ -10642,46 +10840,6 @@
       "Gain": 2.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
-      "StopOnFullyClosed": false,
-      "UseRateOfChange": false
-    },
-    "FTG_IMFlowManager": {
-      "$type": "AeonHacs.Components.FlowManager, AeonHacs.Core",
-      "Name": "FTG_IMFlowManager",
-      "Description": "Flow-through gas to Inlet manifold flow manager",
-      "FlowValve": "vFtgFlow",
-      "Meter": "pIM",
-      "MillisecondsTimeout": 200,
-      "SecondsCycle": 3.1,
-      "StartingMovement": 0,
-      "MaximumMovement": 96,
-      "MaximumRate": 1.0,
-      "Lag": 3.0,
-      "Deadband": 0.2,
-      "DeadbandIsFractionOfTarget": false,
-      "Gain": -3.0,
-      "DivideGainByDeadband": false,
-      "StopOnFullyOpened": true,
-      "StopOnFullyClosed": false,
-      "UseRateOfChange": false
-    },
-    "FTG_TFFlowManager": {
-      "$type": "AeonHacs.Components.FlowManager, AeonHacs.Core",
-      "Name": "FTG_TFFlowManager",
-      "Description": "Flow-through gas to Tube furnace flow manager",
-      "FlowValve": "vFtgFlow",
-      "Meter": "pTF",
-      "MillisecondsTimeout": 200,
-      "SecondsCycle": 3.1,
-      "StartingMovement": -10,
-      "MaximumMovement": 96,
-      "MaximumRate": 1.0,
-      "Lag": 3.0,
-      "Deadband": 0.1,
-      "DeadbandIsFractionOfTarget": false,
-      "Gain": -0.2,
-      "DivideGainByDeadband": false,
-      "StopOnFullyOpened": true,
       "StopOnFullyClosed": false,
       "UseRateOfChange": false
     },
