@@ -242,8 +242,8 @@ public partial class CegsMines : Cegs
 
         // Open line
         ProcessDictionary["Open and evacuate line"] = OpenLine;
-        ProcessDictionary["Open and evacuate VS1"] = () => Find<VacuumSystem>("VacuumSystem1").OpenLine();
-        ProcessDictionary["Open and evacuate VS2"] = () => Find<VacuumSystem>("VacuumSystem2").OpenLine();
+        ProcessDictionary["Open and evacuate line (IM)"] = OpenLineIM;
+        ProcessDictionary["Open and evacuate line (MC)"] = OpenLineMC;
         ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
         Separators.Add(ProcessDictionary.Count);
 
@@ -264,6 +264,7 @@ public partial class CegsMines : Cegs
         // Top-level steps for main process sequence
         ProcessDictionary["Admit sealed CO2 to InletPort"] = AdmitSealedCO2IP;
         ProcessDictionary["Collect CO2 from InletPort"] = Collect;
+        ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
         ProcessDictionary["Extract"] = Extract;
         ProcessDictionary["Measure"] = Measure;
         ProcessDictionary["Discard excess CO2 by splits"] = DiscardSplit;
@@ -276,10 +277,13 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Evacuate Inlet Port"] = EvacuateIP;
         ProcessDictionary["Flush Inlet Port"] = FlushIP;
         ProcessDictionary["Admit O2 into Inlet Port"] = AdmitIPO2;
+        ProcessDictionary["Heat quartz media"] = HeatQuartz;
         ProcessDictionary["Heat Quartz and Open Line"] = HeatQuartzOpenLine;
         ProcessDictionary["Turn off IP furnaces"] = TurnOffIPFurnaces;
         ProcessDictionary["Discard IP gases"] = DiscardIPGases;
         ProcessDictionary["Close IP"] = CloseIP;
+        ProcessDictionary["Isolate IP"] = IsolateIP;
+        ProcessDictionary["Prepare for collection"] = PrepareForCollection;
         ProcessDictionary["Start collecting"] = StartCollecting;
         ProcessDictionary["Clear collection conditions"] = ClearCollectionConditions;
         ProcessDictionary["Collect until condition met"] = CollectUntilConditionMet;
@@ -295,7 +299,7 @@ public partial class CegsMines : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Split sample processing
-        ProcessDictionary["Create a sample split."] = CreateSampleSplit;
+        ProcessDictionary["Create a sample split"] = CreateSampleSplit;
         ProcessDictionary["Collect sample gas, then launch Extract, etc"] = CollectAndLaunchExtractEtc;
         ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
         Separators.Add(ProcessDictionary.Count);
@@ -327,7 +331,6 @@ public partial class CegsMines : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Transferring CO2
-        ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
         ProcessDictionary["Transfer CO2 from MC to VTT"] = TransferCO2FromMCToVTT;
         ProcessDictionary["Transfer CO2 from MC to GR"] = TransferCO2FromMCToGR;
         ProcessDictionary["Transfer CO2 from prior GR to MC"] = TransferCO2FromGRToMC;
@@ -878,6 +881,7 @@ public partial class CegsMines : Cegs
     protected void RampedOxidation()
     {
         // Configure the protocol
+        SetParameter(nameof(FirstTrapBleedPressure), 5.5);
         SetParameter(nameof(ThawColdfingersWhenOpeningLine), 0);
         SetParameter(nameof(ThawVttAfterExtract), 0);
         SetParameter(nameof(IncludeCO2Analyzer), 1);
