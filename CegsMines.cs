@@ -877,56 +877,54 @@ public partial class CegsMines : Cegs
 
     protected void RampedOxidation()
     {
+        // Configure the protocol
         SetParameter(nameof(ThawColdfingersWhenOpeningLine), 0);
         SetParameter(nameof(ThawVttAfterExtract), 0);
+        SetParameter(nameof(IncludeCO2Analyzer), 1);
         SetParameter(nameof(WaitForBleedDown), 1);
         SetParameter(nameof(HoldSampleAtPorts), 1);
-        SetParameter(nameof(IncludeCO2Analyzer), 1);
+        SetParameter(nameof(FlowThroughIP), 1);
         SetParameter(nameof(MaximumSampleTemperature), 1000);
         SetParameter(nameof(MinutesAtMaximumTemperature), 10);
 
         //TODO change this to CleanPressure? It's OkPressure for process testing.
         SetParameter(nameof(IpEvacuationPressure), OkPressure);
         EnableIpRamp();
-        OpenLineIM();
-        PrepareInletPort();     // how to handle handle FTG_IP2?
 
+        OpenLineIM();
+        PrepareInletPort();     // how to handle handle FTG_IP2? should it be opened or closed?
         EvacuateIP();
         HeatQuartz();
 
-        // ResetUgcTracking();      // included at StartCollecting
+        // first split
+        SelectCT1();
         SetParameter(nameof(IpSetpoint), 500);      // DEBUGGING VALUE; restore to 1000
         SetParameter(nameof(IpRampRate), 50);       // DEBUGGING VALUE; restore to 5
-
-        SelectCT1();
         StartFlowThroughToTrap();           // starts collecting
         TurnOnIpSampleFurnace();
         ClearCollectionConditions();
         SetParameter(nameof(CollectUntilMinutes), 60);
         SetParameter(nameof(CollectUntilUgc), 120);
+
+        //CollectAndLaunchExtractEtc();
         CollectUntilConditionMet();
         StopCollecting();
-
         ToggleCT();
-                setStopConditions();
-            });
+        WaitForCegs();
+        TransferCO2FromCTToVTT();
+        StartExtractEtc();
 
-            WaitForCegs();
-            StartExtractEtc();
-        }
+        // second split
+        CreateSampleSplit();
+        ClearCollectionConditions();
+        SetParameter(nameof(CollectUntilMinutes), 60);              // keep this limit?
+        SetParameter(nameof(CollectUntilUgc), 120);                 // how much?
+        SetParameter(nameof(CollectUntilTemperatureRises), 625);    // use this? What temperature?
+        CollectAndLaunchExtractEtc();
 
-        Splits.ForEach(s =>
-        {
-            Sample = s;
+        // ...and so on...
 
-            // Re-freeze and start graphite reactor(s) (typically only 1 per split).
-            Sample.Aliquots.ForEach(a =>
-                Find<GraphiteReactor>(a.GraphiteReactor).Coldfinger.Raise());
-            GraphitizeAliquots();
-
-            AddCarrierTo_d13C();
-        });
-
+        GraphitizeSplits();
         OpenLine();
     }
 
