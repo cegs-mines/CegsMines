@@ -442,6 +442,12 @@ public partial class CegsMines : Cegs
     /// </summary>
     public double TfPressureTarget => GetParameter(nameof(TfPressureTarget));
 
+    /// <summary>
+    /// "Provide a flow of oxygen through the Inlet Port to combust the sample, instead of a fixed pressure.
+    /// </summary>
+    public double FlowThroughIP => GetParameter(nameof(FlowThroughIP));
+
+
 
     /// <summary>
     /// Whether or not to include the CO2 analyzer in the collection path.
