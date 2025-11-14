@@ -37,7 +37,7 @@ public partial class ControlPanel : AeonHacs.Wpf.Views.ControlPanel
         StartUpdateCycle();
     }
 
-    protected virtual List<ISample> OpenSampleSelector(bool selectAll)
+    protected virtual List<Sample> OpenSampleSelector(bool selectAll)
     {
         if (!CheckAccess())
             return Dispatcher.Invoke(() => OpenSampleSelector(selectAll));
