@@ -5858,7 +5858,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
-      "NearAirTemperature": 60.0,
+      "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
       "IdleTimeout": 500,
