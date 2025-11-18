@@ -97,11 +97,12 @@ public partial class CegsLL6 : Cegs
         ProcessDictionary["Raise IP furnaces"] = RaiseIpFurnaces;
         ProcessDictionary["Turn on quartz furnace"] = TurnOnIpQuartzFurnace;
         ProcessDictionary["Turn off quartz furnace"] = TurnOffIpQuartzFurnace;
-        ProcessDictionary["Disable sample setpoint ramping"] = DisableIpRamp;
-        ProcessDictionary["Enable sample setpoint ramping"] = EnableIpRamp;
         ProcessDictionary["Turn on sample furnace"] = TurnOnIpSampleFurnace;
-        ProcessDictionary["Adjust sample setpoint"] = AdjustIpSetpoint;
-        ProcessDictionary["Adjust sample ramp rate"] = AdjustIpRampRate;
+        // These should no longer be required; they are now effected in SetParameter();
+        //ProcessDictionary["Disable sample setpoint ramping"] = DisableIpRamp;
+        //ProcessDictionary["Enable sample setpoint ramping"] = EnableIpRamp;
+        //ProcessDictionary["Adjust sample setpoint"] = AdjustIpSetpoint;
+        //ProcessDictionary["Adjust sample ramp rate"] = AdjustIpRampRate;
         ProcessDictionary["Wait for sample to rise to setpoint"] = WaitIpRiseToSetpoint;
         ProcessDictionary["Wait for sample to fall to setpoint"] = WaitIpFallToSetpoint;
         ProcessDictionary["Turn off sample furnace"] = TurnOffIpSampleFurnace;
