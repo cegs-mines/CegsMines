@@ -84,8 +84,9 @@ public partial class CegsLL6 : Cegs
         Separators.Add(ProcessDictionary.Count);
 
         // Split sample processing
-        ProcessDictionary["Create a sample split."] = CreateSampleSplit;
-        ProcessDictionary["Collect sample gas, then launch Extract, etc"] = CollectAndLaunchExtractEtc;
+        ProcessDictionary["Create a sample split"] = CreateSampleSplit;
+        ProcessDictionary["Launch Extract, etc."] = StartExtractEtc;
+        ProcessDictionary["Collect sample gas, then launch Extract, etc."] = CollectAndLaunchExtractEtc;
         ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
         Separators.Add(ProcessDictionary.Count);
 

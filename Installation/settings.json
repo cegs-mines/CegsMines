@@ -756,8 +756,6 @@
           "Name": "Discard IP gases",
           "Description": ""
         },
-		
-		
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
@@ -786,26 +784,29 @@
           "Name": "Wait for IP timer",
           "Description": ""
         },
-		
-		
-		
-		
-		
         {
-          "Name": "Prepare for collection",
+          "Name": "Collect",
+          "Description": "Collect Split 1"
+        },
+        {
+          "Name": "Wait for VTT..GM to be free",
           "Description": ""
         },
         {
-          "Name": "Start collecting",
-          "Description": ""
-        },
-        {
-          "Name": "Collect sample gas, then launch Extract, etc",
+          "Name": "Transfer CO2 from CT to VTT",
           "Description": ""
         },
         {
           "Name": "Create a sample split.",
+          "Description": "Create Split 2"
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
           "Description": ""
+        },
+        {
+          "Name": "Launch Extract, etc",
+          "Description": "Start Split 2 extraction"
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -817,17 +818,13 @@
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
           "Description": "",
-          "Value": 550.0
+          "Value": 625.0
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpMinutes",
           "Description": "",
           "Value": 60.0
-        },
-        {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
         },
         {
           "Name": "Wait for sample to rise to setpoint",
@@ -838,26 +835,40 @@
           "Description": ""
         },
         {
-          "Name": "Prepare for collection",
+          "Name": "Collect",
           "Description": ""
         },
         {
-          "Name": "Start collecting",
+          "Name": "Wait for VTT..GM to be free",
           "Description": ""
         },
         {
-          "Name": "Collect sample gas, then launch Extract, etc",
+          "Name": "Transfer CO2 from CT to VTT",
           "Description": ""
         },
         {
           "Name": "Create a sample split.",
+          "Description": "Create Split 3"
+        },
+        {
+          "Name": "Admit O2 into Inlet Port",
           "Description": ""
         },
         {
+          "Name": "Launch Extract, etc",
+          "Description": "Begin Split 2 extraction"
+        },
+        {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "IpRampRate",
+          "Name": "EnableIpRamp",
+          "Description": "Disable ramp for top speed.",
+          "Value": 0.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "IpTemperatureCushion",
           "Description": "",
-          "Value": 75.0
+          "Value": 20.0
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -872,10 +883,6 @@
           "Value": 60.0
         },
         {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
           "Name": "Wait for sample to rise to setpoint",
           "Description": ""
         },
@@ -884,15 +891,23 @@
           "Description": ""
         },
         {
-          "Name": "Prepare for collection",
+          "Name": "Collect",
           "Description": ""
         },
         {
-          "Name": "Start collecting",
+          "Name": "Wait for VTT..GM to be free",
           "Description": ""
         },
         {
-          "Name": "Collect sample gas, then launch Extract, etc",
+          "Name": "Transfer CO2 from CT to VTT",
+          "Description": ""
+        },
+        {
+          "Name": "Launch Extract, etc",
+          "Description": "Begin Split 3 extraction"
+        },
+        {
+          "Name": "Wait for VTT..GM to be free",
           "Description": ""
         },
         {
@@ -8391,7 +8406,7 @@
         "Description": "The minimum final mass for a diluted sample. Dilution is disabled unless DilutedSampleMicrogramsCarbon > SmallSampleMicrogramsCarbon"
       },
       {
-        "ParameterName": "EnableIpRamp",
+        "ParameterName": "EnableIpSetpointRamp",
         "Value": 0.0,
         "Description": "Enable the setpoint ramper for the active inlet port's sample furnace."
       },
