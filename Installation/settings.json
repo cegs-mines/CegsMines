@@ -785,7 +785,7 @@
           "Description": ""
         },
         {
-          "Name": "Collect",
+          "Name": "Collect CO2 from InletPort",
           "Description": "Collect Split 1"
         },
         {
@@ -835,7 +835,7 @@
           "Description": ""
         },
         {
-          "Name": "Collect",
+          "Name": "Collect CO2 from InletPort",
           "Description": ""
         },
         {
@@ -891,7 +891,7 @@
           "Description": ""
         },
         {
-          "Name": "Collect",
+          "Name": "Collect CO2 from InletPort",
           "Description": ""
         },
         {

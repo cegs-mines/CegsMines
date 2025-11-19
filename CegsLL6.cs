@@ -85,6 +85,7 @@ public partial class CegsLL6 : Cegs
 
         // Split sample processing
         ProcessDictionary["Create a sample split"] = CreateSampleSplit;
+        ProcessDictionary["Wait for VTT..GM to be free"] = WaitForCegs;
         ProcessDictionary["Launch Extract, etc."] = StartExtractEtc;
         ProcessDictionary["Collect sample gas, then launch Extract, etc."] = CollectAndLaunchExtractEtc;
         ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
