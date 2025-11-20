@@ -806,7 +806,7 @@
         },
         {
           "Name": "Launch Extract, etc",
-          "Description": "Start Split 2 extraction"
+          "Description": "Start Split 1 extraction"
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -892,7 +892,7 @@
         },
         {
           "Name": "Collect CO2 from InletPort",
-          "Description": ""
+          "Description": "Collect Split 3"
         },
         {
           "Name": "Wait for VTT..GM to be free",
