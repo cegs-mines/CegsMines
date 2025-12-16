@@ -83,7 +83,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "",
           "Value": 1.0
         },
@@ -159,7 +159,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "",
           "Value": 0.0
         },
@@ -580,7 +580,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "",
           "Value": 1.0
         },
@@ -648,7 +648,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "",
           "Value": 0.0
         },
@@ -698,7 +698,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "",
           "Value": 1.0
         },
@@ -860,7 +860,7 @@
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "EnableIpRamp",
+          "Name": "EnableIpSetpointRamp",
           "Description": "Disable ramp for top speed.",
           "Value": 0.0
         },
