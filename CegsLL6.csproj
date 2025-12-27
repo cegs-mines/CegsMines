@@ -41,9 +41,6 @@
         <Content Include="keg.ico" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="System.Drawing.Common" Version="10.0.1" />
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\AeonHacs.Core\AeonHacs.Core.csproj" />
         <ProjectReference Include="..\AeonHacs.Wpf\AeonHacs.Wpf.csproj" />
     </ItemGroup>
