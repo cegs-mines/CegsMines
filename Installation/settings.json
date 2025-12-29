@@ -391,6 +391,10 @@
           "Description": ""
         },
         {
+          "Name": "Transfer CO2 from CT to VTT",
+          "Description": ""
+        },
+        {
           "Name": "Extract",
           "Description": ""
         },
@@ -412,6 +416,10 @@
         },
         {
           "Name": "Collect CO2 from InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Transfer CO2 from CT to VTT",
           "Description": ""
         },
         {
@@ -474,6 +482,10 @@
         },
         {
           "Name": "Collect CO2 from InletPort",
+          "Description": ""
+        },
+        {
+          "Name": "Transfer CO2 from CT to VTT",
           "Description": ""
         },
         {
