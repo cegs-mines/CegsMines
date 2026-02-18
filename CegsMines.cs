@@ -640,13 +640,13 @@ public partial class CegsMines : Cegs
     /// <summary>
     /// Use Coil Trap 1 for sample collection;
     /// </summary>
-    protected virtual void SelectCT1() => base.IM_FirstTrap = 
+    protected virtual void SelectCT1() => base.IM_FirstTrap =
         ParameterTrue(nameof(IncludeCO2Analyzer)) ? IM_CA_CT1 : IM_CT1;
 
     /// <summary>
     /// Use Coil Trap 2 for sample collection.
     /// </summary>
-    protected virtual void SelectCT2() => base.IM_FirstTrap = 
+    protected virtual void SelectCT2() => base.IM_FirstTrap =
         ParameterTrue(nameof(IncludeCO2Analyzer)) ? IM_CA_CT2 : IM_CT2;
 
     /// <summary>
@@ -1053,7 +1053,7 @@ public partial class CegsMines : Cegs
 
         destination.OpenAndEvacuate();
         destination.Isolate();
-        
+
         mfc.TurnOn(mfc.MaximumSetpoint);            // add Pressurize(Meter, double) to mfc class
         WaitFor(() => destination.Pressure >= pressure);
         mfc.TurnOff();
