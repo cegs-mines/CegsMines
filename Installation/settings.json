@@ -11120,7 +11120,7 @@
         {
           "Name": "CTO",
           "Description": "",
-          "Chamber": "CT",
+          "Chamber": "CTO",
           "ValveList": [
             "vCTO_VTT",
             "vCT1_CTO",
@@ -11200,7 +11200,8 @@
           "Description": "",
           "Chamber": "IM",
           "ValveList": [
-            "vIM_CT",
+            "vIM_CTF",
+            "vIM_CA",
             "vIP1_IM",
             "vIP2_IM",
             "vIM_VM1"
