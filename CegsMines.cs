@@ -628,7 +628,6 @@ public partial class CegsMines : Cegs
         StopCollecting();
         ToggleCT();
         WaitForCegs();
-        TransferCO2FromCTToVTT();
         StartExtractEtc();
     }
 
@@ -649,6 +648,12 @@ public partial class CegsMines : Cegs
     protected virtual void SelectCT2() => base.IM_FirstTrap =
         ParameterTrue(nameof(IncludeCO2Analyzer)) ? IM_CA_CT2 : IM_CT2;
 
+    protected override void StopCollecting(bool immediately = true)
+    {
+        if (mfcO2.IsOn || mfcHe.IsOn) StopFlowThroughGas();
+        base.StopCollecting(immediately);
+    }
+
     /// <summary>
     /// Switch coil traps.
     /// </summary>
@@ -661,7 +666,7 @@ public partial class CegsMines : Cegs
         else
             SelectCT1();
 
-        StartCollecting();
+        StartFlowThrough(true);
 
         step.End();
     }
@@ -797,43 +802,6 @@ public partial class CegsMines : Cegs
         step.End();
     }
 
-    /// <summary>
-    /// Stop collecting. If 'immediately' is false, wait for CT pressure to bleed down after closing IP
-    /// </summary>
-    /// <param name="immediately">If false, wait for CT pressure to bleed down after closing IP</param>
-    protected override void StopCollecting(bool immediately = true)
-    {
-        var step = ProcessStep.Start("Stop Collecting");
-        var collectionPath = IM_FirstTrap;
-
-        CT = CurrentCT;     // The VTT will take it from here
-
-        IM_FirstTrap.FlowManager?.Stop();
-        InletPort.Close();
-        if (!immediately)
-            FinishCollecting();
-        IM_FirstTrap.Close();
-        CT.Isolate();
-        IM_FirstTrap.FlowValve.CloseWait();
-
-        step.End();
-    }
-
-    protected override void Collect()
-    {
-        IM_FirstTrap.VacuumSystem.MySection.Isolate();
-        IM_FirstTrap.Isolate();
-        IM_FirstTrap.FlowValve.OpenWait();
-        IM_FirstTrap.OpenAndEvacuate(OkPressure);
-        IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
-
-        StartCollecting();
-        CollectUntilConditionMet();
-        StopCollecting(false);
-        InletPort.State = LinePort.States.Complete;
-
-        TransferCO2FromCTToVTT();
-    }
 
     /// <summary>
     /// Wait for the CEGS to be ready to process a sample.
