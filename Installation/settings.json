@@ -289,12 +289,6 @@
       "Steps": [
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
-          "Name": "FirstTrapBleedPressure",
-          "Description": "",
-          "Value": 5.5
-        },
-        {
-          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "ThawColdfingersWhenOpeningLine",
           "Description": "",
           "Value": 0.0
@@ -321,7 +315,7 @@
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "WaitForBleedDown",
           "Description": "",
-          "Value": 1.0
+          "Value": 0.0
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -354,8 +348,10 @@
           "Value": 0.005
         },
         {
-          "Name": "Enable sample setpoint ramping",
-          "Description": ""
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "EnableIpSetpointRamp",
+          "Description": "",
+          "Value": 1.0
         },
         {
           "Name": "Open and evacuate line (IM)",
@@ -414,27 +410,7 @@
           "Value": 120.0
         },
         {
-          "Name": "Collect until condition met",
-          "Description": ""
-        },
-        {
-          "Name": "Stop collecting",
-          "Description": ""
-        },
-        {
-          "Name": "Toggle CT collection",
-          "Description": ""
-        },
-        {
-          "Name": "Wait for CEGS to be free",
-          "Description": ""
-        },
-        {
-          "Name": "Transfer CO2 from CT to VTT",
-          "Description": ""
-        },
-        {
-          "Name": "Start Extract, Etc",
+          "Name": "Collect sample gas, then launch Extract, etc",
           "Description": ""
         },
         {
@@ -462,6 +438,36 @@
           "Name": "CollectUntilTemperatureRises",
           "Description": "",
           "Value": 625.0
+        },
+        {
+          "Name": "Collect sample gas, then launch Extract, etc",
+          "Description": ""
+        },
+        {
+          "Name": "Create a sample split",
+          "Description": ""
+        },
+        {
+          "Name": "Clear collection conditions",
+          "Description": ""
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilMinutes",
+          "Description": "",
+          "Value": 60.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilUgc",
+          "Description": "",
+          "Value": 120.0
+        },
+        {
+          "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
+          "Name": "CollectUntilTemperatureRises",
+          "Description": "",
+          "Value": 1000.0
         },
         {
           "Name": "Collect sample gas, then launch Extract, etc",
@@ -2004,14 +2010,14 @@
       "$type": "AeonHacs.Components.DigitalOutput, AeonHacs.Core",
       "Name": "pVM1_IG.Enable",
       "Description": "",
-      "OnOffState": "On",
+      "OnOffState": "Off",
       "StopAction": "TurnOff"
     },
     "pVM2_IG.Enable": {
       "$type": "AeonHacs.Components.DigitalOutput, AeonHacs.Core",
       "Name": "pVM2_IG.Enable",
       "Description": "",
-      "OnOffState": "On",
+      "OnOffState": "Off",
       "StopAction": "TurnOff"
     },
     "fan1": {
@@ -2025,7 +2031,7 @@
       "$type": "AeonHacs.Components.ManagedMFC, AeonHacs.Core",
       "Name": "mfcHe",
       "Description": "Helium Mass Flow Controller",
-      "Setpoint": 32.0,
+      "Setpoint": 30.0,
       "OnOffState": "Off",
       "ShutoffValve": "vHe_FTG",
       "MinimumSetpoint": 0.0,
@@ -2178,7 +2184,7 @@
             "Name": "VoltsToTorr",
             "CalibrationData": [
               {
-                "Item1": 0.00048594824762505153,
+                "Item1": 0.00037462095440644075,
                 "Item2": 0.0
               },
               {
@@ -2230,7 +2236,7 @@
             "Name": "VoltsToTorr",
             "CalibrationData": [
               {
-                "Item1": -0.00672378347546126,
+                "Item1": -0.0054969210933401924,
                 "Item2": 0.0
               },
               {
@@ -2438,7 +2444,7 @@
             "Name": "VoltsToTorr",
             "CalibrationData": [
               {
-                "Item1": 0.4970408953055478,
+                "Item1": 0.49852723270418026,
                 "Item2": 0.0
               },
               {
@@ -2490,7 +2496,7 @@
             "Name": "VoltsToTorr",
             "CalibrationData": [
               {
-                "Item1": 0.46721532934465093,
+                "Item1": 0.46824443912675184,
                 "Item2": 0.0
               },
               {
@@ -6552,7 +6558,7 @@
         },
         {
           "Name": "Open",
-          "Value": 1250,
+          "Value": 960,
           "Incremental": false,
           "Configuration": "t1.0"
         },
@@ -8081,6 +8087,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 30,
       "NearAirTemperature": 60.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8104,6 +8111,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 30,
       "NearAirTemperature": 60.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8131,6 +8139,7 @@
         "MaximumMinutesToFreeze": 15,
         "MaximumMinutesToThaw": 20,
         "SecondsToWaitAfterRaised": 5,
+        "SecondsToWaitAfterFreezing": 15,
         "NearAirTemperature": 10.0,
         "StopAction": "None",
         "State": "Standby",
@@ -8172,6 +8181,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 7.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8195,6 +8205,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8218,6 +8229,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8241,6 +8253,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8264,6 +8277,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8287,6 +8301,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8310,6 +8325,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8333,6 +8349,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8356,6 +8373,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8379,6 +8397,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8402,6 +8421,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8425,6 +8445,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -8448,6 +8469,7 @@
       "MaximumMinutesToFreeze": 10,
       "MaximumMinutesToThaw": 20,
       "SecondsToWaitAfterRaised": 8,
+      "SecondsToWaitAfterFreezing": 10,
       "NearAirTemperature": 10.0,
       "StopAction": "TurnOff",
       "State": "Standby",
@@ -10839,13 +10861,13 @@
       "Meter": "pCT",
       "MillisecondsTimeout": 200,
       "SecondsCycle": 3.1,
-      "StartingMovement": -4,
+      "StartingMovement": -2,
       "MaximumMovement": 96,
       "MaximumRate": 0.04,
       "Lag": 3.0,
-      "Deadband": 0.1,
+      "Deadband": 0.25,
       "DeadbandIsFractionOfTarget": false,
-      "Gain": -20.0,
+      "Gain": -2.0,
       "DivideGainByDeadband": false,
       "StopOnFullyOpened": false,
       "StopOnFullyClosed": false,
@@ -12182,14 +12204,6 @@
       "Description": "Alert manager",
       "AlertsEnabled": true,
       "DuplicateMessageSuppressionDuration": "1.00:00:00"
-    },
-    "IpOvenRamper": {
-      "$type": "AeonHacs.Components.OvenRamper, AeonHacs.Core",
-      "Name": "IpOvenRamper",
-      "Description": "",
-      "RateDegreesPerMinute": 20.0,
-      "IdleTimeout": 500,
-      "LogEverything": false
     }
   },
   "CegsPreferences": {
@@ -12202,7 +12216,7 @@
     "NextGraphiteNumber": 1,
     "DefaultMassUnits": "mg",
     "Take13CDefault": false,
-    "SampleCounter": 18,
+    "SampleCounter": 0,
     "MaximumAliquotsPerSample": 3,
     "EnableSmallReactors": false,
     "UpdateIntervalMilliseconds": 50,
@@ -12314,9 +12328,19 @@
         "Description": "Fully open the flow valve when the pressure differential between the IM and the FirstTrap falls below this value. Choose this pressure to avoid an excessive downstream pressure spike."
       },
       {
+        "ParameterName": "FlowThroughHe",
+        "Value": 30.0,
+        "Description": "Amount of He to flow through IP, in sccm."
+      },
+      {
         "ParameterName": "FlowThroughIP",
         "Value": "NaN",
-        "Description": "Provide a flow of oxygen through the Inlet Port to combust the sample, instead of a fixed pressure."
+        "Description": "Provide a flow of gas through the Inlet Port to combust the sample, instead of a fixed pressure."
+      },
+      {
+        "ParameterName": "FlowThroughO2",
+        "Value": 3.0,
+        "Description": "Amount of O2 to flow through IP, in sccm."
       },
       {
         "ParameterName": "GRCompleteTorrPerMinute",
