@@ -20,6 +20,8 @@ public partial class CegsMines : Cegs
         base.Connect();
 
         ChamberCT1 = Find<IChamber>("CT1");
+        IP1 = Find<InletPort>("IP1");
+        IP2 = Find<InletPort>("IP2");
 
         // Sections
         TF = Find<Section>("TF");
@@ -29,6 +31,7 @@ public partial class CegsMines : Cegs
         CT2 = Find<Section>("CT2");
 
         TF_IP1 = Find<Section>("TF_IP1");
+        FTG = Find<Section>("FTG");
         FTG_IP1 = Find<Section>("FTG_IP1");
         FTG_IP2 = Find<Section>("FTG_IP2");
         FTG_IM = Find<Section>("FTG_IM");
@@ -70,6 +73,8 @@ public partial class CegsMines : Cegs
     #region HacsComponents
 
     IChamber ChamberCT1 { get; set; }
+    InletPort IP1 { get; set; }
+    InletPort IP2 { get; set; }
 
     #region Sections
 
@@ -118,6 +123,11 @@ public partial class CegsMines : Cegs
     /// Tube furnace..Inlet Port 1 section
     /// </summary>
     public ISection TF_IP1 { get; set; }
+
+    /// <summary>
+    /// Flow-Through Gas section
+    /// </summary>
+    public ISection FTG { get; set; }
 
     /// <summary>
     /// Flow-Through Gas..Tube Furnace..Inlet Port 1 section
@@ -230,6 +240,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Replace iron in sulfur traps"] = ChangeSulfurFe;
         ProcessDictionary["Prepare active inlet port"] = PrepareInletPort;
         ProcessDictionary["Prepare loaded inlet ports for collection"] = PrepareInletPorts;
+        ProcessDictionary["Tube furnace bakeout"] = Bakeout;
         Separators.Add(ProcessDictionary.Count);
 
         ProcessDictionary["Reload completed d13C ports"] = Reload_d13CPorts;
@@ -245,13 +256,6 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Open and evacuate line (IM)"] = OpenLineIM;
         ProcessDictionary["Open and evacuate line (MC)"] = OpenLineMC;
         ProcessDictionary["Open and evacuate TF and VS1"] = OpenTF_VS1;
-        Separators.Add(ProcessDictionary.Count);
-
-        // Sample Process Methods
-        ProcessDictionary["Tube furnace bakeout"] = Bakeout;
-        ProcessDictionary["In situ quartz, day 1"] = Day1;
-        ProcessDictionary["In situ quartz, day 2"] = Day2;
-        ProcessDictionary["Ramped oxidation"] = RampedOxidation;
         Separators.Add(ProcessDictionary.Count);
 
         // Main process continuations
@@ -351,7 +355,7 @@ public partial class CegsMines : Cegs
         // Flow control sub-steps
         ProcessDictionary["Start flow through to trap"] = StartFlowThroughToTrap;
         ProcessDictionary["Start flow through to waste"] = StartFlowThroughToWaste;
-        ProcessDictionary["Stop flow-through gas"] = StopFlowThroughGas;
+        ProcessDictionary["Stop flow-through gas"] = StopFtg;
         Separators.Add(ProcessDictionary.Count);
 
         // d13C port service routines
@@ -445,14 +449,23 @@ public partial class CegsMines : Cegs
     /// <summary>
     /// "Provide a flow of oxygen through the Inlet Port to combust the sample, instead of a fixed pressure.
     /// </summary>
-    public double FlowThroughIP => GetParameter(nameof(FlowThroughIP));
+    public bool FlowThroughIP => ParameterTrue(nameof(FlowThroughIP));
 
+    /// <summary>
+    /// Amount of He to flow through IP, in sccm
+    /// </summary>
+    public double FlowThroughHe => GetParameter(nameof(FlowThroughHe));
+
+    /// <summary>
+    /// Amount of O2 to flow through IP, in sccm
+    /// 
+    public double FlowThroughO2 => GetParameter(nameof(FlowThroughO2));
 
 
     /// <summary>
     /// Whether or not to include the CO2 analyzer in the collection path.
     /// </summary>
-    public double IncludeCO2Analyzer => GetParameter(nameof(IncludeCO2Analyzer));
+    public bool IncludeCO2Analyzer => ParameterTrue(nameof(IncludeCO2Analyzer));
 
     /// <summary>
     /// Stop collecting into the coil trap when amount of carbon in the Coil Trap reaches this value,
@@ -531,9 +544,19 @@ public partial class CegsMines : Cegs
 
         if (IpIsTubeFurnace)
             TF_IP1.Open();
+        if (FlowThroughIP && InletPort == IP2)
+            FTG_IP2.Open();
         base.EvacuateIP(IpEvacuationPressure);
 
         step.End();
+    }
+
+
+    protected override void EvacuateAndCheckIPs(ISection im, IEnumerable<IPort> ips)
+    {
+        if (FlowThroughIP && ips.Contains(IP2))
+            FTG_IP2.Open();
+        base.EvacuateAndCheckIPs(im, ips);
     }
 
     /// <summary>
@@ -572,8 +595,9 @@ public partial class CegsMines : Cegs
         source.Open();
         substep.End();
 
-        mfcHe.Setpoint = 0;
-        mfcO2.Setpoint = 0;
+        // TODO: These should already be off...remove?
+        //mfcHe.TurnOff();
+        //mfcO2.TurnOff();
 
         if (IpIsTubeFurnace && !trap)
         {
@@ -584,8 +608,7 @@ public partial class CegsMines : Cegs
             InletPort.Open();
             IM.OpenAndEvacuate();
 
-            mfcHe.TurnOn(GetParameter("FlowThroughHe"));
-            mfcO2.TurnOn(GetParameter("FlowThroughO2"));
+            StartFtg();
 
             // Wait for a target TF pressure first?
             vacfm.Start(TF.Pressure);           // Manage drain flow to maintain TF pressure
@@ -595,20 +618,31 @@ public partial class CegsMines : Cegs
             IM_FirstTrap.FlowManager.StopOnFullyOpened = false;
             StartCollecting();              // Manage CT flow to maintain bleed pressure
 
-            mfcHe.TurnOn(GetParameter("FlowThroughHe"));
-            WaitFor(() => Math.Abs(mfcHe.FlowRate - GetParameter("FlowThroughHe")) < 0.1, -1, 1000);
+            StartFtg();
+        }
+        step.End();
+    }
 
+    public virtual void StartFtg()
+    {
+        if (FlowThroughHe.IsANumber() && FlowThroughHe > 0)
+        {
+            mfcHe.TurnOn(FlowThroughHe);
+            WaitFor(() => Math.Abs(mfcHe.FlowRate - GetParameter("FlowThroughHe")) < 0.1, -1, 1000);
+        }
+
+        if (FlowThroughO2.IsANumber() && FlowThroughO2 > 0)
+        {
             mfcO2.TurnOn(GetParameter("FlowThroughO2"));
             WaitFor(() => Math.Abs(mfcO2.FlowRate - GetParameter("FlowThroughO2")) < 0.1, -1, 1000);
         }
-        step.End();
     }
 
 
     /// <summary>
     /// Stop flowing O2 into the Inlet Port.
     /// </summary>
-    protected virtual void StopFlowThroughGas()
+    protected virtual void StopFtg()
     {
         var step = ProcessStep.Start($"Stopping O2 flow into {InletPort.Name}");
 
@@ -622,15 +656,6 @@ public partial class CegsMines : Cegs
         step.End();
     }
 
-    protected override void CollectAndLaunchExtractEtc()
-    {
-        CollectUntilConditionMet();
-        StopCollecting();
-        ToggleCT();
-        WaitForCegs();
-        StartExtractEtc();
-    }
-
     /// <summary>
     /// Open the TF outlet valves, joining TF to IP1
     /// </summary>
@@ -640,17 +665,17 @@ public partial class CegsMines : Cegs
     /// Use Coil Trap 1 for sample collection;
     /// </summary>
     protected virtual void SelectCT1() => base.IM_FirstTrap =
-        ParameterTrue(nameof(IncludeCO2Analyzer)) ? IM_CA_CT1 : IM_CT1;
+        IncludeCO2Analyzer ? IM_CA_CT1 : IM_CT1;
 
     /// <summary>
     /// Use Coil Trap 2 for sample collection.
     /// </summary>
     protected virtual void SelectCT2() => base.IM_FirstTrap =
-        ParameterTrue(nameof(IncludeCO2Analyzer)) ? IM_CA_CT2 : IM_CT2;
+        IncludeCO2Analyzer ? IM_CA_CT2 : IM_CT2;
 
     protected override void StopCollecting(bool immediately = true)
     {
-        if (mfcO2.IsOn || mfcHe.IsOn) StopFlowThroughGas();
+        if (mfcO2.IsOn || mfcHe.IsOn) StopFtg();
         base.StopCollecting(immediately);
     }
 
@@ -665,8 +690,6 @@ public partial class CegsMines : Cegs
             SelectCT2();
         else
             SelectCT1();
-
-        StartFlowThrough(true);
 
         step.End();
     }
@@ -685,7 +708,7 @@ public partial class CegsMines : Cegs
     }
 
     /// <summary>
-    /// Set all collection condition parameters to NaN
+    /// Set all collection stop condition parameters to NaN
     /// </summary>
     protected override void ClearCollectionConditions()
     {
@@ -693,290 +716,24 @@ public partial class CegsMines : Cegs
         ClearParameter("CollectUntilUgc");
     }
 
-    string stoppedBecause = "";
-    /// <summary>
-    /// Wait for a collection stop condition to occur.
-    /// </summary>
-    protected override void CollectUntilConditionMet()
+    protected override List<Func<string>> CollectionConditions()
     {
-        var step = ProcessStep.Start($"Wait for a collection stop condition");
+        IpIm(out ISection im);
+        double p;
 
-        var maximumSampleTemperatureStopwatch = new Stopwatch();
-        var maximumSampleTemperature = GetParameter("MaximumSampleTemperature");
-        var minutesAtMaximumTemperature = GetParameter("MinutesAtMaximumTemperature");
+        var CollectionConditions = base.CollectionConditions();
 
-        bool shouldStop()
+        p = CollectUntilUgc;
+        if (p.IsANumber())
         {
-            if (CollectStopwatch.IsRunning && CollectStopwatch.ElapsedMilliseconds < 1000)
-                return false;
-
-            // TODO: what if flow manager becomes !Busy (because, e.g., FlowValve is fully open)?
-            // TODO: should we invoke DuringBleed()? When? (replaced by CollectionActions, right?)
-            // TODO: should we disable/enable CT.VacuumSystem.Manometer?
-
-            // Open flow bypass when conditions allow it without producing an excessive
-            // downstream pressure spike.
-            if (IM.Pressure - FirstTrap.Pressure < FirstTrapFlowBypassPressure)
-                FirstTrap.Open();   // open bypass if available
-                                    // (REVISIT THIS, normally we don't want Open to
-                                    // open the flow valve or bypass....
-
-
-            if (CollectCloseIpAtPressure.IsANumber() && InletPort.IsOpened && IM.Pressure <= CollectCloseIpAtPressure)
-            {
-                var p = IM.Pressure;
-                InletPort.Close();
-                SampleLog.Record($"{Sample.LabId}\tClosed {InletPort.Name} at {IM.Manometer.Name} = {p:0} Torr");
-            }
-            if (CollectCloseIpAtCtPressure.IsANumber() && InletPort.IsOpened && FirstTrap.Pressure <= CollectCloseIpAtCtPressure)
-            {
-                var p = FirstTrap.Pressure;
-                InletPort.Close();
-                SampleLog.Record($"{Sample.LabId}\tClosed {InletPort.Name} at {FirstTrap.Manometer.Name} = {p:0} Torr");
-            }
-
-            if (Stopping)
-            {
-                stoppedBecause = "CEGS is shutting down";
-                return true;
-            }
-
-            if (maximumSampleTemperature.IsANumber() && minutesAtMaximumTemperature.IsANumber())
-            {
-                if (maximumSampleTemperatureStopwatch.IsRunning)
-                {
-                    if (maximumSampleTemperatureStopwatch.Elapsed.TotalMinutes > minutesAtMaximumTemperature)
-                    {
-                        stoppedBecause = $"Reached {minutesAtMaximumTemperature} minutes at maximum temperature ({maximumSampleTemperature} °C)";
-                        return true;
-                    }
-                }
-                else if (InletPort.Temperature >= maximumSampleTemperature)
-                    maximumSampleTemperatureStopwatch.Restart();
-            }
-
-            if (CollectUntilTemperatureRises.IsANumber() && InletPort.Temperature >= CollectUntilTemperatureRises)
-            {
-                stoppedBecause = $"InletPort.Temperature rose to {CollectUntilTemperatureRises:0} °C";
-                return true;
-            }
-            if (CollectUntilTemperatureFalls.IsANumber() && InletPort.Temperature <= CollectUntilTemperatureFalls)
-            {
-                stoppedBecause = $"InletPort.Temperature fell to {CollectUntilTemperatureFalls:0} °C";
-                return true;
-            }
-
-            if (CollectUntilCtPressureFalls.IsANumber() &&
-                FirstTrap.Pressure <= CollectUntilCtPressureFalls &&
-                IM.Pressure < Math.Ceiling(CollectUntilCtPressureFalls) + 2)
-            {
-                stoppedBecause = $"{FirstTrap.Name}.Pressure fell to {CollectUntilCtPressureFalls:0.00} Torr";
-                return true;
-            }
-
-            // old?: FirstTrap.Pressure < FirstTrapEndPressure;
-            if (FirstTrapEndPressure.IsANumber() &&
-                FirstTrap.Pressure <= FirstTrapEndPressure &&
-                IM.Pressure < Math.Ceiling(FirstTrapEndPressure) + 2)
-            {
-                stoppedBecause = $"{FirstTrap.Name}.Pressure fell to {FirstTrapEndPressure:0.00} Torr";
-                return true;
-            }
-            if (CollectUntilUgc.IsANumber() && CollectedUgc >= CollectUntilUgc)
-            {
-                stoppedBecause = $"Collected {CollectUntilUgc:0} µg C";
-                return true;
-            }
-            if (CollectUntilMinutes.IsANumber() && CollectStopwatch.Elapsed.TotalMinutes >= CollectUntilMinutes)
-            {
-                stoppedBecause = $"{MinutesString((int)CollectUntilMinutes)} elapsed";
-                return true;
-            }
-
-            stoppedBecause = "";
-            return false;
+            var value = p;
+            CollectionConditions.Add(() => CollectedUgc >= value ?
+                $"Collected >= {CollectUntilUgc:0} µg C" : "");
         }
-        WaitFor(shouldStop, -1, 1000);
-        SampleLog.Record($"{Sample.LabId}\tStopped collecting:\t{stoppedBecause}");
 
-        step.End();
+        return CollectionConditions;
     }
 
-
-    /// <summary>
-    /// Wait for the CEGS to be ready to process a sample.
-    /// ("CEGS" in this case is the section from the VTT onward.)
-    /// </summary>
-    protected virtual void WaitForCegs()
-    {
-        var step = ProcessStep.Start("Wait for CEGS to be ready to process sample");
-
-        bool cegsAvailable()
-        {
-            if (Stopping)
-                return true;
-            return CegsTask?.IsCompleted ?? true;
-        }
-        WaitFor(cegsAvailable, -1, 1000);
-
-        step.End();
-    }
-
-    protected override void ExtractEtc()
-    {
-        var lnManifolds = FindAll<LNManifold>();
-        lnManifolds.ForEach(m => m.StayActive());
-        base.ExtractEtc();
-        lnManifolds.ForEach(m => m.Monitor());
-    }
-
-    /// <summary>
-    /// Initiate the ExtractEtc process step, followed by evacuating VS2,
-    /// to run concurrently while the Collection process continues.
-    /// </summary>
-    protected virtual void StartExtractEtc()
-    {
-        CegsTask = Task.Run(ExtractEtcThenEvacuate);
-    }
-
-    /// <summary>
-    /// Run the ExtractEtc process step, then evacuate the line.
-    /// </summary>
-    protected virtual void ExtractEtcThenEvacuate()
-    {
-        TransferCO2FromCTToVTT();
-        ExtractEtc();
-        var vacuumSystem = MC.VacuumSystem;
-        vacuumSystem.OpenLine();        // do not wait for cold coldfingers
-        vacuumSystem.WaitForPressure(OkPressure);
-    }
-
-
-    protected void RampedOxidation()
-    {
-        // Configure the protocol
-        SetParameter(nameof(FirstTrapBleedPressure), 5.5);
-        SetParameter(nameof(ThawColdfingersWhenOpeningLine), 0);
-        SetParameter(nameof(ThawVttAfterExtract), 0);
-        SetParameter(nameof(IncludeCO2Analyzer), 1);
-        SetParameter(nameof(WaitForBleedDown), 1);
-        SetParameter(nameof(HoldSampleAtPorts), 1);
-        SetParameter(nameof(FlowThroughIP), 1);
-        SetParameter(nameof(MaximumSampleTemperature), 1000);
-        SetParameter(nameof(MinutesAtMaximumTemperature), 10);
-
-        //TODO change this to CleanPressure? It's OkPressure for process testing.
-        SetParameter(nameof(IpEvacuationPressure), OkPressure);
-        EnableIpRamp();
-
-        OpenLineIM();
-        PrepareInletPort();     // how to handle handle FTG_IP2? should it be opened or closed?
-        EvacuateIP();
-        HeatQuartz();
-
-        // first split
-        SelectCT1();
-        SetParameter(nameof(IpSetpoint), 500);      // DEBUGGING VALUE; restore to 1000
-        SetParameter(nameof(IpRampRate), 50);       // DEBUGGING VALUE; restore to 5
-        StartFlowThroughToTrap();           // starts collecting
-        TurnOnIpSampleFurnace();
-        ClearCollectionConditions();
-        SetParameter(nameof(CollectUntilMinutes), 60);
-        SetParameter(nameof(CollectUntilUgc), 120);
-
-        //CollectAndLaunchExtractEtc();
-        CollectUntilConditionMet();
-        StopCollecting();
-        ToggleCT();
-        WaitForCegs();
-        TransferCO2FromCTToVTT();
-        StartExtractEtc();
-
-        // second split
-        CreateSampleSplit();
-        ClearCollectionConditions();
-        SetParameter(nameof(CollectUntilMinutes), 60);              // keep this limit?
-        SetParameter(nameof(CollectUntilUgc), 120);                 // how much?
-        SetParameter(nameof(CollectUntilTemperatureRises), 625);    // use this? What temperature?
-        CollectAndLaunchExtractEtc();
-
-        // ...and so on...
-
-        GraphitizeSplits();
-        OpenLine();
-    }
-
-    /// <summary>
-    /// In situ quartz sample process, Day 1 (preparation)
-    /// </summary>
-    protected virtual void Day1()
-    {
-        TurnOnIpQuartzFurnace();
-        BackfillTF1WithHe();
-        LoadTF();
-        SetParameter(nameof(IpEvacuationPressure), 1E-2);
-        EvacuateIP();
-        SetParameter(nameof(TfPressureTarget), 50);
-        AdmitO2toTF();
-        SetParameter(nameof(IpSetpoint), 100);
-        TurnOnIpSampleFurnace();
-        WaitIpRiseToSetpoint();
-        StartFlowThroughToWaste();
-        SetParameter(nameof(WaitTimerMinutes), 2);
-        WaitForTimer();
-        StopFlowThroughGas();
-        EvacuateIP();
-        AdmitO2toTF();
-        StartFlowThroughToWaste();
-        SetParameter(nameof(IpSetpoint), 95);
-        TurnOffIpSampleFurnace();
-        WaitIpFallToSetpoint();
-        StopFlowThroughGas();
-        TurnOffIpQuartzFurnace();
-        OpenTF_VS1();
-    }
-
-    /// <summary>
-    /// In situ quartz sample process, Day 2 (extraction)
-    /// </summary>
-    protected virtual void Day2()
-    {
-        TurnOnIpQuartzFurnace();
-        BackfillTF1WithHe();
-        LoadTF();
-        EvacuateIP();
-        SetParameter(nameof(TfPressureTarget), 50);
-        AdmitO2toTF();
-        SetParameter(nameof(IpSetpoint), 75);
-        TurnOnIpSampleFurnace();
-        WaitIpRiseToSetpoint();
-        StartFlowThroughToWaste();
-        SetParameter(nameof(WaitTimerMinutes), 1);
-        WaitForTimer();
-        StopFlowThroughGas();
-        EvacuateIP();
-        AdmitO2toTF();
-        SetParameter(nameof(IpSetpoint), 150);
-        AdjustIpSetpoint();
-        WaitIpRiseToSetpoint();
-        SetParameter(nameof(WaitTimerMinutes), 1);
-        WaitForTimer();
-        TurnOffIpSampleFurnace();
-        ClearParameter(nameof(IncludeCO2Analyzer));
-        SelectCT1();
-        SetParameter(nameof(FirstTrapBleedPressure), 10);
-        StartFlowThroughToTrap();
-        SetParameter(nameof(CollectUntilTemperatureFalls), 80);
-        CollectUntilConditionMet();
-        StopFlowThroughGas();
-        OpenTF_IP1();
-        ClearCollectionConditions();
-        SetParameter(nameof(CollectUntilCtPressureFalls), 4.0);
-        CollectUntilConditionMet();
-        StopCollecting();
-        ExtractEtcThenEvacuate();
-        OpenLine();
-    }
 
 
     /// <summary>
@@ -993,7 +750,7 @@ public partial class CegsMines : Cegs
         StartFlowThroughToWaste();
         SetParameter(nameof(WaitTimerMinutes), 10);
         WaitForTimer();
-        StopFlowThroughGas();
+        StopFtg();
         EvacuateIP();
         AdmitO2toTF();
         SetParameter(nameof(IpSetpoint), 1000);
@@ -1007,7 +764,14 @@ public partial class CegsMines : Cegs
 
     #endregion Process Steps
 
+    protected override void ProcessEnded(string message = "")
+    {
+        base.ProcessEnded(message);
+        if (FlowThroughIP) FTG.Isolate();
+    }
+
     #endregion Process Management
+
     protected virtual void FtgPressurize(string gasName, ISection destination, double pressure)
     {
         var mfc =
@@ -1119,7 +883,6 @@ public partial class CegsMines : Cegs
     /// </summary>
     protected override void Test()
     {
-        ResetUgcTracking();
     }
 
     #endregion Test functions
