@@ -255,12 +255,13 @@ public partial class CegsMines : Cegs
 
         // Main process continuations
         ProcessDictionary["Collect, etc."] = CollectEtc;
+        ProcessDictionary["Transfer CO2 to VTT, etc."] = TransferCO2FromCTToVttEtc;
         ProcessDictionary["Extract, etc."] = ExtractEtc;
         ProcessDictionary["Measure, etc."] = MeasureEtc;
         ProcessDictionary["Graphitize, etc."] = GraphitizeEtc;
         Separators.Add(ProcessDictionary.Count);
 
-        // Top-level steps for main process sequence
+        // Top-level steps for standard protocol
         ProcessDictionary["Admit sealed CO2 to InletPort"] = AdmitSealedCO2IP;
         ProcessDictionary["Collect CO2 from InletPort"] = Collect;
         ProcessDictionary["Transfer CO2 from CT to VTT"] = TransferCO2FromCTToVTT;
@@ -300,10 +301,12 @@ public partial class CegsMines : Cegs
 
         // Split sample processing
         ProcessDictionary["Create a sample split"] = CreateSampleSplit;
-        ProcessDictionary["Collect sample gas, then launch Extract, etc"] = CollectAndLaunchExtractEtc;
+        ProcessDictionary["Wait for CEGS to be free"] = WaitForCegs;
+        ProcessDictionary["Launch Transfer, etc."] = LaunchTransferEtc;
+        ProcessDictionary["Collect sample gas, then launch Transfer, etc."] = CollectAndLaunchTransferEtc;
         ProcessDictionary["Keep all LN Manifolds Active"] = KeepAllLNManifoldsActive;
         ProcessDictionary["Resume all LN Manifolds Monitoring"] = ResumeAllLNManifoldsMonitoring;
-        ProcessDictionary["Open and Evacuate VTT to GM"] = OpenAndEvacuateVttToGM;
+        ProcessDictionary["Open and Evacuate VTT..GM"] = OpenAndEvacuateVttToGM;
         Separators.Add(ProcessDictionary.Count);
 
         // Granular inlet port & sample process control
@@ -314,11 +317,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Raise IP furnaces"] = RaiseIpFurnaces;
         ProcessDictionary["Turn on quartz furnace"] = TurnOnIpQuartzFurnace;
         ProcessDictionary["Turn off quartz furnace"] = TurnOffIpQuartzFurnace;
-        ProcessDictionary["Disable sample setpoint ramping"] = DisableIpRamp;
-        ProcessDictionary["Enable sample setpoint ramping"] = EnableIpRamp;
         ProcessDictionary["Turn on sample furnace"] = TurnOnIpSampleFurnace;
-        ProcessDictionary["Adjust sample setpoint"] = AdjustIpSetpoint;
-        ProcessDictionary["Adjust sample ramp rate"] = AdjustIpRampRate;
         ProcessDictionary["Wait for sample to rise to setpoint"] = WaitIpRiseToSetpoint;
         ProcessDictionary["Wait for sample to fall to setpoint"] = WaitIpFallToSetpoint;
         ProcessDictionary["Turn off sample furnace"] = TurnOffIpSampleFurnace;
@@ -327,9 +326,7 @@ public partial class CegsMines : Cegs
         // General-purpose process control actions
         ProcessDictionary["Wait for timer"] = WaitForTimer;
         ProcessDictionary["Wait for IP timer"] = WaitIpMinutes;
-        ProcessDictionary["Wait for operator"] = WaitForOperator;
-        ProcessDictionary["Wait for CEGS to be free"] = WaitForCegs;
-        ProcessDictionary["Start Extract, Etc"] = StartExtractEtc;
+        ProcessDictionary["Wait for operator"] = Notify.WaitForOperator;
         Separators.Add(ProcessDictionary.Count);
 
         // Transferring CO2
@@ -367,7 +364,9 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Exercise all Opened valves"] = ExerciseAllValves;
         ProcessDictionary["Close all Opened valves"] = CloseAllValves;
         ProcessDictionary["Exercise all LN Manifold valves"] = ExerciseLNValves;
+        ProcessDictionary["Close all LN Manifold valves"] = CloseLNValves;
         ProcessDictionary["Calibrate all multi-turn valves"] = CalibrateRS232Valves;
+        ProcessDictionary["Open all multi-turn valves"] = OpenRS232Valves;
         ProcessDictionary["Measure MC volume (KV in MCP1)"] = MeasureVolumeMC;
         ProcessDictionary["Measure valve volumes (plug in MCP1)"] = MeasureValveVolumes;
         ProcessDictionary["Measure remaining chamber volumes"] = MeasureRemainingVolumes;

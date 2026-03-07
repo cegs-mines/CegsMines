@@ -1329,7 +1329,7 @@
           "Description": "Collect Split 1"
         },
         {
-          "Name": "Wait for VTT..GM to be free",
+          "Name": "Wait for CEGS to be free",
           "Description": ""
         },
         {
@@ -1345,7 +1345,7 @@
           "Description": ""
         },
         {
-          "Name": "Launch Extract, etc",
+          "Name": "Launch Transfer, etc",
           "Description": "Start Split 1 extraction"
         },
         {
@@ -1379,7 +1379,7 @@
           "Description": ""
         },
         {
-          "Name": "Wait for VTT..GM to be free",
+          "Name": "Wait for CEGS to be free",
           "Description": ""
         },
         {
@@ -1395,7 +1395,7 @@
           "Description": ""
         },
         {
-          "Name": "Launch Extract, etc",
+          "Name": "Launch Transfer, etc",
           "Description": "Begin Split 2 extraction"
         },
         {
@@ -1435,7 +1435,7 @@
           "Description": "Collect Split 3"
         },
         {
-          "Name": "Wait for VTT..GM to be free",
+          "Name": "Wait for CEGS to be free",
           "Description": ""
         },
         {
@@ -1443,11 +1443,11 @@
           "Description": ""
         },
         {
-          "Name": "Launch Extract, etc",
+          "Name": "Launch Transfer, etc",
           "Description": "Begin Split 3 extraction"
         },
         {
-          "Name": "Wait for VTT..GM to be free",
+          "Name": "Wait for CEGS to be free",
           "Description": ""
         },
         {
