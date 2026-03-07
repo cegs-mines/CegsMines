@@ -79,14 +79,9 @@ public partial class CegsMines : Cegs
     #region Sections
 
     /// <summary>
-    /// The CT section, either CT1 or CT2, from which the CEGS should transfer the sample to the VTT.
+    /// The CT section of the sample collection path IM_FirstTrap.
     /// </summary>
-    public override ISection CT
-    {
-        get => ct ?? CurrentCT;
-        set => ct = value;
-    }
-    ISection ct;
+    public override ISection CT => FirstTrap;
 
     /// <summary>
     /// The sample gas collection path; one of IM_CT1, IM_CT2, IM_CA_CT1, IM_CA_CT2;
@@ -484,17 +479,6 @@ public partial class CegsMines : Cegs
     /// </summary>
     public ISection CurrentCT => base.IM_FirstTrap.Chambers.Contains(ChamberCT1) ? CT1 : CT2;
 
-    public virtual bool IpIsFlowThrough
-    {
-        get
-        {
-            try
-            {
-                return Protocols[InletPort?.Sample?.Protocol].PortType == InletPortType.FlowThrough;
-            }
-            catch { return false; }
-        }
-    }
 
     /// <summary>
     /// A CEGS task dispatched to run concurrently while the main 
@@ -543,7 +527,11 @@ public partial class CegsMines : Cegs
         var step = ProcessStep.Start($"Evacuate {InletPort.Name}");
 
         if (IpIsTubeFurnace)
+        {
             TF_IP1.Open();
+            if (FlowThroughIP)
+                FTG_IP1.Open();
+        }
         if (FlowThroughIP && InletPort == IP2)
             FTG_IP2.Open();
         base.EvacuateIP(IpEvacuationPressure);
@@ -686,7 +674,7 @@ public partial class CegsMines : Cegs
     {
         var step = ProcessStep.Start($"Toggle CT");
 
-        if (CT == CT1)
+        if (FirstTrap == CT1)
             SelectCT2();
         else
             SelectCT1();
