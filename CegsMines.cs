@@ -667,6 +667,10 @@ public partial class CegsMines : Cegs
     protected override void StopCollecting(bool immediately = true)
     {
         if (mfcO2.IsOn || mfcHe.IsOn) StopFtg();
+        var valves = IM_FirstTrap?.InternalValves;
+        var count = valves?.Count ?? 0;
+        if (count > 1)  // next-to-last internal valve feeds vCTFlow
+            valves[count - 2].CloseWait();
         base.StopCollecting(immediately);
     }
 
@@ -758,7 +762,7 @@ public partial class CegsMines : Cegs
     protected override void ProcessEnded(string message = "")
     {
         base.ProcessEnded(message);
-        if (FlowThroughIP) FTG.Isolate();
+        if (FlowThroughIP && ProcessType == ProcessTypeCode.Protocol) FTG.Isolate();
     }
 
     #endregion Process Management
