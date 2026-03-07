@@ -270,6 +270,7 @@ public partial class CegsMines : Cegs
         ProcessDictionary["Remove sulfur"] = RemoveSulfur;
         ProcessDictionary["Dilute small sample"] = Dilute;
         ProcessDictionary["Graphitize aliquots"] = GraphitizeAliquots;
+        ProcessDictionary["Add d13C carrier"] = AddCarrierTo_d13C;
         Separators.Add(ProcessDictionary.Count);
 
         // Secondary-level process sub-steps
@@ -300,7 +301,9 @@ public partial class CegsMines : Cegs
         // Split sample processing
         ProcessDictionary["Create a sample split"] = CreateSampleSplit;
         ProcessDictionary["Collect sample gas, then launch Extract, etc"] = CollectAndLaunchExtractEtc;
-        ProcessDictionary["Graphitize all collected splits"] = GraphitizeSplits;
+        ProcessDictionary["Keep all LN Manifolds Active"] = KeepAllLNManifoldsActive;
+        ProcessDictionary["Resume all LN Manifolds Monitoring"] = ResumeAllLNManifoldsMonitoring;
+        ProcessDictionary["Open and Evacuate VTT to GM"] = OpenAndEvacuateVttToGM;
         Separators.Add(ProcessDictionary.Count);
 
         // Granular inlet port & sample process control
