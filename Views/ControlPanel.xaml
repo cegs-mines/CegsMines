@@ -34,77 +34,66 @@
         </StackPanel>
 
         <!-- Process Control & State -->
-        <Border BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel>
-                    <CheckBox Content="Auto-feed samples"
-                            IsChecked="{Binding Component.AutoFeedEnabled, ElementName=Cegs}"
-                            HorizontalAlignment="Right" Margin="3" Visibility="Hidden"/>
+        <Grid ColumnDefinitions="Auto,350,Auto" RowDefinitions="Auto,Auto,Auto,Auto"
+              HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <CheckBox Content="Auto-feed samples"
+                      IsChecked="{Binding Component.AutoFeedEnabled, ElementName=Cegs}"
+                      Grid.Row="0" Grid.Column="1" Margin="2"
+                      HorizontalAlignment="Right" Visibility="Hidden"/>
 
-                    <!-- Process -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label x:Name="ProcessTime" AutomationProperties.HelpText="Process Run Time"
-                                Content="{Binding Component.ProcessTime, ElementName=Cegs, 
-                                    Converter={StaticResource TimeSpanConverter}, 
-                                    TargetNullValue=00:00:00, FallbackValue=00:00:00}"
-                                BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
-                        <ComboBox x:Name="ProcessSelector" AutomationProperties.HelpText="Process"
-                                IsEditable="False" SelectedIndex="0" 
-                                Margin="0,2,3,2" Padding="3,0,3,2" Width="350" />
-                    </StackPanel>
+            <!-- Process -->
+            <Label x:Name="ProcessTime" AutomationProperties.HelpText="Process Run Time"
+                   Content="{Binding Component.ProcessTime, ElementName=Cegs, 
+                       Converter={StaticResource TimeSpanConverter}, 
+                       TargetNullValue=0:00:00, FallbackValue=0:00:00}"
+                   BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
+                   Grid.Row="1" Grid.Column="0" Margin="2" Padding="3,0"
+                   HorizontalContentAlignment="Right" />
+            <ComboBox x:Name="ProcessSelector" AutomationProperties.HelpText="Process"
+                      IsEditable="False" SelectedIndex="0"
+                      Grid.Row="1" Grid.Column="1" Margin="2" Padding="3,0" />
+            <Button Content="Start" Click="StartButton_Click" AutomationProperties.HelpText="Start the selected process"
+                    Grid.Row="1" Grid.Column="2" Margin="2" Padding="3,0"
+                    Visibility="{Binding Component.NotBusy, ElementName=Cegs, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Visible}" />
 
-                    <!-- Process Step -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label x:Name="ProcessStepTime" AutomationProperties.HelpText="Process Step Time"
-                                Content="{Binding Component.ProcessStep.Latest.Elapsed, ElementName=Cegs, 
-                                    Converter={StaticResource TimeSpanConverter},
-                                    TargetNullValue=00:00:00, FallbackValue=00:00:00}"
-                                BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
-                        <Border AutomationProperties.HelpText="Process Step"
-                                Background="Transparent"
-                                BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Width="350" Margin="0,2,3,2" Padding="3,0" >
-                            <TextBlock
-                                DataContext="{Binding Component.ProcessStep, ElementName=Cegs}"
-                                Text="{Binding Latest.Description, TargetNullValue=''}"
-                                wpf:View.Component="{Binding .}"
-                                VerticalAlignment="Center"
-                                TextTrimming="CharacterEllipsis" />
-                        </Border>
-                    </StackPanel>
+            <!-- Process Step -->
+            <Label x:Name="ProcessStepTime" AutomationProperties.HelpText="Process Step Time"
+                   Content="{Binding Component.ProcessStep.Latest.Elapsed, ElementName=Cegs, 
+                       Converter={StaticResource TimeSpanConverter},
+                       TargetNullValue=0:00:00, FallbackValue=0:00:00}"
+                   BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
+                   Grid.Row="2" Grid.Column="0" Margin="2" Padding="3,0"
+                   HorizontalContentAlignment="Right" />
+            <Border AutomationProperties.HelpText="Process Step"
+                    Background="Transparent"
+                    BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
+                    Grid.Row="2" Grid.Column="1" Margin="2" Padding="3,0" >
+                <TextBlock DataContext="{Binding Component.ProcessStep, ElementName=Cegs}"
+                           Text="{Binding Latest.Description, TargetNullValue=''}"
+                           wpf:View.Component="{Binding .}"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" />
+            </Border>
 
-                    <!-- Process Substep -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label x:Name="ProcessSubstepTime" AutomationProperties.HelpText="Process Substep Time"
-                                Content="{Binding Component.ProcessSubStep.Latest.Elapsed, ElementName=Cegs, 
-								    Converter={StaticResource TimeSpanConverter}, 
-									TargetNullValue=00:00:00, FallbackValue=00:00:00}"
-                                BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Margin="2,2,3,2" Padding="3,0,3,0" HorizontalContentAlignment="Right" />
-                        <Border AutomationProperties.HelpText="Process Substep"
-                                Background="Transparent"
-                                BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
-                                Width="350" Margin="0,2,3,2" Padding="3,0" >
-                            <TextBlock 
-                                DataContext="{Binding Component.ProcessSubStep, ElementName=Cegs}"
-                                Text="{Binding Latest.Description, TargetNullValue=''}"
-                                wpf:View.Component="{Binding .}"
-                                VerticalAlignment="Center"
-                                TextTrimming="CharacterEllipsis" />
-                        </Border>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Start button -->
-                <StackPanel>
-                    <Button Content="Start" Click="StartButton_Click" AutomationProperties.HelpText="Start the selected process"
-                            Margin="0,23,3,2" Padding="3,0,3,0" VerticalAlignment="Top" HorizontalAlignment="Right"
-                            Visibility="{Binding Component.NotBusy, ElementName=Cegs, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Visible}" />
-                </StackPanel>
-            </StackPanel>
-        </Border>
+            <!-- Process Substep -->
+            <Label x:Name="ProcessSubstepTime" AutomationProperties.HelpText="Process Substep Time"
+                   Content="{Binding Component.ProcessSubStep.Latest.Elapsed, ElementName=Cegs, 
+                       Converter={StaticResource TimeSpanConverter}, 
+                       TargetNullValue=0:00:00, FallbackValue=0:00:00}"
+                   BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
+                   Grid.Row="3" Grid.Column="0" Margin="2" Padding="3,0"
+                   HorizontalContentAlignment="Right" />
+            <Border AutomationProperties.HelpText="Process Substep"
+                    Background="Transparent"
+                    BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0.5"
+                    Grid.Row="3" Grid.Column="1" Margin="2" Padding="3,0" >
+                <TextBlock DataContext="{Binding Component.ProcessSubStep, ElementName=Cegs}"
+                           Text="{Binding Latest.Description, TargetNullValue=''}"
+                           wpf:View.Component="{Binding .}"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" />
+            </Border>
+        </Grid>
 
         <!-- Sample Info -->
         <StackPanel Orientation="Horizontal" AutomationProperties.HelpText="Active or Prior Sample"
