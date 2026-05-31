@@ -769,6 +769,10 @@
           "Description": ""
         },
         {
+          "Name": "Admit O2 into Inlet Port",
+          "Description": ""
+        },
+        {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
           "Name": "IpSetpoint",
           "Description": "",
@@ -781,14 +785,6 @@
           "Value": 15.0
         },
         {
-          "Name": "Admit O2 into Inlet Port",
-          "Description": ""
-        },
-        {
-          "Name": "Turn on sample furnace",
-          "Description": ""
-        },
-        {
           "Name": "Wait for sample to rise to setpoint",
           "Description": ""
         },
@@ -797,15 +793,11 @@
           "Description": ""
         },
         {
-          "Name": "Collect CO2 from InletPort",
-          "Description": "Collect Split 1"
-        },
-        {
-          "Name": "Wait for CEGS to be free",
+          "Name": "Start collecting",
           "Description": ""
         },
         {
-          "Name": "Transfer CO2 from CT to VTT",
+          "Name": "Collect sample gas, then launch Transfer, etc.",
           "Description": ""
         },
         {
@@ -815,10 +807,6 @@
         {
           "Name": "Admit O2 into Inlet Port",
           "Description": ""
-        },
-        {
-          "Name": "Launch Transfer, etc",
-          "Description": "Start Split 1 extraction"
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -847,15 +835,11 @@
           "Description": ""
         },
         {
-          "Name": "Collect CO2 from InletPort",
+          "Name": "Start collecting",
           "Description": ""
         },
         {
-          "Name": "Wait for CEGS to be free",
-          "Description": ""
-        },
-        {
-          "Name": "Transfer CO2 from CT to VTT",
+          "Name": "Collect sample gas, then launch Transfer, etc.",
           "Description": ""
         },
         {
@@ -865,10 +849,6 @@
         {
           "Name": "Admit O2 into Inlet Port",
           "Description": ""
-        },
-        {
-          "Name": "Launch Transfer, etc",
-          "Description": "Begin Split 2 extraction"
         },
         {
           "$type": "AeonHacs.Components.ParameterStep, AeonHacs.Core",
@@ -903,20 +883,16 @@
           "Description": ""
         },
         {
-          "Name": "Collect CO2 from InletPort",
-          "Description": "Collect Split 3"
-        },
-        {
-          "Name": "Wait for CEGS to be free",
+          "Name": "Start collecting",
           "Description": ""
         },
         {
-          "Name": "Transfer CO2 from CT to VTT",
+          "Name": "Collect sample gas, then launch Transfer, etc.",
           "Description": ""
         },
         {
-          "Name": "Launch Transfer, etc",
-          "Description": "Begin Split 3 extraction"
+          "Name": "Turn off IP furnaces",
+          "Description": ""
         },
         {
           "Name": "Wait for CEGS to be free",
@@ -924,10 +900,6 @@
         },
         {
           "Name": "Graphitize aliquots",
-          "Description": ""
-        },
-        {
-          "Name": "Add d13C carrier",
           "Description": ""
         },
         {
